@@ -36,7 +36,7 @@ export default {
   body {
     height: 100%;
     width: 100%;
-    background: url('http://lesses-xl/music/src/assets/1.jpg');
+    background: url('http://lesses.me/music/src/assets/1.jpg');
     background-size: cover;
     overflow-y: hidden;
     overflow-x: hidden;
