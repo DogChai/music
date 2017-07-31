@@ -883,7 +883,7 @@
 	}
 
 	.music-time span {
-		font-family: '楷体';
+		font-family: 'KaiTi','-webkit-pictograph';
 		font-size: 17px;
 	}
 
