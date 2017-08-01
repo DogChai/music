@@ -74,6 +74,8 @@
 				</div>
 			</div>
 		</div>
+		<div class="music-play-list">
+		</div>
 	</div>
 </template>
 
@@ -102,7 +104,8 @@
 				scrollPageY:0,
 				scrollProp:0,
 				playNum:0,
-				playText:'播放'
+				playText:'播放',
+				appHeight: window.innerHeight + 'px',
 			}
 		},
 		methods: {
@@ -598,6 +601,12 @@
 			},
 		},
 		mounted() {
+			let this_ = this;
+	    window.onresize = function temp2() {
+	        this_.appHeight = window.innerHeight;
+					console.log(this_.appHeight);
+	        document.getElementsByClassName('music-play-list')[0].style.height = this_.appHeight + 'px';
+	    }
 			this.getMusicData();
 			this.getMusicTime();
 			this.mouseWhell();
@@ -637,6 +646,15 @@
 </script>
 
 <style>
+	.music-play-list {
+			position: fixed;
+			bottom: 75px;
+			width: 230px;
+			top:1px;
+			left:0;
+			border: 1px solid gray;
+	}
+
 	.music {
 		height: 75px;
 		width: 100%;
@@ -862,7 +880,7 @@
 	}
 
 	.music-name {
-		font-size: 18px;
+		font-size: 16px;
 		text-align: left;
 		margin-bottom: 5px;
 		bottom:5px;
@@ -880,6 +898,17 @@
 		position: absolute;
 		right:0;
 		top:0;
+		z-index: 100;
+	}
+
+	.music-show-name {
+		z-index: 60;
+		max-width: 350px;
+		height: 30px;
+		word-break:keep-all;/* 不换行 */
+		white-space:nowrap;/* 不换行 */
+		overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+		text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
 	}
 
 	.music-time span {
@@ -888,11 +917,12 @@
 	}
 
 	.music-bar {
-		width:100%;
+		width:450px;
 		height:2px;
 		bottom:-5px;
 		background: rgba(135, 129, 130,0.8);
-		position: relative;
+		position: absolute;
+		bottom: 5px;
 		cursor: pointer;
 	}
 

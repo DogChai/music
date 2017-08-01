@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       bodyHeight: window.innerHeight + 'px',
-      bodyWidth: window.innerWidths + 'px',
+      bodyWidth: window.innerWidth + 'px',
     }
   },
   mounted() {
