@@ -16,13 +16,19 @@ export default {
       bodyWidth: window.innerWidth + 'px',
     }
   },
+  methods: {
+  },
   mounted() {
-   const that = this;
+   document.getElementsByTagName('body')[0].style.height = this.bodyHeight ;
+   document.getElementsByTagName('body')[0].style.width = this.bodyWidth ;
+   const that_ = this;
    window.onresize = function temp1() {
-       that.bodyHeight = window.innerHeight;
-       that.bodyWidth = window.innerWidth;
-       document.getElementsByTagName('body')[0].style.height = that.bodyHeight + 'px';
-       document.getElementsByTagName('body')[0].style.width = that.bodyWidth + 'px';
+       that_.bodyHeight = window.innerHeight;
+       that_.bodyWidth = window.innerWidth;
+      //  console.log(that_.bodyHeight,that_.bodyWidth);
+       document.getElementsByTagName('body')[0].style.height = that_.bodyHeight + 'px';
+       document.getElementsByTagName('body')[0].style.width = that_.bodyWidth + 'px';
+       console.log(document.getElementsByClassName('music-play-list')[0]);
    }
  },
 }
@@ -36,7 +42,7 @@ export default {
   body {
     height: 100%;
     width: 100%;
-    background: url('http://lesses.me/music/src/assets/1.jpg');
+    background: url('http://lesses.me/music/src/assets/1.jpg') no-repeat;
     background-size: cover;
     overflow-y: hidden;
     overflow-x: hidden;

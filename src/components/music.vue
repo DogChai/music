@@ -77,7 +77,7 @@
 		<div class="music-play-list">
 			<div class="play-list-header">Play List</div>
 			<ul class="play-list-ul">
-				<li v-for='(item,index) in musicData'>
+				<li v-for='(item,index) in musicData' :Num="index" v-on:click='listClick'>
 					<span>{{index + 1}}.</span>{{item.name}} - {{item.singer}}
 				</li>
 			</ul>
@@ -111,8 +111,9 @@
 				scrollProp:0,
 				playNum:0,
 				playText:'播放',
-				appHeight: window.innerHeight + 'px',
-				appWidth: window.innerWidth + 'px',
+				appHeight: window.innerHeight,
+				appWidth: window.innerWidth,
+				audioUrl: null,
 			}
 		},
 		methods: {
@@ -174,6 +175,7 @@
 				musicDarg.style.left = this.musicleft + 'px';
 				musicPlan.style.width = musicBar.offsetWidth * this.scales1 + 'px';
 				getAudio.currentTime = getAudio.duration * this.scales1;
+				this.getMusicTime();
 				this.ifplay = 1;
 				this.playmusic();
 			},
@@ -270,18 +272,15 @@
 						}
 			},
 			showmy() {
+				let playList = document.getElementsByClassName('music-play-list')[0];
 				let musicMy = document.getElementsByClassName('music-my')[0];
 				if(this.ifshow == 0) {
-					musicMy.style.left = '50%';
-					// musicMy.style.height ='610px';
-					// musicMy.style.opacity = 1;
+					playList.style.transform = 'translate(0px)';
+					// musicMy.style.left = '50%';
 					this.ifshow = 1;
-					// console.log(this.musicData);
 				}else {
-					musicMy.style.left = '-200%';
-					// musicMy.style.height ='0';
-					// musicMy.style.top = '-800px';
-					// musicMy.style.opacity = 0;
+					playList.style.transform = 'translate(-500%)';
+					// musicMy.style.left = '-200%';
 					this.ifshow = 0;
 
 				}
@@ -325,12 +324,14 @@
 					document.getElementsByClassName('time-second')[0].innerHTML = newMinutes + ':' + newSeconds;
 				},false);
 			},
+			// recovery
 			changeColor() {
 				document.getElementsByClassName('music-li')[this.playNum].style.color = 'orange';
 				// document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML = this.ifplay? '播放' : '暂停';
 				document.getElementsByClassName('music-begin')[this.playNum].children[0].style.color = 'orange';
 				// document.getElementsByClassName('music-begin')[this.playNum].setAttribute('musicplay',this.ifplay);
 			},
+			// recovery
 			changewhite() {
 				for(var i=0; i<document.getElementsByClassName('music-begin').length; i++) {
 					document.getElementsByClassName('music-begin')[i].style.color = 'white';
@@ -339,6 +340,7 @@
 					document.getElementsByClassName('music-begin')[i].children[0].style.color = 'white';
 				}
 			},
+			// recovery
 			changeMusic() {
 				let musicBegin = document.getElementsByClassName('music-begin');
 				document.getElementById('audios').setAttribute('dataNum',event.currentTarget.children[2].innerHTML)
@@ -385,6 +387,7 @@
 				}
 			},
 			listplay() {
+				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 				let audio = document.getElementById('audios');
 				let musicShowName = document.getElementsByClassName('music-show-name')[0];
 				this.listNum = audio.getAttribute('dataNum') - 0;
@@ -401,6 +404,7 @@
 					audio.src = this.musicData[this.listNum].url;
 					audio.setAttribute('dataNum',this.listNum);
 					this.playNum = audio.getAttribute('datanum') - 0;
+					listLis[this.playNum - 0].setAttribute('class','playing');
 					musicShowName.innerHTML = this.musicData[this.listNum].name + ' - ' + this.musicData[this.listNum].singer;
 					this.getMusicTime();
 					this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
@@ -421,6 +425,7 @@
 						audio.src = this.musicData[this.listNum].url;
 						audio.setAttribute('dataNum',this.listNum);
 						this.playNum = audio.getAttribute('datanum') - 0;
+						listLis[this.playNum - 0].setAttribute('class','playing');
 						musicShowName.innerHTML = this.musicData[this.listNum].name + ' - ' + this.musicData[this.listNum].singer;
 						this.getMusicTime();
 						this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
@@ -430,6 +435,7 @@
 				}
 			},
 			orderplay() {
+				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 				let audio = document.getElementById('audios');
 				let musicShowName = document.getElementsByClassName('music-show-name')[0];
 				this.orderNum = audio.getAttribute('dataNum') - 0;
@@ -437,6 +443,7 @@
 
 					if(this.orderNum <= 0) {
 						this.orderNum = 0;
+
 					}else {
 						this.orderNum = this.orderNum - 1;
 					}
@@ -448,6 +455,7 @@
 					this.getMusicTime();
 					this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
 					this.ifplay = true;
+					listLis[this.playNum - 0].setAttribute('class','playing');
 					this.playmusic();
 					this.changeColor();
 				}else if(event.currentTarget.getAttribute('id') == 'next' || this.ends == true) {
@@ -461,6 +469,7 @@
 						audio.src = this.musicData[this.orderNum].url;
 						audio.setAttribute('dataNum',this.orderNum);
 						this.playNum = audio.getAttribute('datanum') - 0;
+						listLis[this.playNum - 0].setAttribute('class','playing');
 						musicShowName.innerHTML = this.musicData[this.orderNum].name + ' - ' + this.musicData[this.orderNum].singer;
 						this.getMusicTime();
 						this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
@@ -470,9 +479,10 @@
 				}
 			},
 			randomplay() {
+				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 				let audio = document.getElementById('audios');
 				let musicShowName = document.getElementsByClassName('music-show-name')[0];
-				console.log(this.playNum);
+				// console.log(this.playNum);
 				this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
 				if(event.currentTarget.getAttribute('id') == 'prev') {
 
@@ -487,6 +497,7 @@
 					audio.src = this.musicData[this.randomNum].url;
 					audio.setAttribute('dataNum',this.randomNum);
 					this.playNum = audio.getAttribute('datanum') - 0;
+					listLis[this.playNum - 0].setAttribute('class','playing');
 					musicShowName.innerHTML = this.musicData[this.randomNum].name + ' - ' + this.musicData[this.randomNum].singer;
 					this.getMusicTime();
 					this.ifplay = true;
@@ -505,6 +516,7 @@
 						audio.src = this.musicData[this.randomNum].url;
 						audio.setAttribute('dataNum',this.randomNum);
 						this.playNum = audio.getAttribute('datanum') - 0;
+						listLis[this.playNum - 0].setAttribute('class','playing');
 						musicShowName.innerHTML = this.musicData[this.randomNum].name + ' - ' + this.musicData[this.randomNum].singer;
 						this.getMusicTime();
 						this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
@@ -514,6 +526,7 @@
 				}
 			},
 			oneplay() {
+				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 				let audio = document.getElementById('audios');
 				let musicShowName = document.getElementsByClassName('music-show-name')[0];
 				if(event.currentTarget.getAttribute('id') == 'next' || event.currentTarget.getAttribute('id') == 'prev' || this.ends == true) {
@@ -522,6 +535,7 @@
 					audio.src = this.musicData[this.oneNum].url;
 					audio.setAttribute('dataNum',this.oneNum);
 					this.playNum = audio.getAttribute('datanum') - 0;
+					listLis[this.playNum - 0].setAttribute('class','playing');
 					musicShowName.innerHTML = this.musicData[this.oneNum].name + ' - ' + this.musicData[this.oneNum].singer;
 					this.getMusicTime();
 					this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
@@ -532,12 +546,17 @@
 			},
 			musicclick() {
 				let musicBegin = document.getElementsByClassName('music-begin');
+				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 				for(var i=0; i<musicBegin.length; i++) {
 					musicBegin[i].style.color = 'white';
 					musicBegin[i].children[0].style.color = 'white';
 					musicBegin[i].children[0].innerHTML = '播放';
 					document.getElementsByClassName('music-li')[i].style.color = 'white';
 				};
+
+				for(var i=0; i<this.musicData.length; i++) {
+					listLis[i].setAttribute('class','');
+				}
 
 				if(this.ifcut == 0) {
 					//顺序播放
@@ -595,7 +614,7 @@
 						//向下滚动
 						that.scrollPageY -= 20;
 					}
-					// console.log(that.scrollPageY);
+
 					if(that.scrollPageY <= 0) {
 						that.scrollPageY = 0;
 					}if(that.scrollPageY >= 490) {
@@ -606,23 +625,83 @@
 						musicUl.style.top = - that.scrollProp * parseInt(musicUl.offsetHeight -570) + 'px'
 				}
 			},
+			listWell() {
+				let that = this;
+				let listUl = document.getElementsByClassName('play-list-ul')[0];
+				let musicPlayList = document.getElementsByClassName('music-play-list')[0];
+				// listUl.style.height = '2760' + 'px';
+				listUl.onmousewheel = function(e) {
+					if(e.wheelDelta < 0) {
+						//向上滚动
+						that.scrollPageY += 60;
+					}
+					else if(e.wheelDelta > 0) {
+						//向下滚动
+						that.scrollPageY -= 60;
+					}
+
+					if(that.scrollPageY <= -60) {
+						that.scrollPageY = -60;
+					}
+					if(that.scrollPageY >= listUl.offsetHeight - musicPlayList.offsetHeight + 60) {
+						that.scrollPageY = listUl.offsetHeight - musicPlayList.offsetHeight + 60;
+					}
+
+					listUl.style.top = -that.scrollPageY + 'px';
+
+					console.log(that.scrollPageY,listUl.offsetHeight - musicPlayList.offsetHeight - 60);
+				}
+			},
+			listClick() {
+				let audiosUrl = escape(document.getElementById('audios').src);
+				let this_ = event.currentTarget;
+				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
+				let musicShowName = document.getElementsByClassName('music-show-name')[0];
+				document.getElementById('audios').setAttribute('dataNum',event.currentTarget.getAttribute('num'));
+				this.playNum = event.currentTarget.getAttribute('num');
+				this.audioUrl = this.musicData[event.currentTarget.getAttribute('num')].url;
+				if(audiosUrl == escape(this.audioUrl)) {
+					// this.ifplay = !this.ifplay;
+					this_.setAttribute('class','playing');
+					this.playmusic();
+				}else {
+					document.getElementById('audios').src = this.audioUrl;
+					this.ifplay = true;
+					musicShowName.innerHTML = this.musicData[this_.getAttribute('num')].name + ' - ' + this.musicData[this_.getAttribute('num')].singer
+					for(var i=0; i<this.musicData.length; i++) {
+						listLis[i].setAttribute('class','');
+					}
+					this_.setAttribute('class','playing');
+					this.playmusic();
+				}
+
+
+			},
 		},
 		mounted() {
-			let this_ = this;
+			let that = this;
+			document.getElementsByClassName('music')[0].style.width = this.appWidth + 'px';
+			document.getElementsByClassName('music-play-list')[0].style.height = this.appHeight - 75 + 'px';
 	    window.onresize = function temp2() {
-	        this_.appHeight = window.innerHeight;
-					console.log(this_.appHeight);
-					document.getElementsByClassName('music')[0].style.width = this_.appWidth + 'px';
-	        document.getElementsByClassName('music-play-list')[0].style.height = this_.appHeight - 75 + 'px';
+	        that.appHeight = window.innerHeight;
+					that.appWidth = window.innerWidth;
+					console.log(that.appHeight,that.appWidth);
+					document.getElementsByClassName('music')[0].style.width = that.appWidth + 'px';
+	        document.getElementsByClassName('music-play-list')[0].style.height = that.appHeight - 75 + 'px';
 	    }
 			this.getMusicData();
 			this.getMusicTime();
 			this.mouseWhell();
+			this.listWell();
 			let audio =  document.getElementById('audios');
-			let that = this;
+			let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 			audio.addEventListener('timeupdate',function() {
+
 				if(audio.ended) {
-					// console.log(1);
+					for(var i=0; i<that.musicData.length; i++) {
+						listLis[i].setAttribute('class','');
+					}
+
 					if(that.ifcut == 0) {
 						//顺序播放
 						that.ends = true;
@@ -659,11 +738,13 @@
 			bottom: 76px;
 			width: 230px;
 			top:1px;
-			left:0;
+			transform: translate(-500%);
 			z-index: 100;
+			overflow: hidden;
 			border: 1px solid gray;
 			box-sizing: border-box;
 			background: rgba(50,50,50,1);
+			transition: transform .3s;
 			box-shadow: 2px 0 2px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
 	}
 
@@ -671,12 +752,14 @@
 		padding: 15px;
     font-size: 20px;
     color: #888;
-    text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
     border-bottom: 1px solid #202020;
     box-shadow: 0 0 5px #000, inset 0 0 5px rgba(255, 255, 255, 0.2);
     text-align: center;
     background-color: #404040;
     cursor: default;
+		position: relative;
+		z-index: 99;
 	}
 
 
@@ -684,12 +767,13 @@
 		width: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
-    display: block;
-    list-style: none;
     opacity: 0.8;
-    max-height: calc(100% - 60px);
+    /*max-height: calc(100% - 60px);*/
+		height: auto;
 		position: absolute;
+		transition: top .3s;
 		top: 60px;
+		z-index: 50;
 	}
 
 	.play-list-ul li {
@@ -698,10 +782,10 @@
     color: #888;
     font-size: 15px;
     width: 100%;
-		height: 100%;
+		/*height: 100%;*/
     cursor: pointer;
     word-break: break-all;
-    transition: background-color 0.3s;
+    transition: background-color 0.2s;
     box-sizing: border-box;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
 		z-index: 50;
