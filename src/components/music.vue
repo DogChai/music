@@ -75,6 +75,12 @@
 			</div>
 		</div>
 		<div class="music-play-list">
+			<div class="play-list-header">Play List</div>
+			<ul class="play-list-ul">
+				<li v-for='(item,index) in musicData'>
+					<span>{{index + 1}}.</span>{{item.name}} - {{item.singer}}
+				</li>
+			</ul>
 		</div>
 	</div>
 </template>
@@ -106,6 +112,7 @@
 				playNum:0,
 				playText:'播放',
 				appHeight: window.innerHeight + 'px',
+				appWidth: window.innerWidth + 'px',
 			}
 		},
 		methods: {
@@ -605,7 +612,8 @@
 	    window.onresize = function temp2() {
 	        this_.appHeight = window.innerHeight;
 					console.log(this_.appHeight);
-	        document.getElementsByClassName('music-play-list')[0].style.height = this_.appHeight + 'px';
+					document.getElementsByClassName('music')[0].style.width = this_.appWidth + 'px';
+	        document.getElementsByClassName('music-play-list')[0].style.height = this_.appHeight - 75 + 'px';
 	    }
 			this.getMusicData();
 			this.getMusicTime();
@@ -648,11 +656,72 @@
 <style>
 	.music-play-list {
 			position: fixed;
-			bottom: 75px;
+			bottom: 76px;
 			width: 230px;
 			top:1px;
 			left:0;
+			z-index: 100;
 			border: 1px solid gray;
+			box-sizing: border-box;
+			background: rgba(50,50,50,1);
+			box-shadow: 2px 0 2px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
+	}
+
+	.play-list-header {
+		padding: 15px;
+    font-size: 20px;
+    color: #888;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+    border-bottom: 1px solid #202020;
+    box-shadow: 0 0 5px #000, inset 0 0 5px rgba(255, 255, 255, 0.2);
+    text-align: center;
+    background-color: #404040;
+    cursor: default;
+	}
+
+
+	.play-list-ul {
+		width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    display: block;
+    list-style: none;
+    opacity: 0.8;
+    max-height: calc(100% - 60px);
+		position: absolute;
+		top: 60px;
+	}
+
+	.play-list-ul li {
+		border-bottom: 1px solid #555;
+    padding: 15px;
+    color: #888;
+    font-size: 15px;
+    width: 100%;
+		height: 100%;
+    cursor: pointer;
+    word-break: break-all;
+    transition: background-color 0.3s;
+    box-sizing: border-box;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+		z-index: 50;
+	}
+
+	.play-list-ul li span {
+		float: left;
+		font-size: 16px;
+	}
+
+	.play-list-ul li:hover {
+		background-color: #aaa;
+    color: #fff;
+    box-shadow: inset -1px 0 2px rgba(255, 255, 255, 0.8);
+	}
+
+	.play-list-ul .playing {
+		color: #fff;
+    background-color: #30ABD5 !important;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 1) !important;
 	}
 
 	.music {
