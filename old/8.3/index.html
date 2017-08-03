@@ -1,0 +1,14 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><title>music</title><link rel="shortcut icon" href=http://lesses.me/my/beta1/moon.ico type=image/x-icon><link href=./static/css/app.217927f4cde54709fabc14fb0246969c.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=./static/js/manifest.2fcec16b3e0f166b0e5f.js></script><script type=text/javascript src=./static/js/vendor.0bf9bb853b0aa8f7aa90.js></script><script type=text/javascript src=./static/js/app.38bae095b81e0ea12d54.js></script></body><script>// document.oncontextmenu=new Function("event.returnValue=false;");
+  // document.onselectstart=new Function("event.returnValue=false;");
+  function sizeChange() {
+    document.getElementsByTagName('body')[0].style.height = window.innerHeight + 'px';
+    document.getElementsByTagName('body')[0].style.width = window.innerWidth + 'px';
+    document.getElementsByClassName('music')[0].style.width = window.innerWidth + 'px';
+    document.getElementsByClassName('music-play-list')[0].style.height = window.innerHeight - 75 + 'px';
+  }
+  window.onload = function() {
+    sizeChange();
+    window.onresize = function() {
+      sizeChange();
+    }
+  }</script></html>

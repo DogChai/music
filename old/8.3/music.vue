@@ -36,10 +36,48 @@
 				<a class="music-list-img" v-on:click='showmy'>{{musicData.length}}</a>
 			</div>
 		</div>
+		<div class="music-my">
+			<div class="music-myname">
+				<div class="music-text">
+					音乐标题
+				</div>
+				<div class="music-master">
+					歌手
+				</div>
+			</div>
+			<ul class="music-ul">
+				<li class="music-li" v-for='(item,index) in musicData'>
+					<div class="music-text">
+						{{item.name}}
+					</div>
+					<div class="music-master">
+						{{item.singer}}
+					</div>
+					<div class="music-begin" musicplay='true' v-on:click='changeMusic'>
+						<span>播放</span>
+						<a class="music-url">{{item.url}}</a>
+						<a class="music-index">{{index}}</a>
+					</div>
+					<div class="music-line">
+						/
+					</div>
+					<div class="music-down">
+						<a :href='item.url' target="_blank" value='download'>下载</a>
+					</div>
+					<div class="music-No">
+						{{index + 1}}.
+					</div>
+				</li>
+			</ul>
+			<div class="music-scroll">
+				<div class="music-scrollbar" v-on:mousedown='scrollul'>
+				</div>
+			</div>
+		</div>
 		<div class="music-play-list">
 			<div class="play-list-header">Play List</div>
 			<ul class="play-list-ul">
-				<li v-for='(item,index) in musicData' :Num="index"  v-on:click='listClick'>
+				<li v-for='(item,index) in musicData' :Num="index" :val="item.name+' - '+item.singer" :musicUrl='item.url' v-on:click='listClick'>
 					<span>{{index + 1}}.</span>{{item.name}} - {{item.singer}}
 				</li>
 			</ul>
@@ -73,13 +111,13 @@
 				scrollPageY:0,
 				scrollProp:0,
 				playNum:0,
+				playText:'播放',
 				appHeight: window.innerHeight,
 				appWidth: window.innerWidth,
 				audioUrl: null,
 			}
 		},
 		methods: {
-			//json获取
 			getMusicData() {
 				this.$http.get('http://lesses.me/my/beta2/static/music.json').then((response) => {
 					this.musicData = response.data;
@@ -87,7 +125,6 @@
 					console.log('失败');
 				})
 			},
-			// 播放/暂停
 			playmusic(e) {
 				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 				for(var i=0; i<this.musicData.length; i++) {
@@ -97,12 +134,15 @@
 				if(this.ifplay) {
 					this.$refs.audio.play();
 					this.ifplay = false;
+					document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML = this.ifplay? '播放' : '暂停';
+					this.playText = document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
 				}else {
 					this.$refs.audio.pause();
 					this.ifplay = true;
+					document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML = this.ifplay? '播放' : '暂停';
+					this.playText = document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
 				}
 			},
-			// 顺序切换
 			cutorder() {
 				if(this.ifcut == 0) {
 					this.orderclass = 'random-play';
@@ -119,7 +159,6 @@
 					this.ifcut = 0;
 				}
 			},
-			// 静音
 			closevol() {
 				if(this.ifvol) {
 					this.ifvol = 0;
@@ -242,19 +281,24 @@
 							document.onmousedown = null;
 						}
 			},
-			// 显示列表
 			showmy() {
 				let playList = document.getElementsByClassName('music-play-list')[0];
 				let musicMy = document.getElementsByClassName('music-my')[0];
 				if(this.ifshow == 0) {
+					// playList.style.display = 'block';
 					playList.style.transform = 'translate(0px)';
+
+					musicMy.style.left = '50%';
 					this.ifshow = 1;
 				}else {
 					playList.style.transform = 'translate(-230px)';
+					// playList.style.display = 'none';
+					musicMy.style.left = '-200%';
 					this.ifshow = 0;
+
 				}
+
 			},
-			// 时间进度
 			timeActive() {
 				let getAudio = document.getElementById('audios');
 				// 音乐时间
@@ -283,7 +327,6 @@
 				}
 				document.getElementsByClassName('time-second')[0].innerHTML = newMinutes + ':' + newSeconds;
 			},
-			//获得音乐时间
 			getMusicTime() {
 				let getAudio = document.getElementById('audios');
 				let musicDarg = document.getElementsByClassName('music-drag')[0];
@@ -297,7 +340,68 @@
 						that.timeActive();
 					},false);
 			},
-			//列表循环
+			// recovery
+			changeColor() {
+				document.getElementsByClassName('music-li')[this.playNum].style.color = 'orange';
+				// document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML = this.ifplay? '播放' : '暂停';
+				document.getElementsByClassName('music-begin')[this.playNum].children[0].style.color = 'orange';
+				// document.getElementsByClassName('music-begin')[this.playNum].setAttribute('musicplay',this.ifplay);
+			},
+			// recovery
+			changewhite() {
+				for(var i=0; i<document.getElementsByClassName('music-begin').length; i++) {
+					document.getElementsByClassName('music-begin')[i].style.color = 'white';
+					document.getElementsByClassName('music-li')[i].style.color = 'white';
+					document.getElementsByClassName('music-begin')[i].children[0].innerHTML = '播放';
+					document.getElementsByClassName('music-begin')[i].children[0].style.color = 'white';
+				}
+			},
+			// recovery
+			changeMusic() {
+				let musicBegin = document.getElementsByClassName('music-begin');
+				document.getElementById('audios').setAttribute('dataNum',event.currentTarget.children[2].innerHTML)
+				this.changewhite();
+
+				event.currentTarget.parentNode.style.color = 'orange';
+				let musicIndex = event.currentTarget.children[2].innerHTML;
+				let musicUrl = event.currentTarget.children[1].innerHTML;
+				let musicUl = document.getElementsByClassName('music-ul')[0]
+				let musicUlName = musicUl.children[musicIndex].children[0].innerHTML;
+				let musicUlSinger = musicUl.children[musicIndex].children[1].innerHTML;
+				// console.log(this.playNum,musicIndex);
+				if(this.playNum == musicIndex) {
+					event.currentTarget.children[0].innerHTML = this.playText;
+				}else {
+					this.playText = '暂停';
+
+				}
+				this.playNum = musicIndex;
+
+				this.$refs.audio.src = musicUrl;
+				document.getElementsByClassName('music-show-name')[0].innerHTML = musicUlName + ' - ' +musicUlSinger;
+				this.scales1 = 0;
+
+				if(event.currentTarget.children[0].innerHTML == '播放') {
+					event.currentTarget.setAttribute('musicplay','false');
+					// console.log(event.currentTarget.children[0].innerHTML);
+
+					event.currentTarget.children[0].innerHTML = '暂停';
+					this.playText = event.currentTarget.children[0].innerHTML;
+					event.currentTarget.children[0].style.color = 'orange';
+
+					this.ifplay = true;
+					this.playmusic();
+				}
+				else if(event.currentTarget.children[0].innerHTML == '暂停'){
+					// console.log(event.currentTarget.children[0].innerHTML);
+
+					event.currentTarget.children[0].style.color = 'orange';
+					event.currentTarget.children[0].innerHTML = '播放';
+					this.playText = event.currentTarget.children[0].innerHTML;
+					event.currentTarget.setAttribute('musicplay','true');
+					this.playmusic();
+				}
+			},
 			listplay() {
 				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 				let audio = document.getElementById('audios');
@@ -319,8 +423,10 @@
 					listLis[this.playNum - 0].setAttribute('class','playing');
 					musicShowName.innerHTML = this.musicData[this.listNum].name + ' - ' + this.musicData[this.listNum].singer;
 					this.getMusicTime();
+					this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
 					this.ifplay = true;
 					this.playmusic();
+					this.changeColor();
 
 				}else if(event.currentTarget.getAttribute('id') == 'next' || this.ends == true) {
 
@@ -338,11 +444,12 @@
 						listLis[this.playNum - 0].setAttribute('class','playing');
 						musicShowName.innerHTML = this.musicData[this.listNum].name + ' - ' + this.musicData[this.listNum].singer;
 						this.getMusicTime();
+						this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
 						this.ifplay = true;
 						this.playmusic();
+						this.changeColor();
 				}
 			},
-			//顺序播放
 			orderplay() {
 				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 				let audio = document.getElementById('audios');
@@ -362,9 +469,11 @@
 					this.playNum = audio.getAttribute('datanum') - 0;
 					musicShowName.innerHTML = this.musicData[this.orderNum].name + ' - ' + this.musicData[this.orderNum].singer;
 					this.getMusicTime();
+					this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
 					this.ifplay = true;
 					listLis[this.playNum - 0].setAttribute('class','playing');
 					this.playmusic();
+					this.changeColor();
 				}else if(event.currentTarget.getAttribute('id') == 'next' || this.ends == true) {
 
 						if(this.orderNum >= this.musicData.length - 1) {
@@ -379,15 +488,18 @@
 						listLis[this.playNum - 0].setAttribute('class','playing');
 						musicShowName.innerHTML = this.musicData[this.orderNum].name + ' - ' + this.musicData[this.orderNum].singer;
 						this.getMusicTime();
+						this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
 						this.ifplay = true;
 						this.playmusic();
+						this.changeColor();
 				}
 			},
-			// 随机播放
 			randomplay() {
 				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 				let audio = document.getElementById('audios');
 				let musicShowName = document.getElementsByClassName('music-show-name')[0];
+				// console.log(this.playNum);
+				this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
 				if(event.currentTarget.getAttribute('id') == 'prev') {
 
 					if(this.randomNum == 0) {
@@ -406,6 +518,7 @@
 					this.getMusicTime();
 					this.ifplay = true;
 					this.playmusic();
+					this.changeColor();
 				}else if(event.currentTarget.getAttribute('id') == 'next' || this.ends == true) {
 
 						if(this.randomNum == this.musicData.length - 1) {
@@ -422,11 +535,12 @@
 						listLis[this.playNum - 0].setAttribute('class','playing');
 						musicShowName.innerHTML = this.musicData[this.randomNum].name + ' - ' + this.musicData[this.randomNum].singer;
 						this.getMusicTime();
+						this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
 						this.ifplay = true;
 						this.playmusic();
+						this.changeColor();
 				}
 			},
-			// 单曲循环
 			oneplay() {
 				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 				let audio = document.getElementById('audios');
@@ -440,13 +554,22 @@
 					listLis[this.playNum - 0].setAttribute('class','playing');
 					musicShowName.innerHTML = this.musicData[this.oneNum].name + ' - ' + this.musicData[this.oneNum].singer;
 					this.getMusicTime();
+					this.playText =document.getElementsByClassName('music-begin')[this.playNum].children[0].innerHTML;
 					this.ifplay = true;
 					this.playmusic();
+					this.changeColor();
 				}
 			},
-			// 切换歌曲
 			musicclick() {
+				let musicBegin = document.getElementsByClassName('music-begin');
 				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
+				for(var i=0; i<musicBegin.length; i++) {
+					musicBegin[i].style.color = 'white';
+					musicBegin[i].children[0].style.color = 'white';
+					musicBegin[i].children[0].innerHTML = '播放';
+					document.getElementsByClassName('music-li')[i].style.color = 'white';
+				};
+
 				for(var i=0; i<this.musicData.length; i++) {
 					listLis[i].setAttribute('class','');
 				}
@@ -467,7 +590,57 @@
 				}
 
 			},
-			// 列表滚动
+			scrollul() {
+				let that = this;
+				let thisBar = event.currentTarget;
+				let scrollSide = document.getElementsByClassName('music-scroll')[0];
+				let musicUl = document.getElementsByClassName('music-ul')[0];
+				document.onmousemove = function(e) {
+					that.scrollPageY = e.pageY - 190;
+
+					if(that.scrollPageY <= 0) {
+						that.scrollPageY = 0;
+					}if(that.scrollPageY >= 490) {
+						that.scrollPageY = 490;
+					}
+						thisBar.style.top = that.scrollPageY  + 'px';
+						that.scrollProp = parseInt(thisBar.offsetTop) / (parseInt(scrollSide.offsetHeight) - 80);
+						musicUl.style.top = - that.scrollProp * parseInt(musicUl.offsetHeight -570) + 'px'
+				}
+				document.onmouseup = function() {
+					document.onmousemove = null;
+					document.onmousedown = null;
+					document.onmouseup = null;
+				}
+			},
+			mouseWhell() {
+				let that = this;
+				let thisBar = document.getElementsByClassName('music-scrollbar')[0];
+				let scrollSide = document.getElementsByClassName('music-scroll')[0];
+				let musicUl = document.getElementsByClassName('music-ul')[0];
+				let musicMy = document.getElementsByClassName('music-my')[0];
+				musicMy.onmousewheel = function(e) {
+
+					if(e.wheelDelta < 0) {
+						//向上滚动
+						that.scrollPageY += 20;
+
+					}
+					if(e.wheelDelta > 0) {
+						//向下滚动
+						that.scrollPageY -= 20;
+					}
+
+					if(that.scrollPageY <= 0) {
+						that.scrollPageY = 0;
+					}if(that.scrollPageY >= 490) {
+						that.scrollPageY = 490;
+					}
+						thisBar.style.top = that.scrollPageY  + 'px';
+						that.scrollProp = parseInt(thisBar.offsetTop) / (parseInt(scrollSide.offsetHeight) - 80);
+						musicUl.style.top = - that.scrollProp * parseInt(musicUl.offsetHeight -570) + 'px'
+				}
+			},
 			listWell() {
 				let that = this;
 				let listUl = document.getElementsByClassName('play-list-ul')[0];
@@ -491,10 +664,12 @@
 					}
 
 					listUl.style.top = -that.scrollPageY + 'px';
+
+					// console.log(that.scrollPageY,listUl.offsetHeight - musicPlayList.offsetHeight - 60);
 				}
 			},
-			// 列表点击
 			listClick() {
+				// console.log(this.musicData);
 				let audiosUrl = escape(document.getElementById('audios').src);
 				let this_ = event.currentTarget;
 				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
@@ -517,7 +692,6 @@
 					this.playmusic();
 				}
 			},
-			// 获得列表第一首歌信息
 			firstGet() {
 				let musicShowName = document.getElementsByClassName('music-show-name')[0];
 				let audios = document.getElementById('audios');
@@ -534,6 +708,7 @@
 		mounted() {
 			this.getMusicData();
 			this.getMusicTime();
+			this.mouseWhell();
 			this.listWell();
 			let audio =  document.getElementById('audios');
 			let listLis = document.getElementsByClassName('play-list-ul')[0].children;
@@ -548,21 +723,25 @@
 					if(that.ifcut == 0) {
 						//顺序播放
 						that.ends = true;
+						that.changewhite();
 						that.orderplay()
 
 					}else if (that.ifcut == 1) {
 						//随机播放
 						that.ends = true;
 						that.randomNum = parseInt(Math.random() * that.musicData.length);
+						that.changewhite();
 						that.randomplay();
 
 					}else if (that.ifcut == 2) {
 						//单曲循环
 						that.ends = true;
+						that.changewhite();
 						that.oneplay();
 					}else {
 						//列表循环
 						that.ends = true;
+						that.changewhite();
 						that.listplay();
 					}
 				}

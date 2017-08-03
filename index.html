@@ -10,7 +10,19 @@
 
   </body>
   <script>
-  document.oncontextmenu=new Function("event.returnValue=false;");
-  document.onselectstart=new Function("event.returnValue=false;");
+  // document.oncontextmenu=new Function("event.returnValue=false;");
+  // document.onselectstart=new Function("event.returnValue=false;");
+  function sizeChange() {
+    document.getElementsByTagName('body')[0].style.height = window.innerHeight + 'px';
+    document.getElementsByTagName('body')[0].style.width = window.innerWidth + 'px';
+    document.getElementsByClassName('music')[0].style.width = window.innerWidth + 'px';
+    document.getElementsByClassName('music-play-list')[0].style.height = window.innerHeight - 75 + 'px';
+  }
+  window.onload = function() {
+    sizeChange();
+    window.onresize = function() {
+      sizeChange();
+    }
+  }
   </script>
 </html>
