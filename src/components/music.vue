@@ -44,13 +44,22 @@
 				</li>
 			</ul>
 		</div>
+		<div class="music-top">
+			<ul>
+				<li><router-link :to="{path:'/music/lrc'}">歌词显示</router-link></li>
+				<li><router-link :to="{path:'/music/wave'}">歌曲波形</router-link></li>
+			</ul>
+			<router-view></router-view>
+		</div>
 	</div>
+
 </template>
 
 <script type="text/javascript">
+	import VueLrc from './musiclrc.vue';
 	export default {
 		components: {
-
+			VueLrc,
 		},
 		data() {
 			return {
@@ -537,9 +546,9 @@
 			this.listWell();
 			let audio =  document.getElementById('audios');
 			let listLis = document.getElementsByClassName('play-list-ul')[0].children;
+			let musicTop = document.getElementsByClassName('music-top')[0];
 			let that = this;
 			audio.addEventListener('timeupdate',function() {
-
 				if(audio.ended) {
 					for(var i=0; i<that.musicData.length; i++) {
 						listLis[i].setAttribute('class','');
@@ -567,18 +576,80 @@
 					}
 				}
 			});
+			// console.log(document.getElementsByClassName('music-top')[0].style.width)
+			musicTop.style.width = window.innerWidth - 232 + 'px';
+			window.addEventListener('resize',function() {
+				musicTop.style.width = window.innerWidth - 232 + 'px';
+			})
 		},
 		watch: {
 				musicData : function(val,oldVal) {
 					this.newData = val;
 					this.firstGet();
 					this.getMusicTime();
+					let that = this;
+					document.oncontextmenu = function(e) {
+						// e.returnValue=false;
+				    that.showmy();
+				  }
 				}
 		}
 	}
 </script>
 
 <style>
+	.music-top {
+		position: fixed;
+		right: 0;
+		top: 0;
+		width: auto;
+		height: 61px;
+		margin-top: 3px;
+		min-width: 225px;
+	}
+
+	.music-top>ul {
+		width: 100%;
+		height: 100%;
+	}
+
+	.music-top>ul>li {
+		float: left;
+		line-height: 61px;
+		width: 50%;
+		height: 100%;
+		text-align: center;
+		box-sizing: border-box;
+	}
+
+	.music-top>ul>li:first-child {
+		padding-left: 10%;
+		border-right: 1px solid gray;
+		background: -webkit-linear-gradient(left,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
+		background: -o-linear-gradient(left,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
+		background: -moz-linear-gradient(left,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
+	}
+
+	.music-top>ul>li:last-child {
+		padding-right: 10%;
+		padding-left: 0;
+		border-left: 1px solid gray;
+		background: -webkit-linear-gradient(right,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
+		background: -o-linear-gradient(right,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
+		background: -moz-linear-gradient(right,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
+	}
+
+	.music-top ul li a {
+		font-family: 'KaiTi';
+		color: white;
+		line-height: 50px;
+		font-size: 18px;
+		width: 100%;
+		height: 100%;
+		display: inline-block;
+		/*margin-top: -3px;*/
+	}
+
 	.music-play-list {
 			position: absolute;
 			bottom: 75px;
@@ -590,7 +661,7 @@
 			overflow: hidden;
 			border: 1px solid gray;
 			box-sizing: border-box;
-			background: rgba(50,50,50,1);
+			background: rgba(64, 64, 64, 0.7);
 			transition: transform .3s;
 			box-shadow: 2px 0 2px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
 	}

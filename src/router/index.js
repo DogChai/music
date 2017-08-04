@@ -8,8 +8,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'music',
+      redirect: '/music'
+    },
+    {
+      path: '/music',
       component: Music
+    },
+    {
+
     }
   ]
 })
