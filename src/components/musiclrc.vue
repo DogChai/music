@@ -23,7 +23,11 @@ export default {
   mounted() {
     document.getElementsByClassName('music-lrc')[0].style.height = window.innerHeight - 85 - 61 + 'px';
     window.addEventListener('resize',function() {
-      document.getElementsByClassName('music-lrc')[0].style.height = window.innerHeight - 85 - 61 + 'px';
+      if(document.getElementsByClassName('music-lrc')[0]) {
+        document.getElementsByClassName('music-lrc')[0].style.height = window.innerHeight - 85 - 61 + 'px';
+      }else {
+        //
+      }
     });
   },
 }
@@ -35,6 +39,7 @@ export default {
     width: 100%;
     top: 65px;
     left:0;
+    bottom: 75px;
     background: rgba(157, 179, 233, 0.8);
   }
 

@@ -9,7 +9,11 @@ export default {
   mounted() {
       document.getElementsByClassName('music-wave')[0].style.height = window.innerHeight - 85 - 61 + 'px';
       window.addEventListener('resize',function() {
-        document.getElementsByClassName('music-wave')[0].style.height = window.innerHeight - 85 - 61 + 'px';
+        if(document.getElementsByClassName('music-wave')[0]) {
+          document.getElementsByClassName('music-wave')[0].style.height = window.innerHeight - 85 - 61 + 'px';
+        }else {
+          //
+        }
       })
   },
 }

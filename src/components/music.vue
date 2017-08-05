@@ -46,8 +46,8 @@
 		</div>
 		<div class="music-top">
 			<ul>
-				<li><router-link :to="{path:'/music/lrc'}">歌词显示</router-link></li>
-				<li><router-link :to="{path:'/music/wave'}">歌曲波形</router-link></li>
+				<li class="top-one"><router-link :to="{path:'/music/lrc'}">歌词显示</router-link></li>
+				<li class="top-two"><router-link :to="{path:'/music/wave'}">歌曲波形</router-link></li>
 			</ul>
 			<router-view></router-view>
 		</div>
@@ -620,34 +620,44 @@
 		height: 100%;
 		text-align: center;
 		box-sizing: border-box;
+		background: rgba(64,64,64,0.5);
+		transition: all .3s;
+		position: relative;
 	}
 
-	.music-top>ul>li:first-child {
+	.music-top>ul>li:hover {
+		background: rgba(64,64,64,0.7);
+	}
+
+	.music-top>ul .top-one {
 		padding-left: 10%;
 		border-right: 1px solid gray;
-		background: -webkit-linear-gradient(left,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
-		background: -o-linear-gradient(left,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
-		background: -moz-linear-gradient(left,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
+		/*background-color: linear-gradient(to left,rgba(80,80,80,0.6) 50%,rgba(64,64,64,0.6) 100%);
+		background-color: -webkit-linear-gradient(left,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
+		background-color: -o-linear-gradient(left,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
+		background-color: -moz-linear-gradient(left,rgba(80,80,80,0.6),rgba(64,64,64,0.6));*/
 	}
 
-	.music-top>ul>li:last-child {
+	.music-top>ul .top-two {
 		padding-right: 10%;
 		padding-left: 0;
 		border-left: 1px solid gray;
-		background: -webkit-linear-gradient(right,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
-		background: -o-linear-gradient(right,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
-		background: -moz-linear-gradient(right,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
+		/*background-color: linear-gradient(right,rgba(80,80,80,0.9),rgba(64,64,64,0.9));
+		background-color: -webkit-linear-gradient(right,rgba(80,80,80,0.9),rgba(64,64,64,0.9));
+		background-color: -o-linear-gradient(right,rgba(80,80,80,0.9),rgba(64,64,64,0.9));
+		background-color: -moz-linear-gradient(right,rgba(80,80,80,0.9),rgba(64,64,64,0.9));*/
 	}
 
 	.music-top ul li a {
 		font-family: 'KaiTi';
 		color: white;
-		line-height: 50px;
 		font-size: 18px;
 		width: 100%;
 		height: 100%;
 		display: inline-block;
-		/*margin-top: -3px;*/
+		position: absolute;
+		top: 0;
+		left: 0;
 	}
 
 	.music-play-list {
