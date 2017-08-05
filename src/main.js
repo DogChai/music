@@ -28,7 +28,8 @@ let router = new Router({
       children: [
         {
           path: '/music/lrc',
-          component: MusicLrc
+          component: MusicLrc,
+          name: 'lrcs'
         },
         {
           path: '/music/wave',

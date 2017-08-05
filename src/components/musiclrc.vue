@@ -1,19 +1,7 @@
 <template>
   <div class="music-lrc">
     <ul class='lrc-ul'>
-      <li>1111111111111111111111111111111</li>
-      <li>1111111111111111111111111111111</li>
-      <li>1111111111111111111111111111111</li>
-      <li>1111111111111111111111111111111</li>
-      <li>1111111111111111111111111111111</li>
-      <li>1111111111111111111111111111111</li>
-      <li>1111111111111111111111111111111</li>
-      <li>1111111111111111111111111111111</li>
-      <li>1111111111111111111111111111111</li>
-      <li>1111111111111111111111111111111</li>
-      <li>1111111111111111111111111111111</li>
-      <li>1111111111111111111111111111111</li>
-      <li>1111111111111111111111111111111</li>
+      11
     </ul>
   </div>
 </template>
@@ -29,6 +17,7 @@ export default {
         //
       }
     });
+    // console.log($route.query)
   },
 }
 </script>
@@ -41,15 +30,22 @@ export default {
     left:0;
     bottom: 75px;
     background: rgba(157, 179, 233, 0.8);
+    box-shadow: 2px 0 2px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
   }
 
   .lrc-ul {
     width: 370px;
-    height: auto;
+    max-height: 80%;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -185px;
+    top: 10%;
   }
 
   .lrc-ul li {
-    padding: 5px 10px;
+    padding: 8px 10px;
     font-size: 16px;
+    cursor: pointer;
   }
 </style>

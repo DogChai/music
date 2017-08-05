@@ -39,17 +39,19 @@
 		<div class="music-play-list">
 			<div class="play-list-header">Play List</div>
 			<ul class="play-list-ul">
-				<li v-for='(item,index) in musicData' :Num="index"  v-on:click='listClick'>
+				<li v-for='(item,index) in musicData' :Num="index" :musicName='item.name' v-on:click='listClick(),getLrc()'>
 					<span>{{index + 1}}.</span>{{item.name}} - {{item.singer}}
 				</li>
 			</ul>
 		</div>
 		<div class="music-top">
 			<ul>
-				<li class="top-one"><router-link :to="{path:'/music/lrc'}">歌词显示</router-link></li>
+				<li class="top-one"><router-link :to="{path:'/music/lrc',params:{data:'未获得歌词'}}">歌词显示</router-link></li>
 				<li class="top-two"><router-link :to="{path:'/music/wave'}">歌曲波形</router-link></li>
 			</ul>
-			<router-view></router-view>
+			<transition :name='tabAnimation'>
+	      <router-view class="music-center"></router-view>
+	    </transition>
 		</div>
 	</div>
 
@@ -57,12 +59,18 @@
 
 <script type="text/javascript">
 	import VueLrc from './musiclrc.vue';
+	import VueWave from './musicWave.vue';
 	export default {
 		components: {
-			VueLrc,
+			"VueLrc": {
+				props: [this.lrcData]
+			}
 		},
 		data() {
 			return {
+				lrcName: null,
+				lrcData: [],
+				tabAnimation:'slide-left',
 				ifplay:true,
 				ifcut:0,
 				ifvol:0,
@@ -537,8 +545,21 @@
 				audios.addEventListener('canplaythrough',function() {
 					that.timeActive();
 				})
-
 			},
+			// 获取到歌词
+			getLrcFile(val) {
+				this.$http.get('../../static/lrc/'+ val +'.lrc').then((response) => {
+					this.lrcData = response.data;
+					console.log(this.lrcData);
+				},(response) => {
+					this.lrcData = '未找到歌词';
+					this.lrcs = this.lrcData;
+				})
+			},
+			getLrc() {
+				this.lrcName = event.currentTarget.getAttribute('musicName');
+				this.getLrcFile(this.lrcName);
+			}
 		},
 		mounted() {
 			this.getMusicData();
@@ -583,6 +604,10 @@
 			})
 		},
 		watch: {
+				lrcData: function(val,oldVal) {
+						this.$route.params.data = val;
+						console.log(this.$route.params);
+				},
 				musicData : function(val,oldVal) {
 					this.newData = val;
 					this.firstGet();
@@ -592,20 +617,44 @@
 						// e.returnValue=false;
 				    that.showmy();
 				  }
-				}
+				},
+				'$route' (to,from) {
+		      if(to.path == '') {
+		        this.tabAnimation = 'slide-right'
+		      }else {
+		        this.tabAnimation = 'slide-left'
+		      }
+		    }
 		}
 	}
 </script>
 
 <style>
+	.slide-left-enter, .slide-right-leave-active {
+		opacity: 0;
+		-webkit-transform: translate(60px, 0);
+		transform: translate(60px, 0);
+	}
+	.slide-left-leave-active, .slide-right-enter {
+		opacity: 0;
+		-webkit-transform: translate(-60px, 0);
+		transform: translate(-60px, 0);
+	}
+
+	.music-center {
+		position: absolute;
+    transition: all .5s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+	}
+
 	.music-top {
 		position: fixed;
-		right: 0;
+		right: 2px;
 		top: 0;
 		width: auto;
 		height: 61px;
 		margin-top: 3px;
 		min-width: 225px;
+		box-shadow: 2px 0 2px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
 	}
 
 	.music-top>ul {
@@ -658,6 +707,7 @@
 		position: absolute;
 		top: 0;
 		left: 0;
+		text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
 	}
 
 	.music-play-list {
