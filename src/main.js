@@ -25,17 +25,17 @@ let router = new Router({
     },{
       path: '/music',
       component: Music,
-      children: [
-        {
-          path: '/music/lrc',
-          component: MusicLrc,
-          name: 'lrcs'
-        },
-        {
-          path: '/music/wave',
-          component: MusicWave
-        }
-      ]
+      // children: [
+      //   {
+      //     path: '/music/lrc',
+      //     component: MusicLrc,
+      //     name: 'lrcs'
+      //   },
+      //   {
+      //     path: '/music/wave',
+      //     component: MusicWave
+      //   }
+      // ]
     }
   ]
 })

@@ -1,7 +1,7 @@
 <template>
   <div class="music-lrc">
     <ul class='lrc-ul'>
-      11
+
     </ul>
   </div>
 </template>
@@ -9,6 +9,7 @@
 <script>
 export default {
   mounted() {
+
     document.getElementsByClassName('music-lrc')[0].style.height = window.innerHeight - 85 - 61 + 'px';
     window.addEventListener('resize',function() {
       if(document.getElementsByClassName('music-lrc')[0]) {
@@ -17,7 +18,13 @@ export default {
         //
       }
     });
-    // console.log($route.query)
+    let lrcUl = document.getElementsByClassName('lrc-ul')[0];
+    if(window.localStorage){
+         lrcUl.innerHTML = localStorage.getItem('Paris');
+         console.log(window.localStorage)
+    }else {
+
+    }
   },
 }
 </script>

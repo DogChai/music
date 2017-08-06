@@ -1,0 +1,26 @@
+.music-lrc {
+    position: absolute;
+    width: 100%;
+    top: 65px;
+    left:0;
+    bottom: 75px;
+    background: rgba(157, 179, 233, 0.8);
+    box-shadow: 2px 0 2px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+  }
+
+  .lrc-ul {
+    width: 370px;
+    max-height: 80%;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -185px;
+    top: 10%;
+  }
+
+  .lrc-ul li {
+    padding: 8px 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }

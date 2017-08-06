@@ -1,6 +1,6 @@
 <template>
   <div class="music-wave">
-    波形
+    
   </div>
 </template>
 

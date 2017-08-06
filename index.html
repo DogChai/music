@@ -14,7 +14,7 @@
   document.oncontextmenu = function(e) {
     e.returnValue=false;
   }
-  // document.onselectstart=new Function("event.returnValue=false;");
+  document.onselectstart=new Function("event.returnValue=false;");
   function sizeChange() {
     document.getElementsByTagName('body')[0].style.height = window.innerHeight + 'px';
     document.getElementsByTagName('body')[0].style.width = window.innerWidth + 'px';
@@ -23,6 +23,7 @@
   }
   window.onload = function() {
     sizeChange();
+    localStorage.clear();
     window.addEventListener('resize',function() {
       sizeChange();
     })

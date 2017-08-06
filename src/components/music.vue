@@ -46,28 +46,34 @@
 		</div>
 		<div class="music-top">
 			<ul>
-				<li class="top-one"><router-link :to="{path:'/music/lrc',params:{data:'未获得歌词'}}">歌词显示</router-link></li>
-				<li class="top-two"><router-link :to="{path:'/music/wave'}">歌曲波形</router-link></li>
+				<li class="top-one" v-on:click="showlrc()"><a>歌词显示</a></li>
+				<li class="top-two" v-on:click="showwave()"><a>歌曲波形</a></li>
 			</ul>
-			<transition :name='tabAnimation'>
-	      <router-view class="music-center"></router-view>
-	    </transition>
+				<div class="music-lrc">
+			    <ul class='lrc-ul'>
+
+			    </ul>
+			  </div>
+				<div class="music-wave">
+				</div>
 		</div>
 	</div>
 
 </template>
 
 <script type="text/javascript">
-	import VueLrc from './musiclrc.vue';
-	import VueWave from './musicWave.vue';
+	import axios from 'axios'
+	// import jquery from '../script/jquery.min.js';
+	// import VueLrc from './musiclrc.vue';
+	// import VueWave from './musicWave.vue';
 	export default {
 		components: {
-			"VueLrc": {
-				props: [this.lrcData]
-			}
 		},
 		data() {
 			return {
+				lrcsecond: 0,
+				lrctime: {},
+				lrcObj: {},
 				lrcName: null,
 				lrcData: [],
 				tabAnimation:'slide-left',
@@ -334,6 +340,9 @@
 					audio.setAttribute('dataNum',this.listNum);
 					this.playNum = audio.getAttribute('datanum') - 0;
 					listLis[this.playNum - 0].setAttribute('class','playing');
+					// console.log(this.playNum);
+					this.getLrc1();
+
 					musicShowName.innerHTML = this.musicData[this.listNum].name + ' - ' + this.musicData[this.listNum].singer;
 					this.getMusicTime();
 					this.ifplay = true;
@@ -353,6 +362,8 @@
 						audio.setAttribute('dataNum',this.listNum);
 						this.playNum = audio.getAttribute('datanum') - 0;
 						listLis[this.playNum - 0].setAttribute('class','playing');
+						// console.log(this.playNum);
+						this.getLrc1();
 						musicShowName.innerHTML = this.musicData[this.listNum].name + ' - ' + this.musicData[this.listNum].singer;
 						this.getMusicTime();
 						this.ifplay = true;
@@ -381,6 +392,8 @@
 					this.getMusicTime();
 					this.ifplay = true;
 					listLis[this.playNum - 0].setAttribute('class','playing');
+					// console.log(this.playNum);
+					this.getLrc1();
 					this.playmusic();
 				}else if(event.currentTarget.getAttribute('id') == 'next' || this.ends == true) {
 
@@ -394,6 +407,8 @@
 						audio.setAttribute('dataNum',this.orderNum);
 						this.playNum = audio.getAttribute('datanum') - 0;
 						listLis[this.playNum - 0].setAttribute('class','playing');
+						// console.log(this.playNum);
+						this.getLrc1();
 						musicShowName.innerHTML = this.musicData[this.orderNum].name + ' - ' + this.musicData[this.orderNum].singer;
 						this.getMusicTime();
 						this.ifplay = true;
@@ -419,6 +434,7 @@
 					audio.setAttribute('dataNum',this.randomNum);
 					this.playNum = audio.getAttribute('datanum') - 0;
 					listLis[this.playNum - 0].setAttribute('class','playing');
+					this.getLrc1();
 					musicShowName.innerHTML = this.musicData[this.randomNum].name + ' - ' + this.musicData[this.randomNum].singer;
 					this.getMusicTime();
 					this.ifplay = true;
@@ -437,6 +453,7 @@
 						audio.setAttribute('dataNum',this.randomNum);
 						this.playNum = audio.getAttribute('datanum') - 0;
 						listLis[this.playNum - 0].setAttribute('class','playing');
+						this.getLrc1();
 						musicShowName.innerHTML = this.musicData[this.randomNum].name + ' - ' + this.musicData[this.randomNum].singer;
 						this.getMusicTime();
 						this.ifplay = true;
@@ -455,6 +472,7 @@
 					audio.setAttribute('dataNum',this.oneNum);
 					this.playNum = audio.getAttribute('datanum') - 0;
 					listLis[this.playNum - 0].setAttribute('class','playing');
+					this.getLrc1();
 					musicShowName.innerHTML = this.musicData[this.oneNum].name + ' - ' + this.musicData[this.oneNum].singer;
 					this.getMusicTime();
 					this.ifplay = true;
@@ -548,17 +566,78 @@
 			},
 			// 获取到歌词
 			getLrcFile(val) {
-				this.$http.get('../../static/lrc/'+ val +'.lrc').then((response) => {
-					this.lrcData = response.data;
-					console.log(this.lrcData);
+				axios.get('../../static/lrc/'+ val +'.lrc').then((response) => {
+						this.lrcData = response.data;
+						this.parseLyric(this.lrcData);
 				},(response) => {
 					this.lrcData = '未找到歌词';
-					this.lrcs = this.lrcData;
 				})
+			},
+			//解析歌词
+			parseLyric(lrc) {
+					this.lrcObj = {};
+					this.lrctime = {};
+			    var lyrics = lrc.split("\n");
+			    for(var i=0;i<lyrics.length;i++){
+			        var lyric = decodeURIComponent(lyrics[i]);
+							// console.log(lyric)
+			        var timeReg = /\[\d*:\d*((\.|\:)\d*)*\]/g;
+			        var timeRegExpArr = lyric.match(timeReg);
+
+			        if(!timeRegExpArr)continue;
+			        var clause = lyric.replace(timeReg,'');
+							this.lrcObj[i] = clause;
+							timeRegExpArr.toString();
+							// timeRegExpArr = timeRegExpArr.replace(/\[|]/g,'')
+							this.lrctime[i] = timeRegExpArr;
+							// console.log(this.lrcObj);
+			        // for(var k = 0,h = timeRegExpArr.length;k < h;k++) {
+			        //     var t = timeRegExpArr[k];
+			        //     var min = Number(String(t.match(/\[\d*/i)).slice(1)),
+			        //         sec = Number(String(t.match(/\:\d*/i)).slice(1));
+			        //     var time = min * 60 + sec;
+							// 		// console.log(min,sec)
+			        //     this.lrcObj[time] = clause + clause;
+							// 		// console.log(this.lrcObj[time]);
+			        // }
+			    }
+					this.lrctoshow();
+			},
+			lrctoshow() {
+				let lrcUl = document.getElementsByClassName('lrc-ul')[0];
+				lrcUl.innerHTML = ' ';
+				// console.log(this.lrcObj);
+				for(var k in this.lrcObj) {
+					let lrcLi = document.createElement('li');
+					lrcLi.innerHTML = this.lrcObj[k];
+					// console.log(typeof(this.lrctime[k].toString()));
+					this.lrctime[k] = this.lrctime[k].toString().replace(/\[|]/g,'');
+					var Temp = this.lrctime[k].split(':')
+					this.lrcsecond = 60 * Number(Temp[0]) + 1 * Number(Temp[1])
+					lrcLi.setAttribute('time',this.lrcsecond);
+					lrcUl.appendChild(lrcLi);
+				}
+				lrcUl.style.top = '35%';
 			},
 			getLrc() {
 				this.lrcName = event.currentTarget.getAttribute('musicName');
 				this.getLrcFile(this.lrcName);
+			},
+			getLrc1() {
+				this.lrcName = this.musicData[this.playNum].name;
+				this.getLrcFile(this.lrcName);
+			},
+			showlrc() {
+				let musicLrc = document.getElementsByClassName('music-lrc')[0];
+				let musicWave = document.getElementsByClassName('music-wave')[0];
+				musicLrc.style.display = 'block';
+				musicWave.style.display = 'none';
+			},
+			showwave() {
+				let musicLrc = document.getElementsByClassName('music-lrc')[0];
+				let musicWave = document.getElementsByClassName('music-wave')[0];
+				musicLrc.style.display = 'none';
+				musicWave.style.display = 'block';
 			}
 		},
 		mounted() {
@@ -568,13 +647,14 @@
 			let audio =  document.getElementById('audios');
 			let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 			let musicTop = document.getElementsByClassName('music-top')[0];
+			let musicLrc = document.getElementsByClassName('music-lrc')[0];
+			let musicWave = document.getElementsByClassName('music-wave')[0];
 			let that = this;
 			audio.addEventListener('timeupdate',function() {
 				if(audio.ended) {
 					for(var i=0; i<that.musicData.length; i++) {
 						listLis[i].setAttribute('class','');
 					}
-
 					if(that.ifcut == 0) {
 						//顺序播放
 						that.ends = true;
@@ -597,16 +677,18 @@
 					}
 				}
 			});
-			// console.log(document.getElementsByClassName('music-top')[0].style.width)
 			musicTop.style.width = window.innerWidth - 232 + 'px';
+			musicLrc.style.height = window.innerHeight - 85 - 61 + 'px';
+			musicWave.style.height = window.innerHeight - 85 - 61 + 'px';
 			window.addEventListener('resize',function() {
 				musicTop.style.width = window.innerWidth - 232 + 'px';
+				musicLrc.style.height = window.innerHeight - 85 - 61 + 'px';
+				musicWave.style.height = window.innerHeight - 85 - 61 + 'px';
 			})
 		},
 		watch: {
 				lrcData: function(val,oldVal) {
-						this.$route.params.data = val;
-						console.log(this.$route.params);
+
 				},
 				musicData : function(val,oldVal) {
 					this.newData = val;
@@ -618,33 +700,22 @@
 				    that.showmy();
 				  }
 				},
-				'$route' (to,from) {
-		      if(to.path == '') {
-		        this.tabAnimation = 'slide-right'
-		      }else {
-		        this.tabAnimation = 'slide-left'
-		      }
-		    }
+				// '$route' (to,from) {
+		    //   if(to.path == '') {
+		    //     this.tabAnimation = 'slide-right'
+		    //   }else {
+		    //     this.tabAnimation = 'slide-left'
+		    //   }
+		    // }
 		}
 	}
 </script>
 
 <style>
-	.slide-left-enter, .slide-right-leave-active {
-		opacity: 0;
-		-webkit-transform: translate(60px, 0);
-		transform: translate(60px, 0);
-	}
-	.slide-left-leave-active, .slide-right-enter {
-		opacity: 0;
-		-webkit-transform: translate(-60px, 0);
-		transform: translate(-60px, 0);
-	}
-
-	.music-center {
-		position: absolute;
-    transition: all .5s cubic-bezier(0.25, 0.1, 0.25, 1.0);
-	}
+	@import "../style/lrc.css";
+	@import "../style/wave.css";
+</style>
+<style>
 
 	.music-top {
 		position: fixed;
@@ -708,6 +779,7 @@
 		top: 0;
 		left: 0;
 		text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+		cursor: pointer;
 	}
 
 	.music-play-list {
@@ -765,7 +837,7 @@
 		/*height: 100%;*/
     cursor: pointer;
     word-break: break-all;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s;
     box-sizing: border-box;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
 		z-index: 50;
