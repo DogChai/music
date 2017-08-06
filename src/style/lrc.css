@@ -12,15 +12,23 @@
   .lrc-ul {
     width: 370px;
     max-height: 80%;
-    overflow: hidden;
+    /*overflow: hidden;*/
     position: absolute;
     left: 50%;
     margin-left: -185px;
     top: 10%;
+    transition: all .6s;
   }
 
   .lrc-ul li {
     padding: 8px 10px;
     font-size: 16px;
+    height: 40px;
+    box-sizing: border-box;
     cursor: pointer;
+    transition: color .3s;
+  }
+
+  .lrc-ul .playing {
+    color: black;
   }

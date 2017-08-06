@@ -71,6 +71,7 @@
 		},
 		data() {
 			return {
+				curtime: 0,
 				lrcsecond: 0,
 				lrctime: {},
 				lrcObj: {},
@@ -312,8 +313,38 @@
 				let musicDarg = document.getElementsByClassName('music-drag')[0];
 				let musicBar = document.getElementsByClassName('music-bar')[0];
 				let musicPlan = document.getElementsByClassName('music-plan')[0];
+				let lrcUl = document.getElementsByClassName('lrc-ul')[0];
+				let lrcLi = document.getElementsByClassName('lrc-ul')[0].children;
 				let that = this;
 					getAudio.addEventListener('timeupdate',function(){
+						this.curtime = Math.round(getAudio.currentTime.toFixed(1));
+						var lrcLine = 0;
+						if(lrcUl.getAttribute('move')) {
+							for(var i=0; i<lrcLi.length; i++) {
+
+								if(lrcLi[i].getAttribute('time') == this.curtime  && lrcLi[i].getAttribute('ifchoose') == 'false'){
+									for(var j=0; j<lrcLi.length; j++) {
+										lrcLi[j].setAttribute('class','');
+									}
+									console.log(i);
+									lrcLi[i].setAttribute('class','playing');
+
+									lrcLine++;
+									if(lrcLine == 2) {
+										lrcLi[i-1].setAttribute('class','playing');
+									}
+									lrcLi[i].setAttribute('ifchoose','true');
+
+									lrcUl.style.top = lrcUl.offsetTop - 40 * lrcLine + 'px';
+
+								}
+
+								console.log(lrcUl.offsetTop);
+
+							}
+						}else {
+							// console.log('不需要滚动');
+						}
 						this.scales1 = getAudio.currentTime / getAudio.duration;
 						musicPlan.style.width = musicBar.offsetWidth * this.scales1 + 'px';
 						musicDarg.style.left = musicBar.offsetWidth * this.scales1 + 'px';
@@ -567,8 +598,13 @@
 			// 获取到歌词
 			getLrcFile(val) {
 				axios.get('../../static/lrc/'+ val +'.lrc').then((response) => {
-						this.lrcData = response.data;
-						this.parseLyric(this.lrcData);
+						if(response.data == "纯音乐,请欣赏") {
+							this.lrctoshow1(response.data);
+						}else {
+							this.lrcData = response.data;
+							this.parseLyric(this.lrcData);
+						}
+
 				},(response) => {
 					this.lrcData = '未找到歌词';
 				})
@@ -586,6 +622,15 @@
 
 			        if(!timeRegExpArr)continue;
 			        var clause = lyric.replace(timeReg,'');
+							// clause = clause.split(',');
+							// console.log(clause);
+							// for(var j=0; j<clause.length; j++) {
+							// 	if(clause[j] == '' || clause[j]==null || typeof(clause[j]) == undefined) {
+							// 		clause.splice(j,1);
+							// 		j = j-1;
+							// 	}
+							// }
+							// console.log(clause);
 							this.lrcObj[i] = clause;
 							timeRegExpArr.toString();
 							// timeRegExpArr = timeRegExpArr.replace(/\[|]/g,'')
@@ -603,6 +648,7 @@
 			    }
 					this.lrctoshow();
 			},
+			//歌词显示
 			lrctoshow() {
 				let lrcUl = document.getElementsByClassName('lrc-ul')[0];
 				lrcUl.innerHTML = ' ';
@@ -613,26 +659,43 @@
 					// console.log(typeof(this.lrctime[k].toString()));
 					this.lrctime[k] = this.lrctime[k].toString().replace(/\[|]/g,'');
 					var Temp = this.lrctime[k].split(':')
-					this.lrcsecond = 60 * Number(Temp[0]) + 1 * Number(Temp[1])
+					this.lrcsecond = 60 * Number(Temp[0]) + 1 * Number(Temp[1]);
+					this.lrcsecond = Math.round(this.lrcsecond.toFixed(1));
 					lrcLi.setAttribute('time',this.lrcsecond);
+					lrcLi.setAttribute('ifchoose','false');
 					lrcUl.appendChild(lrcLi);
 				}
-				lrcUl.style.top = '35%';
+				lrcUl.setAttribute('move',true);
+				lrcUl.style.top = '45%';
 			},
+			//当为纯音乐时显示
+			lrctoshow1(val) {
+				let lrcUl = document.getElementsByClassName('lrc-ul')[0];
+				lrcUl.innerHTML = ' ';
+				let lrcLi = document.createElement('li');
+				lrcLi.innerHTML = val;
+				lrcUl.appendChild(lrcLi);
+				lrcUl.setAttribute('move',false);
+				lrcUl.style.top = '45%';
+			},
+			//点击列表获取歌词
 			getLrc() {
 				this.lrcName = event.currentTarget.getAttribute('musicName');
 				this.getLrcFile(this.lrcName);
 			},
+			//音乐播放完成自动获取下一首歌词
 			getLrc1() {
 				this.lrcName = this.musicData[this.playNum].name;
 				this.getLrcFile(this.lrcName);
 			},
+			//歌词  波形切换
 			showlrc() {
 				let musicLrc = document.getElementsByClassName('music-lrc')[0];
 				let musicWave = document.getElementsByClassName('music-wave')[0];
 				musicLrc.style.display = 'block';
 				musicWave.style.display = 'none';
 			},
+			//歌词  波形切换
 			showwave() {
 				let musicLrc = document.getElementsByClassName('music-lrc')[0];
 				let musicWave = document.getElementsByClassName('music-wave')[0];
