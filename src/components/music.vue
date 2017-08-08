@@ -50,11 +50,14 @@
 				<li class="top-two" v-on:click="showwave()"><a>歌曲波形</a></li>
 			</ul>
 				<div class="music-lrc">
-			    <ul class='lrc-ul'>
-
+			    <ul class='lrc-ul' style="top: 45%">
+						<li>请选择歌曲</li>
 			    </ul>
 			  </div>
 				<div class="music-wave">
+					<div class="wave-center">
+						敬请期待
+					</div>
 				</div>
 		</div>
 	</div>
@@ -269,12 +272,16 @@
 			// 显示列表
 			showmy() {
 				let playList = document.getElementsByClassName('music-play-list')[0];
-				let musicMy = document.getElementsByClassName('music-my')[0];
+				let musicTop = document.getElementsByClassName('music-top')[0];
 				if(this.ifshow == 0) {
-					playList.style.transform = 'translate(0px)';
+					playList.style.transform = 'translate(0)';
+					musicTop.style.width = window.innerWidth - 232 + 'px';
+					musicTop.style.top = 0;
 					this.ifshow = 1;
 				}else {
 					playList.style.transform = 'translate(-230px)';
+					musicTop.style.width = window.innerWidth + 'px';
+					musicTop.style.top = -63 + 'px';
 					this.ifshow = 0;
 				}
 			},
@@ -666,7 +673,7 @@
 					lrcUl.appendChild(lrcLi);
 				}
 				lrcUl.setAttribute('move',true);
-				lrcUl.style.top = '45%';
+				lrcUl.style.top = '50%';
 			},
 			//当为纯音乐时显示
 			lrctoshow1(val) {
@@ -692,15 +699,15 @@
 			showlrc() {
 				let musicLrc = document.getElementsByClassName('music-lrc')[0];
 				let musicWave = document.getElementsByClassName('music-wave')[0];
-				musicLrc.style.display = 'block';
-				musicWave.style.display = 'none';
+				// musicLrc.style.display = 'block';
+				// musicWave.style.display = 'none';
 			},
 			//歌词  波形切换
 			showwave() {
 				let musicLrc = document.getElementsByClassName('music-lrc')[0];
 				let musicWave = document.getElementsByClassName('music-wave')[0];
-				musicLrc.style.display = 'none';
-				musicWave.style.display = 'block';
+				// musicLrc.style.display = 'none';
+				// musicWave.style.display = 'block';
 			}
 		},
 		mounted() {
@@ -712,6 +719,7 @@
 			let musicTop = document.getElementsByClassName('music-top')[0];
 			let musicLrc = document.getElementsByClassName('music-lrc')[0];
 			let musicWave = document.getElementsByClassName('music-wave')[0];
+			let playList = document.getElementsByClassName('music-play-list')[0];
 			let that = this;
 			audio.addEventListener('timeupdate',function() {
 				if(audio.ended) {
@@ -740,14 +748,25 @@
 					}
 				}
 			});
-			musicTop.style.width = window.innerWidth - 232 + 'px';
-			musicLrc.style.height = window.innerHeight - 85 - 61 + 'px';
-			musicWave.style.height = window.innerHeight - 85 - 61 + 'px';
+			that.getMusicTime();
+			musicTop.style.width = window.innerWidth + 'px';
+			musicLrc.style.height = window.innerHeight - 85 - 100 + 'px';
+			musicWave.style.height = window.innerHeight - 85 - 100 + 'px';
 			window.addEventListener('resize',function() {
-				musicTop.style.width = window.innerWidth - 232 + 'px';
-				musicLrc.style.height = window.innerHeight - 85 - 61 + 'px';
-				musicWave.style.height = window.innerHeight - 85 - 61 + 'px';
+				if(playList.style.transform == 'translate(0px)') {
+					musicTop.style.width = window.innerWidth - 232 + 'px';
+					// console.log('yes')
+				}else {
+					musicTop.style.width = window.innerWidth + 'px';
+				}
+				musicLrc.style.height = window.innerHeight - 85 - 100 + 'px';
+				musicWave.style.height = window.innerHeight - 85 - 100 + 'px';
 			})
+			document.onkeydown = function(e) {
+				if(e && e.keyCode == 32) {
+					that.playmusic();
+				}
+			}
 		},
 		watch: {
 				lrcData: function(val,oldVal) {
@@ -759,7 +778,7 @@
 					this.getMusicTime();
 					let that = this;
 					document.oncontextmenu = function(e) {
-						// e.returnValue=false;
+						e.returnValue=false;
 				    that.showmy();
 				  }
 				},
@@ -781,9 +800,13 @@
 <style>
 
 	.music-top {
+		transition: top .3s;
+		border-radius: 5px;
 		position: fixed;
 		right: 2px;
-		top: 0;
+		top: -63px;
+		/*left: 2px;*/
+		/*margin-left: 2px;*/
 		width: auto;
 		height: 61px;
 		margin-top: 3px;
@@ -806,6 +829,7 @@
 		background: rgba(64,64,64,0.5);
 		transition: all .3s;
 		position: relative;
+		border-radius: 5px;
 	}
 
 	.music-top>ul>li:hover {
@@ -814,7 +838,7 @@
 
 	.music-top>ul .top-one {
 		padding-left: 10%;
-		border-right: 1px solid gray;
+		border-right: 1px solid rgba(249, 159, 76, 0.9);
 		/*background-color: linear-gradient(to left,rgba(80,80,80,0.6) 50%,rgba(64,64,64,0.6) 100%);
 		background-color: -webkit-linear-gradient(left,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
 		background-color: -o-linear-gradient(left,rgba(80,80,80,0.6),rgba(64,64,64,0.6));
@@ -824,7 +848,7 @@
 	.music-top>ul .top-two {
 		padding-right: 10%;
 		padding-left: 0;
-		border-left: 1px solid gray;
+		border-left: 1px solid rgba(249, 159, 76, 0.9);
 		/*background-color: linear-gradient(right,rgba(80,80,80,0.9),rgba(64,64,64,0.9));
 		background-color: -webkit-linear-gradient(right,rgba(80,80,80,0.9),rgba(64,64,64,0.9));
 		background-color: -o-linear-gradient(right,rgba(80,80,80,0.9),rgba(64,64,64,0.9));
@@ -846,19 +870,20 @@
 	}
 
 	.music-play-list {
-			position: absolute;
-			bottom: 75px;
-			width: 230px;
-			height: auto;
-			/*top:1px;*/
-			transform: translate(-230px);
-			z-index: 100;
-			overflow: hidden;
-			border: 1px solid gray;
-			box-sizing: border-box;
-			background: rgba(64, 64, 64, 0.7);
-			transition: transform .3s;
-			box-shadow: 2px 0 2px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
+		border-radius: 5px;
+		position: absolute;
+		bottom: 75px;
+		width: 230px;
+		height: auto;
+		/*top:1px;*/
+		transform: translate(-230px);
+		z-index: 100;
+		overflow: hidden;
+		border: 1px solid gray;
+		box-sizing: border-box;
+		background: rgba(64, 64, 64, 0.3);
+		transition: transform .3s;
+		box-shadow: 2px 0 2px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
 	}
 
 	.play-list-header {
@@ -866,15 +891,16 @@
 		box-sizing: border-box;
 		padding: 15px;
     font-size: 20px;
-    color: #888;
+    color: #f1f1f1;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
     border-bottom: 1px solid #202020;
     box-shadow: 0 0 5px #000, inset 0 0 5px rgba(255, 255, 255, 0.2);
     text-align: center;
-    background-color: #404040;
+    background-color: rgba(238,173,91,1);
     cursor: default;
 		position: absolute;
 		z-index: 99;
+		border-radius: 5px;
 	}
 
 
@@ -894,7 +920,7 @@
 	.play-list-ul li {
 		border-bottom: 1px solid #555;
     padding: 15px;
-    color: #888;
+    color: #fff;
     font-size: 15px;
     width: 100%;
 		/*height: 100%;*/
@@ -913,13 +939,13 @@
 
 	.play-list-ul li:hover {
 		background-color: #aaa;
-    color: #fff;
+    color: rgb(212, 70, 111);
     box-shadow: inset -1px 0 2px rgba(255, 255, 255, 0.8);
 	}
 
 	.play-list-ul .playing {
-		color: #fff;
-    background-color: #30ABD5 !important;
+		color: rgb(212, 70, 111);
+    background-color: skyblue !important;
     box-shadow: inset 0 0 3px rgba(0, 0, 0, 1) !important;
 	}
 

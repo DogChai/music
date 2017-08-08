@@ -45,7 +45,8 @@ export default {
   body {
     height: 100%;
     width: 100%;
-    background: url('http://lesses.me/music/src/assets/2.jpg') no-repeat;
+    /*background: url('http://lesses.me/music/src/assets/2.jpg') no-repeat;*/
+    background: url('http://ogm5at7ve.bkt.clouddn.com/1712309.jpg') no-repeat;
     background-size: cover;
     overflow-y: hidden;
     overflow-x: hidden;
