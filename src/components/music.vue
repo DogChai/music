@@ -50,7 +50,7 @@
 				<li class="top-two" v-on:click="showwave()"><a>歌曲波形</a></li>
 			</ul>
 				<div class="music-lrc">
-			    <ul class='lrc-ul' style="top: 45%">
+			    <ul class='lrc-ul'>
 						<li>请选择歌曲</li>
 			    </ul>
 			  </div>
@@ -74,6 +74,7 @@
 		},
 		data() {
 			return {
+				ulTop: 0,
 				curtime: 0,
 				lrcsecond: 0,
 				lrctime: {},
@@ -165,14 +166,43 @@
 				let musicPlan = document.getElementsByClassName('music-plan')[0];
 				let musicShow = document.getElementsByClassName('music-show')[0];
 				let musicWrap = document.getElementsByClassName('music-wrap')[0];
+				let lrcLi = document.getElementsByClassName('lrc-ul')[0].children;
+				let lrcUl = document.getElementsByClassName('lrc-ul')[0];
+				let musicLrc = document.getElementsByClassName('music-lrc')[0];
+				let lisnum = 0;
+				let lisheight = 0;
 				this.musicleft = e.clientX - musicWrap.offsetLeft - musicBar.offsetLeft;
 				this.scales1 = this.musicleft / musicBar.offsetWidth;
 				musicDarg.style.left = this.musicleft + 'px';
 				musicPlan.style.width = musicBar.offsetWidth * this.scales1 + 'px';
 				getAudio.currentTime = getAudio.duration * this.scales1;
-				this.getMusicTime();
+				// this.getMusicTime();
 				this.ifplay = 1;
 				this.playmusic();
+				this.curtime = Math.round(getAudio.currentTime);
+				for(var j=0; j<lrcLi.length; j++) {
+					lrcLi[j].setAttribute('class','');
+				};
+				if(lrcLi.length == 1) {
+
+				}else {
+					lisnum = 0;
+					lisheight = 0;
+					for(var i=0; i<lrcLi.length; i++) {
+						if(lrcLi[i].getAttribute('time') < this.curtime) {
+							lisnum++;
+							lisheight += lrcLi[i].offsetHeight;
+							lrcLi[i].setAttribute('class','');
+						}
+					}
+					if(lisnum == 0) {
+						lrcUl.style.top = musicLrc.offsetHeight / 2 + 50 + 'px';
+					}else {
+						console.log(this.ulTop - lisheight);
+						lrcUl.style.top = musicLrc.offsetHeight / 2 + 50 - lisheight + 'px';
+						lrcLi[lisnum-1].setAttribute('class','playing');
+					}
+				}
 			},
 			// 音量点击
 			getVol(e) {
@@ -204,6 +234,11 @@
 				let musicPlan = document.getElementsByClassName('music-plan')[0];
 				let musicShow = document.getElementsByClassName('music-show')[0];
 				let musicWrap = document.getElementsByClassName('music-wrap')[0];
+				let lrcLi = document.getElementsByClassName('lrc-ul')[0].children;
+				let lrcUl = document.getElementsByClassName('lrc-ul')[0];
+				let musicLrc = document.getElementsByClassName('music-lrc')[0];
+				let lisnum = 0;
+				let lisheight = 0;
 				this.ifplay = false;
 				this.playmusic();
 				let that = this;
@@ -217,7 +252,6 @@
 						that.musicleft = musicBar.offsetWidth;
 					}
 					that.scales1 = that.musicleft / musicBar.offsetWidth;
-
 					musicDarg.style.left = that.musicleft + 'px';
 					musicPlan.style.width = musicBar.offsetWidth * that.scales1 + 'px';
 				};
@@ -229,6 +263,33 @@
 					document.onmousemove = null;
 					document.onmousedown = null;
 					document.onmouseup = null;
+					this.curtime = Math.round(getAudio.currentTime.toFixed(1));
+					for(var j=0; j<lrcLi.length; j++) {
+						lrcLi[j].setAttribute('class','');
+					};
+					if(lrcLi.length == 1) {
+
+					}else {
+						lisnum = 0;
+						lisheight = 0;
+						for(var i=0; i<lrcLi.length; i++) {
+							if(lrcLi[i].getAttribute('time') < this.curtime) {
+								lisnum++;
+								lisheight += lrcLi[i].offsetHeight;
+								lrcLi[i].setAttribute('class','');
+								// lrcLi[i].setAttribute('ifchoose','true');
+							}
+						}
+						// console.log(lisnum);
+						if(lisnum == 0) {
+							lrcUl.style.top = musicLrc.offsetHeight / 2 + 50 + 'px';
+						}else {
+							console.log(this.ulTop - lisheight);
+							lrcUl.style.top = musicLrc.offsetHeight / 2 + 50 - lisheight + 'px';
+							lrcLi[lisnum-1].setAttribute('class','playing');
+						}
+					}
+					// that.getMusicTime()
 				}
 			},
 			// 音量拖拽
@@ -273,15 +334,18 @@
 			showmy() {
 				let playList = document.getElementsByClassName('music-play-list')[0];
 				let musicTop = document.getElementsByClassName('music-top')[0];
+				let musicLrc = document.getElementsByClassName('music-lrc')[0];
 				if(this.ifshow == 0) {
 					playList.style.transform = 'translate(0)';
 					musicTop.style.width = window.innerWidth - 232 + 'px';
 					musicTop.style.top = 0;
+					musicLrc.style.height = window.innerHeight - 85 - 100 + 'px';
 					this.ifshow = 1;
 				}else {
 					playList.style.transform = 'translate(-230px)';
 					musicTop.style.width = window.innerWidth + 'px';
 					musicTop.style.top = -63 + 'px';
+					musicLrc.style.height = musicLrc.offsetHeight + 50 + 'px';
 					this.ifshow = 0;
 				}
 			},
@@ -289,8 +353,8 @@
 			timeActive() {
 				let getAudio = document.getElementById('audios');
 				// 音乐时间
-				let timeSeconds = Math.round(audios.duration % 60);
-				let timeMinutes = Math.round(audios.duration / 60);
+				let timeSeconds = parseInt(getAudio.duration % 60);
+				let timeMinutes = parseInt(getAudio.duration / 60);
 
 				if(timeSeconds <= 9) {
 					timeSeconds = '0' + timeSeconds;
@@ -302,9 +366,11 @@
 
 				document.getElementsByClassName('time-all')[0].innerHTML = timeMinutes + ':' + timeSeconds;
 				// 当前播放时间
-				let newSeconds = Math.round(audios.currentTime % 60);
-				let newMinutes = Math.round(audios.currentTime / 60);
-
+				let newSeconds = parseInt(getAudio.currentTime % 60);
+				let newMinutes = parseInt(getAudio.currentTime / 60);
+				// console.log(getAudio.currentTime)
+				//
+				// console.log(Math.round(getAudio.currentTime))
 				if(newSeconds <= 9) {
 					newSeconds = '0' + newSeconds;
 				}
@@ -313,8 +379,10 @@
 					newMinutes = '0' + newMinutes;
 				}
 				document.getElementsByClassName('time-second')[0].innerHTML = newMinutes + ':' + newSeconds;
+
+				this.curtime = Math.round(getAudio.currentTime.toFixed(1));
 			},
-			//获得音乐时间
+			//获得音乐时间  //歌词滚动
 			getMusicTime() {
 				let getAudio = document.getElementById('audios');
 				let musicDarg = document.getElementsByClassName('music-drag')[0];
@@ -324,35 +392,47 @@
 				let lrcLi = document.getElementsByClassName('lrc-ul')[0].children;
 				let that = this;
 					getAudio.addEventListener('timeupdate',function(){
-						this.curtime = Math.round(getAudio.currentTime.toFixed(1));
+						that.curtime = Math.round(getAudio.currentTime);
 						var lrcLine = 0;
 						if(lrcUl.getAttribute('move')) {
 							for(var i=0; i<lrcLi.length; i++) {
-
-								if(lrcLi[i].getAttribute('time') == this.curtime  && lrcLi[i].getAttribute('ifchoose') == 'false'){
+								var thisliHeight = 0;
+								if(lrcLi[i].getAttribute('time') == that.curtime  && lrcLi[i].getAttribute('ifchoose') == 'false'){
 									for(var j=0; j<lrcLi.length; j++) {
 										lrcLi[j].setAttribute('class','');
 									}
-									console.log(i);
-									lrcLi[i].setAttribute('class','playing');
-
 									lrcLine++;
 									if(lrcLine == 2) {
+										that.lasti = i;
+										lrcLi[i].setAttribute('class','playing');
 										lrcLi[i-1].setAttribute('class','playing');
+										lrcLi[i].setAttribute('ifchoose','true');
+										lrcLi[i-1].setAttribute('ifchoose','true');
+										thisliHeight = lrcLi[i].offsetHeight + lrcLi[i-1].offsetHeight;
+									}else if(lrcLine == 1){
+										that.lasti = i;
+										lrcLi[i].setAttribute('class','playing');
+										thisliHeight = lrcLi[i].offsetHeight;
+										lrcLi[i].setAttribute('ifchoose','true');
+									}else if(lrcLine == 3) {
+										that.lasti = i;
+										lrcLi[i].setAttribute('class','playing');
+										lrcLi[i-1].setAttribute('class','playing');
+										lrcLi[i-2].setAttribute('class','playing');
+										lrcLi[i].setAttribute('ifchoose','true');
+										lrcLi[i-1].setAttribute('ifchoose','true');
+										lrcLi[i-2].setAttribute('ifchoose','true');
+										thisliHeight = lrcLi[i].offsetHeight + lrcLi[i-1].offsetHeight + lrcLi[i-2].offsetHeight;
 									}
-									lrcLi[i].setAttribute('ifchoose','true');
-
-									lrcUl.style.top = lrcUl.offsetTop - 40 * lrcLine + 'px';
-
+									lrcUl.style.top = lrcUl.offsetTop - thisliHeight + 'px';
+									that.lastnum = lrcLine;
 								}
-
-								console.log(lrcUl.offsetTop);
-
 							}
 						}else {
 							// console.log('不需要滚动');
 						}
 						this.scales1 = getAudio.currentTime / getAudio.duration;
+						// console.log(this.scales1);
 						musicPlan.style.width = musicBar.offsetWidth * this.scales1 + 'px';
 						musicDarg.style.left = musicBar.offsetWidth * this.scales1 + 'px';
 						that.timeActive();
@@ -600,11 +680,14 @@
 				musicShowName.innerHTML = this.newData[0].name +' - '+ this.newData[0].singer;
 				audios.addEventListener('canplaythrough',function() {
 					that.timeActive();
+
 				})
+				that.getLrc1();
 			},
 			// 获取到歌词
 			getLrcFile(val) {
-				axios.get('../../static/lrc/'+ val +'.lrc').then((response) => {
+				// music/
+				axios.get('../../music/static/lrc/'+ val +'.lrc').then((response) => {
 						if(response.data == "纯音乐,请欣赏") {
 							this.lrctoshow1(response.data);
 						}else {
@@ -658,6 +741,7 @@
 			//歌词显示
 			lrctoshow() {
 				let lrcUl = document.getElementsByClassName('lrc-ul')[0];
+				let musicLrc = document.getElementsByClassName('music-lrc')[0];
 				lrcUl.innerHTML = ' ';
 				// console.log(this.lrcObj);
 				for(var k in this.lrcObj) {
@@ -667,13 +751,13 @@
 					this.lrctime[k] = this.lrctime[k].toString().replace(/\[|]/g,'');
 					var Temp = this.lrctime[k].split(':')
 					this.lrcsecond = 60 * Number(Temp[0]) + 1 * Number(Temp[1]);
-					this.lrcsecond = Math.round(this.lrcsecond.toFixed(1));
+					this.lrcsecond = Math.round(this.lrcsecond);
 					lrcLi.setAttribute('time',this.lrcsecond);
 					lrcLi.setAttribute('ifchoose','false');
 					lrcUl.appendChild(lrcLi);
 				}
 				lrcUl.setAttribute('move',true);
-				lrcUl.style.top = '50%';
+				lrcUl.style.top = musicLrc.offsetHeight / 2 + 50 + 'px';
 			},
 			//当为纯音乐时显示
 			lrctoshow1(val) {
@@ -687,6 +771,8 @@
 			},
 			//点击列表获取歌词
 			getLrc() {
+				let lrcUl = document.getElementsByClassName('lrc-ul')[0];
+				this.ulTop = lrcUl.offsetTop;
 				this.lrcName = event.currentTarget.getAttribute('musicName');
 				this.getLrcFile(this.lrcName);
 			},
@@ -695,14 +781,14 @@
 				this.lrcName = this.musicData[this.playNum].name;
 				this.getLrcFile(this.lrcName);
 			},
-			//歌词  波形切换
+			//歌词  波形切换 被禁用
 			showlrc() {
 				let musicLrc = document.getElementsByClassName('music-lrc')[0];
 				let musicWave = document.getElementsByClassName('music-wave')[0];
 				// musicLrc.style.display = 'block';
 				// musicWave.style.display = 'none';
 			},
-			//歌词  波形切换
+			//歌词  波形切换 被禁用
 			showwave() {
 				let musicLrc = document.getElementsByClassName('music-lrc')[0];
 				let musicWave = document.getElementsByClassName('music-wave')[0];
@@ -748,18 +834,22 @@
 					}
 				}
 			});
-			that.getMusicTime();
+			that.timeActive();
 			musicTop.style.width = window.innerWidth + 'px';
 			musicLrc.style.height = window.innerHeight - 85 - 100 + 'px';
+			musicLrc.style.height = musicLrc.offsetHeight + 50 + 'px';
 			musicWave.style.height = window.innerHeight - 85 - 100 + 'px';
 			window.addEventListener('resize',function() {
 				if(playList.style.transform == 'translate(0px)') {
 					musicTop.style.width = window.innerWidth - 232 + 'px';
+					musicLrc.style.height = window.innerHeight - 85 - 100 + 'px';
 					// console.log('yes')
 				}else {
 					musicTop.style.width = window.innerWidth + 'px';
+					musicLrc.style.height = window.innerHeight - 85 - 100 + 'px';
+					musicLrc.style.height = musicLrc.offsetHeight + 50 + 'px';
 				}
-				musicLrc.style.height = window.innerHeight - 85 - 100 + 'px';
+				// musicLrc.style.height = window.innerHeight - 85 - 100 + 'px';
 				musicWave.style.height = window.innerHeight - 85 - 100 + 'px';
 			})
 			document.onkeydown = function(e) {
@@ -794,10 +884,65 @@
 </script>
 
 <style>
-	@import "../style/lrc.css";
-	@import "../style/wave.css";
+	/*@import "../style/lrc.css";
+	@import "../style/wave.css";*/
 </style>
 <style>
+	.music-lrc {
+			position: absolute;
+			width: 100%;
+			top: 85px;
+			left:0;
+			bottom: 75px;
+			overflow: hidden;
+		}
+
+	.lrc-ul {
+		width: 390px;
+		height: auto;
+		position: absolute;
+		left: 50%;
+		margin-left: -185px;
+		top: 10%;
+		transition: all .6s;
+	}
+
+	.lrc-ul li {
+		padding: 5px 10px;
+		font-size: 18px;
+		height: auto;
+		box-sizing: border-box;
+		cursor: pointer;
+		transition: all .3s;
+		font-weight: bold;
+		font-family: cursive;
+	}
+
+	.lrc-ul .playing {
+		color: black;
+		font-size: 20px;
+	}
+
+	.music-wave {
+	  position: absolute;
+	  width: 100%;
+	  top: 65px;
+	  left:0;
+	  display: none;
+	  background: rgba(157, 179, 233, 0.8);
+	  box-shadow: 2px 0 2px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
+	}
+
+	.wave-center {
+	  width: 150px;
+	  height: 60px;
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  margin-left:  -75px;
+	  margin-top: -30px;
+	  font-size: 22px;
+	}
 
 	.music-top {
 		transition: top .3s;

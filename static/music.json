@@ -1,5 +1,21 @@
 [
+    
     {
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E4%B8%8A%E5%8C%97%E5%81%A5%20-%20false%20color.mp3",
+      "name": "false color",
+      "singer": "上北健",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E4%B8%8A%E5%8C%97%E5%81%A5%20-%20%E6%9C%88%E3%81%8C%E7%B6%BA%E9%BA%97.mp3",
+      "name": "月が綺麗",
+      "singer": "上北健",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/LU2VYK,Madison%20Gold%20-%20Deep%20End.mp3",
+      "name": "Deep End",
+      "singer": "LU2VYK,Madison Gold",
+      "playBool":false
+    },{
       "url": "http://ohx9cuj3d.bkt.clouddn.com/Philter%20-%20Battle%20Scars.mp3",
       "name": "Battle Scars",
       "singer": "Philter",
