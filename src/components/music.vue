@@ -109,7 +109,7 @@
 		methods: {
 			//json获取
 			getMusicData() {
-				this.$http.get('http://lesses.me/my/beta2/static/music.json').then((response) => {
+				this.$http.get('http://lesses.me/music/static/music.json').then((response) => {
 					this.musicData = response.data;
 				},(response) => {
 					console.log('失败');
