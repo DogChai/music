@@ -109,6 +109,7 @@
 		methods: {
 			//json获取
 			getMusicData() {
+				// music/
 				this.$http.get('http://lesses.me/music/static/music.json').then((response) => {
 					this.musicData = response.data;
 				},(response) => {
@@ -200,7 +201,16 @@
 					}else {
 						console.log(this.ulTop - lisheight);
 						lrcUl.style.top = musicLrc.offsetHeight / 2 + 50 - lisheight + 'px';
-						lrcLi[lisnum-1].setAttribute('class','playing');
+						if(lrcLi[lisnum-1].getAttribute('time') == lrcLi[lisnum-2].getAttribute('time')) {
+							console.log('duiduidui')
+							lrcLi[lisnum-1].setAttribute('class','playing');
+							lrcLi[lisnum-2].setAttribute('class','playing');
+						}else if(lrcLi[lisnum-1].getAttribute('time') == lrcLi[lisnum].getAttribute('time')) {
+							lrcLi[lisnum-1].setAttribute('class','playing');
+							lrcLi[lisnum].setAttribute('class','playing');
+						}else {
+							lrcLi[lisnum-1].setAttribute('class','playing');
+						}
 					}
 				}
 			},
@@ -286,7 +296,16 @@
 						}else {
 							console.log(this.ulTop - lisheight);
 							lrcUl.style.top = musicLrc.offsetHeight / 2 + 50 - lisheight + 'px';
-							lrcLi[lisnum-1].setAttribute('class','playing');
+							if(lrcLi[lisnum-1].getAttribute('time') == lrcLi[lisnum-2].getAttribute('time')) {
+								console.log('duiduidui')
+								lrcLi[lisnum-1].setAttribute('class','playing');
+								lrcLi[lisnum-2].setAttribute('class','playing');
+							}else if(lrcLi[lisnum-1].getAttribute('time') == lrcLi[lisnum].getAttribute('time')) {
+								lrcLi[lisnum-1].setAttribute('class','playing');
+								lrcLi[lisnum].setAttribute('class','playing');
+							}else {
+								lrcLi[lisnum-1].setAttribute('class','playing');
+							}						
 						}
 					}
 					// that.getMusicTime()
@@ -687,7 +706,7 @@
 			// 获取到歌词
 			getLrcFile(val) {
 				// music/
-				axios.get('../../music/static/lrc/'+ val +'.lrc').then((response) => {
+				axios.get('../../static/lrc/'+ val +'.lrc').then((response) => {
 						if(response.data == "纯音乐,请欣赏") {
 							this.lrctoshow1(response.data);
 						}else {
@@ -794,12 +813,23 @@
 				let musicWave = document.getElementsByClassName('music-wave')[0];
 				// musicLrc.style.display = 'none';
 				// musicWave.style.display = 'block';
-			}
+			},
+      dropmusic() {
+        document.addEventListener("dragover",function(e) {
+          e.preventDefault();
+          console.log('22');
+        });
+        document.addEventListener("drop",function(e) {
+          e.preventDefault();
+          console.log(e.dataTransfer.files,e.dataTransfer.files[0].name);
+        });
+      },
 		},
 		mounted() {
 			this.getMusicData();
 			this.getMusicTime();
 			this.listWell();
+      this.dropmusic();
 			let audio =  document.getElementById('audios');
 			let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 			let musicTop = document.getElementsByClassName('music-top')[0];
@@ -898,24 +928,24 @@
 		}
 
 	.lrc-ul {
-		width: 390px;
+		width: 480px;
 		height: auto;
 		position: absolute;
 		left: 50%;
-		margin-left: -185px;
+		margin-left: -240px;
 		top: 10%;
 		transition: all .6s;
 	}
 
 	.lrc-ul li {
-		padding: 5px 10px;
+		padding: 5px 0px;
 		font-size: 18px;
 		height: auto;
 		box-sizing: border-box;
 		cursor: pointer;
 		transition: all .3s;
 		font-weight: bold;
-		font-family: cursive;
+		font-family: cursive,Monaco;
 	}
 
 	.lrc-ul .playing {
