@@ -814,14 +814,31 @@
 				// musicLrc.style.display = 'none';
 				// musicWave.style.display = 'block';
 			},
+      //歌曲拖拽
       dropmusic() {
         document.addEventListener("dragover",function(e) {
           e.preventDefault();
           console.log('22');
         });
         document.addEventListener("drop",function(e) {
+          let playlistul = document.getElementsByClassName('play-list-ul')[0];
           e.preventDefault();
-          console.log(e.dataTransfer.files,e.dataTransfer.files[0].name);
+          for(var i=0; i<e.dataTransfer.files.length; i++) {
+            let playli = document.createElement('li');
+            let span = document.createElement('span');
+            span.innerHTML = i+1 + '.';
+            let liName = e.dataTransfer.files[i].name.substring(0,e.dataTransfer.files[i].name.lastIndexOf('.'));
+            console.log(liName.split('-'));
+            playli.innerHTML = liName;
+            playli.setAttribute('musicname',liName.split('-')[1].trim())
+            playli.insertBefore(span,playli.firstChild);
+            playlistul.insertBefore(playli,playlistul.firstChild);
+          }
+          let playlistli = document.getElementsByClassName('play-list-ul')[0].children;
+          for(var j=0; j<playlistli.length; j++) {
+            playlistli[j].setAttribute('num',j);
+            playlistli[j].children[0].innerHTML = j+1 + '.';    
+          }
         });
       },
 		},
