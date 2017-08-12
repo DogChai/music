@@ -2,6 +2,7 @@
 	<div class="music">
 		<audio id="audios" ref='audio' dataNum=0 >
 		</audio>
+    <input type="file" accept='audio/mp3' id='input-file' class='hidden file' v-on:change='inputfile'>
 		<div class="music-wrap">
 			<div class="music-btn">
 				<a class="c-btn prev" id="prev" title="上一首" v-on:click='musicclick'></a>
@@ -37,11 +38,20 @@
 			</div>
 		</div>
 		<div class="music-play-list">
-			<div class="play-list-header">Play List</div>
-			<ul class="play-list-ul">
+			<div class="play-list-header" v-on:click.stop='headerlist()'>Play List
+
+			</div>
+			<ul class='list-header-ul'>
+				<li class="choose" v-on:click='showheader1()'>推荐音乐</li>
+				<li v-on:click='showheader2()'>我的音乐</li>
+			</ul>
+			<ul class="play-list-ul list-ul">
 				<li v-for='(item,index) in musicData' :Num="index" :musicName='item.name' v-on:click='listClick(),getLrc()'>
 					<span>{{index + 1}}.</span>{{item.name}} - {{item.singer}}
 				</li>
+			</ul>
+			<ul class="list-ul list-ul2">
+
 			</ul>
 		</div>
 		<div class="music-top">
@@ -66,14 +76,13 @@
 
 <script type="text/javascript">
 	import axios from 'axios'
-	// import jquery from '../script/jquery.min.js';
-	// import VueLrc from './musiclrc.vue';
-	// import VueWave from './musicWave.vue';
 	export default {
 		components: {
 		},
 		data() {
 			return {
+				dragsrc: '',
+				headerul: 0,
 				ulTop: 0,
 				curtime: 0,
 				lrcsecond: 0,
@@ -305,7 +314,7 @@
 								lrcLi[lisnum].setAttribute('class','playing');
 							}else {
 								lrcLi[lisnum-1].setAttribute('class','playing');
-							}						
+							}
 						}
 					}
 					// that.getMusicTime()
@@ -671,9 +680,13 @@
 				let this_ = event.currentTarget;
 				let listLis = document.getElementsByClassName('play-list-ul')[0].children;
 				let musicShowName = document.getElementsByClassName('music-show-name')[0];
-				document.getElementById('audios').setAttribute('dataNum',event.currentTarget.getAttribute('num'));
-				this.playNum = event.currentTarget.getAttribute('num');
-				this.audioUrl = this.musicData[event.currentTarget.getAttribute('num')].url;
+				if(event.currentTarget.getAttribute('num')) {
+					document.getElementById('audios').setAttribute('dataNum',event.currentTarget.getAttribute('num'));
+					this.playNum = event.currentTarget.getAttribute('num');
+					this.audioUrl = this.musicData[event.currentTarget.getAttribute('num')].url;
+				}else {
+
+				}
 				if(audiosUrl == escape(this.audioUrl)) {
 					// this.ifplay = !this.ifplay;
 					this_.setAttribute('class','playing');
@@ -816,31 +829,88 @@
 			},
       //歌曲拖拽
       dropmusic() {
+				let that = this;
         document.addEventListener("dragover",function(e) {
           e.preventDefault();
           console.log('22');
         });
         document.addEventListener("drop",function(e) {
-          let playlistul = document.getElementsByClassName('play-list-ul')[0];
+          let playlistul = document.getElementsByClassName('list-ul2')[0];
+					let musicfile = document.getElementById('input-file');
           e.preventDefault();
           for(var i=0; i<e.dataTransfer.files.length; i++) {
             let playli = document.createElement('li');
             let span = document.createElement('span');
             span.innerHTML = i+1 + '.';
             let liName = e.dataTransfer.files[i].name.substring(0,e.dataTransfer.files[i].name.lastIndexOf('.'));
-            console.log(liName.split('-'));
+            // console.log(liName.split('-'));
             playli.innerHTML = liName;
             playli.setAttribute('musicname',liName.split('-')[1].trim())
             playli.insertBefore(span,playli.firstChild);
             playlistul.insertBefore(playli,playlistul.firstChild);
+						musicfile.files[i] = e.dataTransfer.files[i];
           }
-          let playlistli = document.getElementsByClassName('play-list-ul')[0].children;
+          let playlistli = document.getElementsByClassName('list-ul2')[0].children;
           for(var j=0; j<playlistli.length; j++) {
             playlistli[j].setAttribute('num',j);
-            playlistli[j].children[0].innerHTML = j+1 + '.';    
+            playlistli[j].children[0].innerHTML = j+1 + '.';
           }
+					that.inputfile(e.dataTransfer.files)
+					that.showheader2();
         });
       },
+			inputfile(file) {
+					// let filelist = event.currentTarget.files;
+					let playlistul = document.getElementsByClassName('list-ul2')[0];
+					let that = this;
+					for(var i=0; i<file.length; i++) {
+						let files = file[i];
+						readFile(files);
+						playlistul.children[i].setAttribute('datasrc',this.dragsrc);
+						// console.log(this.dragsrc)
+					}
+					function readFile(files) {
+						var reader = new FileReader();
+						reader.readAsDataURL(files);
+						// console.log(reader.readyState);
+						// reader.onprogress = function(e) {
+						// 	console.log(e);
+						// }
+						reader.onload = function(e) {
+							// document.getElementById('audios').src = e.target.result;
+							that.dragsrc = e.target.result;
+							// console.log(that.dragsrc)
+						}
+					}
+			},
+			headerlist() {
+				let headerul = document.getElementsByClassName('list-header-ul')[0];
+				if(this.headerul == 0) {
+					headerul.style.display = 'block';
+					this.headerul = 1;
+				}else {
+					headerul.style.display = 'none';
+					this.headerul = 0;
+				}
+			},
+			showheader1() {
+				let headerul = document.getElementsByClassName('list-header-ul')[0];
+				let listul1 = document.getElementsByClassName('play-list-ul')[0];
+				let listul2 = document.getElementsByClassName('list-ul2')[0];
+				headerul.children[1].setAttribute('class','');
+				headerul.children[0].setAttribute('class','choose');
+				listul1.style.left = '0px';
+				listul2.style.left = '-230px';
+			},
+			showheader2() {
+				let headerul = document.getElementsByClassName('list-header-ul')[0];
+				let listul2 = document.getElementsByClassName('list-ul2')[0];
+				let listul1 = document.getElementsByClassName('play-list-ul')[0];
+				headerul.children[0].setAttribute('class','');
+				headerul.children[1].setAttribute('class','choose');
+				listul2.style.left = '0px';
+				listul1.style.left = '-230px';
+			}
 		},
 		mounted() {
 			this.getMusicData();
@@ -854,6 +924,11 @@
 			let musicWave = document.getElementsByClassName('music-wave')[0];
 			let playList = document.getElementsByClassName('music-play-list')[0];
 			let that = this;
+			document.addEventListener('click',function() {
+				let headerul = document.getElementsByClassName('list-header-ul')[0];
+				headerul.style.display = 'none';
+				that.headerul = 0;
+			})
 			audio.addEventListener('timeupdate',function() {
 				if(audio.ended) {
 					for(var i=0; i<that.musicData.length; i++) {
@@ -935,6 +1010,16 @@
 	@import "../style/wave.css";*/
 </style>
 <style>
+  .file {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  .hidden {
+    display: none;
+  }
+
 	.music-lrc {
 			position: absolute;
 			width: 100%;
@@ -1089,14 +1174,54 @@
     box-shadow: 0 0 5px #000, inset 0 0 5px rgba(255, 255, 255, 0.2);
     text-align: center;
     background-color: rgba(238,173,91,1);
-    cursor: default;
+    cursor: pointer;
 		position: absolute;
 		z-index: 99;
 		border-radius: 5px;
+		transition: all .3s;
+	}
+
+	.play-list-header:hover {
+		background-color: rgba(238,160,70,1);
+	}
+
+	.list-header-ul {
+		position: absolute;
+		top: 61px;
+		font-size: 16px;
+		left: 0;
+		width: 100%;
+		z-index: 100;
+		display: none;
+	}
+
+	.list-header-ul li {
+		text-align: center;
+		background: rgba(0,0,0,0.5);
+		border-radius: 5px;
+		transition: all .1s;
+		cursor: pointer;
+	}
+
+	.list-header-ul li:hover {
+		background: rgba(238, 171, 81, 0.5);
+	}
+
+	.list-header-ul .choose {
+		background: rgba(238, 171, 81, 0.5);
+	}
+
+	.list-header-ul li:first-child {
+		border-bottom: 1px solid rgba(255,255,255,0.3);
+	}
+
+	.list-ul2 {
+		left: -230px;
 	}
 
 
-	.play-list-ul {
+
+	.list-ul {
 		width: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
@@ -1104,12 +1229,12 @@
     /*max-height: calc(100% - 60px);*/
 		height: auto;
 		position: absolute;
-		transition: top .3s;
+		transition: all .3s;
 		top: 60px;
 		z-index: 50;
 	}
 
-	.play-list-ul li {
+	.list-ul li {
 		border-bottom: 1px solid #555;
     padding: 15px;
     color: #fff;
@@ -1124,18 +1249,18 @@
 		z-index: 50;
 	}
 
-	.play-list-ul li span {
+	.list-ul li span {
 		float: left;
 		font-size: 16px;
 	}
 
-	.play-list-ul li:hover {
+	.list-ul li:hover {
 		background-color: #aaa;
     color: rgb(212, 70, 111);
     box-shadow: inset -1px 0 2px rgba(255, 255, 255, 0.8);
 	}
 
-	.play-list-ul .playing {
+	.list-ul .playing {
 		color: rgb(212, 70, 111);
     background-color: skyblue !important;
     box-shadow: inset 0 0 3px rgba(0, 0, 0, 1) !important;

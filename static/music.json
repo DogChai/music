@@ -1,11 +1,5 @@
 [
-    
     {
-      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E4%B8%8A%E5%8C%97%E5%81%A5%20-%20false%20color.mp3",
-      "name": "false color",
-      "singer": "上北健",
-      "playBool":false
-    },{
       "url": "http://ohx9cuj3d.bkt.clouddn.com/%E4%B8%8A%E5%8C%97%E5%81%A5%20-%20%E6%9C%88%E3%81%8C%E7%B6%BA%E9%BA%97.mp3",
       "name": "月が綺麗",
       "singer": "上北健",
@@ -145,12 +139,7 @@
       "name": "Follow The Wind",
       "singer": "July",
       "playBool":false
-    }, {
-      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E7%84%A1%E5%8A%9BP%20-%20Kyrie.mp3",
-      "name": "Kyrie",
-      "singer": "無力P",
-      "playBool":false
-    }, {
+    },{
       "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9C%88%E4%BB%A3%E5%BD%A9%20-%20%E3%81%82%E3%81%AE%E5%B0%8F%E3%81%95%E3%81%AA%E6%98%9F%E7%A9%BA.mp3",
       "name": "あの小さな星空",
       "singer": "月代彩",
@@ -230,12 +219,7 @@
       "name": "Autumn Leaf",
       "singer": "Re：plus",
       "playBool":false
-    }, {
-      "url": "http://ohx9cuj3d.bkt.clouddn.com/DAISHI%20DANCE%20-%20WIND%20LINER.mp3",
-      "name": "WIND LINER",
-      "singer": "DAISHI DANCE",
-      "playBool":false
-    }, {
+    },{
       "url": "http://ohx9cuj3d.bkt.clouddn.com/Pax%20Japonica%20Groove%20-%20Million%20Mind.mp3",
       "name": "Million Mind",
       "singer": "Pax Japonica Groove",
