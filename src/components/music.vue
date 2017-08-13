@@ -46,12 +46,14 @@
 				<li v-on:click='showheader2()'>我的音乐</li>
 			</ul>
 			<ul class="play-list-ul list-ul">
-				<li v-for='(item,index) in musicData' :Num="index" :musicName='item.name' v-on:click='listClick(),getLrc()'>
+				<li v-for='(item,index) in musicData' :num="index" :musicName='item.name' v-on:click='listClick(),getLrc()'>
 					<span>{{index + 1}}.</span>{{item.name}} - {{item.singer}}
 				</li>
 			</ul>
 			<ul class="list-ul list-ul2">
-
+				<li v-for='(item,index) in dragObj' :num='index' :musicName='item.name' :datasrc='item.url' v-on:click='li2click()'>
+					<span>{{index + 1}}</span>{{item.name}} - {{item.singer}}
+				</li>
 			</ul>
 		</div>
 		<div class="music-top">
@@ -81,7 +83,7 @@
 		},
 		data() {
 			return {
-				dragsrc: '',
+				dragObj: [],
 				headerul: 0,
 				ulTop: 0,
 				curtime: 0,
@@ -702,6 +704,17 @@
 					this.playmusic();
 				}
 			},
+			// 第二列表点击
+			li2click() {
+				// 监听我的音乐列表是否被点击
+				let audio = document.getElementById('audios');
+				let musicshowname = document.getElementsByClassName('music-show-name')[0];
+				let thisurl = event.currentTarget.getAttribute('datasrc');
+				let thisnum = event.currentTarget.getAttribute('num');
+
+				audio.src = thisurl;
+				musicshowname.innerHTML = this.dragObj[thisnum].name + ' - ' + this.dragObj[thisnum].singer
+			},
 			// 获得列表第一首歌信息
 			firstGet() {
 				let musicShowName = document.getElementsByClassName('music-show-name')[0];
@@ -829,60 +842,64 @@
 			},
       //歌曲拖拽
       dropmusic() {
-				let that = this;
-        document.addEventListener("dragover",function(e) {
-          e.preventDefault();
-          console.log('22');
-        });
-        document.addEventListener("drop",function(e) {
-          let playlistul = document.getElementsByClassName('list-ul2')[0];
-					let musicfile = document.getElementById('input-file');
-          e.preventDefault();
-          for(var i=0; i<e.dataTransfer.files.length; i++) {
-            let playli = document.createElement('li');
-            let span = document.createElement('span');
-            span.innerHTML = i+1 + '.';
-            let liName = e.dataTransfer.files[i].name.substring(0,e.dataTransfer.files[i].name.lastIndexOf('.'));
-            // console.log(liName.split('-'));
-            playli.innerHTML = liName;
-            playli.setAttribute('musicname',liName.split('-')[1].trim())
-            playli.insertBefore(span,playli.firstChild);
-            playlistul.insertBefore(playli,playlistul.firstChild);
-						musicfile.files[i] = e.dataTransfer.files[i];
-          }
-          let playlistli = document.getElementsByClassName('list-ul2')[0].children;
-          for(var j=0; j<playlistli.length; j++) {
-            playlistli[j].setAttribute('num',j);
-            playlistli[j].children[0].innerHTML = j+1 + '.';
-          }
-					that.inputfile(e.dataTransfer.files)
-					that.showheader2();
-        });
+			let that = this;
+	        document.addEventListener("dragover",function(e) {
+	          e.preventDefault();
+	          // console.log('22');
+	        });
+	        document.addEventListener("drop",function(e) {
+	          let playlistul = document.getElementsByClassName('list-ul2')[0];
+						let musicfile = document.getElementById('input-file');
+	          e.preventDefault();
+	          for(var i=0; i<e.dataTransfer.files.length; i++) {
+	            let playli = document.createElement('li');
+	            let span = document.createElement('span');
+	            // span.innerHTML = i+1 + '.';
+	            let liName = e.dataTransfer.files[i].name.substring(0,e.dataTransfer.files[i].name.lastIndexOf('.'));
+	            // that.dragObj[0].name = liName.split('-')[1].trim()
+							// console.log(that.dragObj)
+							// that.dragObj[i].singer = liName.split('-')[0].trim()
+	            // playli.innerHTML = liName;
+	            // playli.setAttribute('musicname',liName.split('-')[1].trim())
+	            // playli.insertBefore(span,playli.firstChild);
+	            // playlistul.insertBefore(playli,playlistul.firstChild);
+							let objUrl = window.URL.createObjectURL(e.dataTransfer.files[i]);
+							// that.dragObj[i].url = objUrl;
+							that.dragObj.push({name: liName.split('-')[1].trim(), singer: liName.split('-')[0].trim(),url: objUrl})
+							// console.log(that.dragObj)
+	          }
+	          // let playlistli = document.getElementsByClassName('list-ul2')[0].children;
+	          // for(var j=0; j<playlistli.length; j++) {
+	          //   playlistli[j].setAttribute('num',j);
+	          //   playlistli[j].children[0].innerHTML = j+1 + '.';
+	          // }
+						that.inputfile(e.dataTransfer.files)
+						that.showheader2();
+	        });
       },
+			//列表信息自动刷新 暂时废弃
 			inputfile(file) {
 					// let filelist = event.currentTarget.files;
-					let playlistul = document.getElementsByClassName('list-ul2')[0];
-					let that = this;
-					for(var i=0; i<file.length; i++) {
-						let files = file[i];
-						readFile(files);
-						playlistul.children[i].setAttribute('datasrc',this.dragsrc);
-						// console.log(this.dragsrc)
-					}
-					function readFile(files) {
-						var reader = new FileReader();
-						reader.readAsDataURL(files);
-						// console.log(reader.readyState);
-						// reader.onprogress = function(e) {
-						// 	console.log(e);
-						// }
-						reader.onload = function(e) {
-							// document.getElementById('audios').src = e.target.result;
-							that.dragsrc = e.target.result;
-							// console.log(that.dragsrc)
-						}
-					}
+					// let playlistul = document.getElementsByClassName('list-ul2')[0];
+					// let that = this;
+					// for(var i=0; i<file.length; i++) {
+					// 	let files = file[i];
+					// 	// readFile(files);
+					// 	playlistul.children[i].setAttribute('datasrc',that.dragObj[i].url);
+					// }
+					// function readFile(files) {
+					// 	var reader = new FileReader();
+					// 	reader.readAsDataURL(files);
+					// 	// console.log(reader.readyState);
+					// 	// reader.onprogress = function(e) {
+					// 	// 	console.log(e);
+					// 	// }
+					// 	reader.onload = function(e) {
+					// 		// that.dragsrc = e.target.result;
+					// 	}
+					// }
 			},
+			// playlist点击
 			headerlist() {
 				let headerul = document.getElementsByClassName('list-header-ul')[0];
 				if(this.headerul == 0) {
@@ -893,6 +910,7 @@
 					this.headerul = 0;
 				}
 			},
+			// 推荐音乐
 			showheader1() {
 				let headerul = document.getElementsByClassName('list-header-ul')[0];
 				let listul1 = document.getElementsByClassName('play-list-ul')[0];
@@ -902,6 +920,7 @@
 				listul1.style.left = '0px';
 				listul2.style.left = '-230px';
 			},
+			// 我的音乐
 			showheader2() {
 				let headerul = document.getElementsByClassName('list-header-ul')[0];
 				let listul2 = document.getElementsByClassName('list-ul2')[0];
@@ -929,6 +948,8 @@
 				headerul.style.display = 'none';
 				that.headerul = 0;
 			})
+
+			// 监听音乐是否结束
 			audio.addEventListener('timeupdate',function() {
 				if(audio.ended) {
 					for(var i=0; i<that.musicData.length; i++) {
@@ -956,11 +977,16 @@
 					}
 				}
 			});
+
 			that.timeActive();
+
+			// 加载完成 界面宽度自适应
 			musicTop.style.width = window.innerWidth + 'px';
 			musicLrc.style.height = window.innerHeight - 85 - 100 + 'px';
 			musicLrc.style.height = musicLrc.offsetHeight + 50 + 'px';
 			musicWave.style.height = window.innerHeight - 85 - 100 + 'px';
+
+			// 浏览器宽高度改变 自适应
 			window.addEventListener('resize',function() {
 				if(playList.style.transform == 'translate(0px)') {
 					musicTop.style.width = window.innerWidth - 232 + 'px';
@@ -974,6 +1000,8 @@
 				// musicLrc.style.height = window.innerHeight - 85 - 100 + 'px';
 				musicWave.style.height = window.innerHeight - 85 - 100 + 'px';
 			})
+
+			//按下空格暂停/播放
 			document.onkeydown = function(e) {
 				if(e && e.keyCode == 32) {
 					that.playmusic();
@@ -994,6 +1022,8 @@
 				    that.showmy();
 				  }
 				},
+				dragObj: function(val,oldVal) {
+				}
 				// '$route' (to,from) {
 		    //   if(to.path == '') {
 		    //     this.tabAnimation = 'slide-right'
