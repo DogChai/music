@@ -7,8 +7,6 @@ import axios from 'axios'
 import Vueaxios from 'vue-axios'
 import Router from 'vue-router'
 import Music from './components/music'
-import MusicLrc from './components/musiclrc'
-import MusicWave from './components/musicWave'
 
 Vue.config.productionTip = false
 
@@ -25,17 +23,6 @@ let router = new Router({
     },{
       path: '/music',
       component: Music,
-      // children: [
-      //   {
-      //     path: '/music/lrc',
-      //     component: MusicLrc,
-      //     name: 'lrcs'
-      //   },
-      //   {
-      //     path: '/music/wave',
-      //     component: MusicWave
-      //   }
-      // ]
     }
   ]
 })

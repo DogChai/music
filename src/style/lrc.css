@@ -1,0 +1,35 @@
+
+	.music-lrc {
+			position: absolute;
+			width: 100%;
+			top: 85px;
+			left:0;
+			bottom: 75px;
+			overflow: hidden;
+		}
+
+	.lrc-ul {
+		width: 480px;
+		height: auto;
+		position: absolute;
+		left: 50%;
+		margin-left: -240px;
+		top: 10%;
+		transition: all .6s;
+	}
+
+	.lrc-ul li {
+		padding: 5px 0px;
+		font-size: 18px;
+		height: auto;
+		box-sizing: border-box;
+		cursor: pointer;
+		transition: all .3s;
+		font-weight: bold;
+		font-family: cursive,Monaco;
+	}
+
+	.lrc-ul .playing {
+		color: black;
+		font-size: 20px;
+	}
