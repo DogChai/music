@@ -37,7 +37,6 @@
 		</div>
 		<div class="music-play-list" ref='playlist' ifshow=0>
 			<div class="play-list-header" v-on:click.stop='headerClick()'>Play List
-
 			</div>
 			<ul class='list-header-ul' ref='headerul'>
 				<li class="choose" v-on:click='showList1()'>推荐音乐</li>
@@ -51,6 +50,16 @@
 			<ul class="list-ul list-ul2" ref='listul2' myplay='false'>
 				<li v-for='(item,index) in dragData' :num='index' :musicName='item.name' :datasrc='item.url' v-on:click='listClick2()'>
 					<span>{{index + 1}}.</span>{{item.name}} - {{item.singer}}
+				</li>
+				<li class="addmy">
+					<!-- 点击添加 -->
+					<input type="file" accept='audio/mp3' id='input-file' class='file' v-on:change='getInput()'>
+					<span class='myline b-topleft add-tranition'></span>
+					<span class='myline b-bottomleft add-tranition'></span>
+					<span class='myline b-topright add-tranition'></span>
+					<span class='myline b-bottomright add-tranition'></span>
+					<span class='shu add-tranition'></span>
+					<span class='hen add-tranition'></span>
 				</li>
 			</ul>
 		</div>
@@ -132,9 +141,30 @@
 							let dragUrl = window.URL.createObjectURL(thisFiles[i]);
 							that.dragData.push({name: dragName.split('-')[1].trim(), singer: dragName.split('-')[0].trim(),url: dragUrl});
 						}
+						// that.dragData = that.dragData.filter(function(element,index,self) {
+						// 	return self.indexOf(element) === index;
+						// console.log(that.dragData);
+						// });
 					}
 					that.showList2();
 				})
+
+			},
+			//通过input得到歌曲
+			getInput() {
+				let thisFiles = event.currentTarget.files;
+				let thisIndex = thisFiles[0].name.lastIndexOf('.');
+				let ext = thisFiles[0].name.substr(thisIndex + 1);
+				if(ext == 'mp3') {
+					let dragName = thisFiles[0].name.substring(0,thisFiles[0].name.lastIndexOf('.'));
+					let dragUrl = window.URL.createObjectURL(thisFiles[0]);
+					this.dragData.push({name: dragName.split('-')[1].trim(), singer: dragName.split('-')[0].trim(),url: dragUrl});
+				}
+				this.dragData = this.dragData.filter(function(element,index,self) {
+					console.log(element.name,element[index].name)
+					return self.indexOf(element) === index;
+				});
+				// console.log(this.dragData);
 			},
 			//获得歌词
 			getLrcFile(n) {
@@ -622,8 +652,12 @@
 						that.musicEndsPlay();
 					}
 				}else {
-					for(var i=0; i<this.$refs.listul2.children.length; i++) {
-						this.$refs.listul2.children[i].setAttribute('class','');
+					for(var i=0; i<that.$refs.listul2.children.length; i++) {
+						if(that.$refs.listul2.children[i].getAttribute('class') == 'addmy') {
+
+						}else {
+							that.$refs.listul2.children[i].setAttribute('class','');
+						}
 					}
 					if(that.ifCut == 0) {
 						//顺序播放
@@ -679,8 +713,12 @@
 						that.musicEndsPlay();
 					}
 				}else {
-					for(var i=0; i<this.$refs.listul2.children.length; i++) {
-						this.$refs.listul2.children[i].setAttribute('class','');
+					for(var i=0; i<that.$refs.listul2.children.length; i++) {
+						if(that.$refs.listul2.children[i].getAttribute('class') == 'addmy') {
+
+						}else {
+							that.$refs.listul2.children[i].setAttribute('class','');
+						}
 					}
 					if(that.ifCut == 0) {
 						//顺序播放
@@ -765,7 +803,7 @@
 				let thisNum = this_.getAttribute('num') - 0;
 				this.audioUrl = this.dragData[thisNum].url;
 				this.$refs.listul2.setAttribute('myplay','true');
-				this.dragNum = this_.getAttribute('num');
+				this.dragNum = thisNum;
 				for(var i=0; i<this.musicData.length; i++) {
 					this.$refs.listul.children[i].setAttribute('class','');
 				}
@@ -774,7 +812,11 @@
 					this.playMusic();
 				}else {
 					for(var i=0; i<this.$refs.listul2.children.length; i++) {
-						this.$refs.listul2.children[i].setAttribute('class','');
+						if(this.$refs.listul2.children[i].getAttribute('class') == 'addmy') {
+
+						}else {
+							this.$refs.listul2.children[i].setAttribute('class','');
+						}
 					}
 					audio.src = this.audioUrl;
 					this.ifPlay = true;
@@ -793,7 +835,8 @@
 			this.getMusicTime();
 			let that = this;
 			let audio = document.getElementById('audio');
-			// let playList = document.getElementsByClassName('music-play-list')[0];
+			let playlist = document.getElementsByClassName('music-play-list')[0];
+
 			//空格事件
 			document.onkeydown = function(e) {
 				if(e && e.keyCode == 32) {
@@ -819,7 +862,7 @@
 			// 浏览器宽高度改变 自适应
 			window.addEventListener('resize',function() {
 
-				if(that.$refs.playlist.getAttribute('ifshow') == '1') {
+				if(playlist.getAttribute('ifshow') == '1') {
 					// console.log(1);
 					that.$refs.musictop.style.width = window.innerWidth - 232 + 'px';
 					that.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
@@ -863,7 +906,11 @@
 						}
 					}else {
 						for(var i=0; i<that.$refs.listul2.children.length; i++) {
-							that.$refs.listul2.children[i].setAttribute('class','');
+							if(that.$refs.listul2.children[i].getAttribute('class') == 'addmy') {
+
+							}else {
+								that.$refs.listul2.children[i].setAttribute('class','');
+							}
 						}
 						if(that.ifCut == 0) {
 							//顺序播放
@@ -898,7 +945,7 @@
 				//鼠标右击事件
 				document.oncontextmenu = function(e) {
 					that.showList();
-					e.returnValue=false;
+					// e.returnValue=false;
 				}
 			}
 		}

@@ -117,3 +117,123 @@
   background-color: skyblue !important;
   box-shadow: inset 0 0 3px rgba(0, 0, 0, 1) !important;
 }
+
+.list-ul2 .addmy {
+  padding: 0;
+  margin: 3px auto 3px ;
+  width: 98%;
+  height: 70px;
+  line-height: 70px;
+  position: relative;
+  border-bottom: none;
+}
+
+.list-ul2 .addmy .myline {
+  position: absolute;
+  width: 30px;
+  height: 22px;
+}
+
+.list-ul2 .addmy .add-tranition {
+  transition: all .2s;
+}
+
+.list-ul2 .addmy .b-topleft {
+  left: 5px;
+  top: 3px;
+  border-top: 2px dashed white;
+  border-left: 2px dashed white;
+}
+
+.list-ul2 .addmy .b-bottomleft {
+  left: 5px;
+  bottom: 3px;
+  border-bottom: 2px dashed white;
+  border-left: 2px dashed white;
+}
+
+.list-ul2 .addmy .b-topright {
+  right: 5px;
+  top: 3px;
+  border-top: 2px dashed white;
+  border-right: 2px dashed white;
+}
+
+.list-ul2 .addmy .b-bottomright {
+  right: 5px;
+  bottom: 3px;
+  border-bottom: 2px dashed white;
+  border-right: 2px dashed white;
+}
+
+.list-ul2 .addmy .shu {
+  position: absolute;
+  height: 45px;
+  width: 2px;
+  background: white;
+  left: 110px;
+  top: 12px;
+}
+
+.list-ul2 .addmy .hen {
+  position: absolute;
+  width: 45px;
+  height: 2px;
+  background: white;
+  top: 33px;
+  left: 89px;
+}
+
+.list-ul2 .addmy:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+.list-ul2 .addmy:hover .shu{
+  height: 38px;
+  width: 2px;
+  background: white;
+  left: 110px;
+  top: 16px;
+}
+
+.list-ul2 .addmy:hover .hen{
+  width: 38px;
+  height: 2px;
+  background: white;
+  top: 33px;
+  left: 92px;
+}
+
+.list-ul2 .addmy:hover .myline {
+  width: 25px;
+  height: 20px;
+}
+
+.list-ul2 .addmy:hover .b-topleft {
+  left: 10px;
+  top: 7px;
+}
+
+.list-ul2 .addmy:hover .b-bottomleft {
+  left: 10px;
+  bottom: 7px;
+}
+
+.list-ul2 .addmy:hover .b-topright {
+  right: 10px;
+  top: 7px;
+}
+
+.list-ul2 .addmy:hover .b-bottomright {
+  right: 10px;
+  bottom: 7px;
+}
+
+.file {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
