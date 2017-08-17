@@ -50,6 +50,9 @@
 			<ul class="list-ul list-ul2" ref='listul2' myplay='false'>
 				<li v-for='(item,index) in dragData' :num='index' :musicName='item.name' :datasrc='item.url' v-on:click='listClick2()'>
 					<span>{{index + 1}}.</span>{{item.name}} - {{item.singer}}
+					<div class="ul2-close">
+
+					</div>
 				</li>
 				<li class="addmy">
 					<!-- 点击添加 -->
@@ -97,7 +100,7 @@
 				listScroll2: 0, //列表2滚动位置
 				ifPlay: true, //是否播放
 				ifVol: 0,     //是否静音
-				volScales: 1, //音量大小
+				volScales: 1, //音量大小默认为1
 				planScales: 0,//进度默认为0
 				ifCut: 0,     //顺序切换
 				orderClass: 'order-play',  //默认播放顺序
@@ -140,15 +143,11 @@
 							let dragName = thisFiles[i].name.substring(0,thisFiles[i].name.lastIndexOf('.'));
 							let dragUrl = window.URL.createObjectURL(thisFiles[i]);
 							that.dragData.push({name: dragName.split('-')[1].trim(), singer: dragName.split('-')[0].trim(),url: dragUrl});
+							}
 						}
-						// that.dragData = that.dragData.filter(function(element,index,self) {
-						// 	return self.indexOf(element) === index;
-						// console.log(that.dragData);
-						// });
-					}
-					that.showList2();
+						that.clearRepeat(that.dragData,'name');
+					  that.showList2();
 				})
-
 			},
 			//通过input得到歌曲
 			getInput() {
@@ -159,12 +158,23 @@
 					let dragName = thisFiles[0].name.substring(0,thisFiles[0].name.lastIndexOf('.'));
 					let dragUrl = window.URL.createObjectURL(thisFiles[0]);
 					this.dragData.push({name: dragName.split('-')[1].trim(), singer: dragName.split('-')[0].trim(),url: dragUrl});
+					console.log(this.dragData);
 				}
-				this.dragData = this.dragData.filter(function(element,index,self) {
-					console.log(element.name,element[index].name)
-					return self.indexOf(element) === index;
-				});
-				// console.log(this.dragData);
+				this.clearRepeat(this.dragData,'name')
+			},
+			//数组对象根据键值去重
+			clearRepeat(arr,key) {
+				let res = [];
+				let obj = {};
+				for(var i=0; i<arr.length; i++) {
+					if(!obj[arr[i][key]]) {
+						obj[arr[i][key]] = [arr[i]];
+						res.push(arr[i]);
+					}else {
+						obj[arr[i][key]].push(arr[i]);
+					}
+				}
+				this.dragData = res;
 			},
 			//获得歌词
 			getLrcFile(n) {

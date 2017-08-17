@@ -8,6 +8,8 @@
   transform: translate(-230px);
   z-index: 100;
   overflow: hidden;
+  /*overflow-x: visible;
+  overflow-y: visible;*/
   border: 1px solid gray;
   box-sizing: border-box;
   background: rgba(64, 64, 64, 0.3);
@@ -75,8 +77,9 @@
 
 .list-ul {
   width: 100%;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  overflow: hidden;
+  /*overflow-x: visible;
+  overflow-y: visible;*/
   opacity: 0.8;
   /*max-height: calc(100% - 60px);*/
   height: auto;
@@ -236,4 +239,13 @@
   left: 0;
   top: 0;
   opacity: 0;
+}
+
+.ul2-close {
+  position: absolute;
+  right: -30px;
+  top: 0;
+  width: 30px;
+  height: 100%;
+  border: 1px solid gray;
 }
