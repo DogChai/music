@@ -32,7 +32,7 @@
 				</div>
 			</div>
 			<div class="music-list">
-				<a class="music-list-img" v-on:click='showList()'>{{musicData.length}}</a>
+				<a class="music-list-img" v-on:click='showList()'></a>
 			</div>
 		</div>
 		<div class="music-play-list" ref='playlist' ifshow=0>
@@ -48,10 +48,10 @@
 				</li>
 			</ul>
 			<ul class="list-ul list-ul2" ref='listul2' myplay='false'>
-				<li v-for='(item,index) in dragData' :num='index' :musicName='item.name' :datasrc='item.url' v-on:click='listClick2()'>
+				<li v-for='(item,index) in dragData' :num='index' :musicName='item.name' :datasrc='item.url' v-on:click.stop='listClick2()'>
 					<span>{{index + 1}}.</span>{{item.name}} - {{item.singer}}
-					<div class="ul2-close">
-
+					<div class="ul2-close" v-on:click.stop='removeLi()'>
+						×
 					</div>
 				</li>
 				<li class="addmy">
@@ -95,6 +95,7 @@
 				musicData:[], //音乐数组
 				dragData:[],  //拖拽数组
 				dragLrc: [],  //拖拽歌词数组
+				dragMusicUrl: [],
 				listShow: 0,  //列表显示判断
 				listScroll: 0,//列表滚动位置
 				listScroll2: 0, //列表2滚动位置
@@ -116,6 +117,7 @@
 				lrcTime: {},  //歌曲时间轴
 				lrcSecond: 0, //歌词毫秒数
 				resizeHeight: 0,
+				ifMy: 0,      //判断是在哪个播放列表
 			}
 		},
 		methods: {
@@ -175,11 +177,13 @@
 					}
 				}
 				this.dragData = res;
+				this.saveMusic();
 			},
 			//获得歌词
 			getLrcFile(n) {
+				// music/
 				if(this.$refs.listul2.getAttribute('myplay') == 'false') {
-					axios.get('../../static/lrc/'+ n + '.lrc').then((response) => {
+					axios.get('../../music/static/lrc/'+ n + '.lrc').then((response) => {
 						if(response.data == '纯音乐,请欣赏') {
 							this.lrcData = response.data;
 							this.showLrc();
@@ -458,7 +462,7 @@
 						lisHeight += that.$refs.listul2.children[i].offsetHeight;
 					}
 					if(lisHeight <	that.$refs.playlist.offsetHeight - 61) {
-						console.log('111');
+						// console.log('111');
 					}else {
 						if(e.wheelDelta < 0) {
 							//向上滚动
@@ -766,17 +770,21 @@
 			},
 			//切换推荐音乐列表
 			showList1() {
+				this.ifMy = 0;
 				this.$refs.headerul.children[1].setAttribute('class','');
 				this.$refs.headerul.children[0].setAttribute('class','choose');
 				this.$refs.listul.style.left = '0';
 				this.$refs.listul2.style.left = '-230px';
+				this.listNum();
 			},
 			//切换我的音乐列表
 			showList2() {
+				this.ifMy = 1;
 				this.$refs.headerul.children[0].setAttribute('class','');
 				this.$refs.headerul.children[1].setAttribute('class','choose');
 				this.$refs.listul2.style.left = '0';
 				this.$refs.listul.style.left = '-230px';
+				this.listNum();
 			},
 			//列表点击
 			listClick() {
@@ -836,6 +844,34 @@
 				}
 				this.getLrcFile(this.dragData[this.dragNum].name)
 			},
+			//切换列表音乐数量
+			listNum() {
+				let musiclist = document.getElementsByClassName('music-list-img')[0];
+				if(this.ifMy == 0) {
+					musiclist.innerHTML = this.musicData.length;
+				}else {
+					musiclist.innerHTML = this.dragData.length;
+				};
+			},
+			//移除我的音乐
+			removeLi() {
+				let thisClose = event.currentTarget;
+				let thisLi = thisClose.parentNode;
+				let thisNum = thisLi.getAttribute('num');
+				this.dragData.splice(thisNum,1);
+				window.localStorage.clear();
+				this.saveMusic();
+				// thisLi.parentNode.removeChild(thisLi);
+			},
+			//localStorage存储歌曲
+			saveMusic() {
+				// for(var i=0; i<this.dragData.length; i++) {
+				// 	window.localStorage['name'+i] = this.dragData[i].name;
+				// 	window.localStorage['singer'+i]= this.dragData[i].singer;
+				// 	window.localStorage['url'+i] = this.dragData[i].url;
+				// }
+				// console.log(window.localStorage)
+			},
 		},
 		mounted() {
 			this.getMusicData();
@@ -843,9 +879,17 @@
 			this.listWell();
 			this.listWell2();
 			this.getMusicTime();
+			this.saveMusic()
 			let that = this;
 			let audio = document.getElementById('audio');
 			let playlist = document.getElementsByClassName('music-play-list')[0];
+
+			if(window.localStorage.length >= 3) {
+				let ls = window.localStorage;
+				for(var i=0; i<ls.length/3; i++) {
+					that.dragData.push({name: ls['name'+i], singer: ls['singer'+i],url: ls['url'+i]});
+				}
+			}
 
 			//空格事件
 			document.onkeydown = function(e) {
@@ -868,7 +912,6 @@
 				that.$refs.musicwave.style.height = window.innerHeight - 85 - 100 + 'px';
 			}
 			onloadsize();
-
 			// 浏览器宽高度改变 自适应
 			window.addEventListener('resize',function() {
 
@@ -957,6 +1000,7 @@
 					that.showList();
 					// e.returnValue=false;
 				}
+				that.listNum();
 			}
 		}
 	}
