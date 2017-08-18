@@ -796,7 +796,11 @@
 				this.audioUrl = this.musicData[this.playNum].url;
 				this.$refs.listul2.setAttribute('myplay','false');
 				for(var i=0; i<this.$refs.listul2.children.length; i++) {
-					this.$refs.listul2.children[i].setAttribute('class','');
+					if(this.$refs.listul2.children[i].getAttribute('class') == 'addmy') {
+						//null
+					}else {
+						this.$refs.listul2.children[i].setAttribute('class','');
+					}			
 				}
 				if(audioUrls == this.audioUrl) {
 					this_.setAttribute('class','playing');
