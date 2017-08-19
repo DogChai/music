@@ -68,8 +68,8 @@
 		</div>
 		<div class="music-top" ref='musictop'>
 			<ul>
-				<li class="top-one"><a>歌词显示</a></li>
-				<li class="top-two"><a>歌曲波形</a></li>
+				<li class="top-one" v-on:click='showLrcDiv()'><a>歌词显示</a></li>
+				<li class="top-two" v-on:click='showWaveDiv()'><a>歌曲波形</a></li>
 			</ul>
 				<div class="music-lrc" ref='musiclrc'>
 			    <ul class='lrc-ul' ref='lrcul'>
@@ -87,6 +87,7 @@
 
 <script type="text/javascript">
 	import axios from 'axios'
+	import three from '../script/three.min.js'
 	export default {
 		components: {
 		},
@@ -183,7 +184,7 @@
 			getLrcFile(n) {
 				// music/
 				if(this.$refs.listul2.getAttribute('myplay') == 'false') {
-					axios.get('../../music/static/lrc/'+ n + '.lrc').then((response) => {
+					axios.get('../../static/lrc/'+ n + '.lrc').then((response) => {
 						if(response.data == '纯音乐,请欣赏') {
 							this.lrcData = response.data;
 							this.showLrc();
@@ -227,6 +228,7 @@
 						let lrcli = document.createElement('li');
 						lrcli.innerHTML = this.lrcData;
 						this.$refs.lrcul.appendChild(lrcli);
+						this.$refs.lrcul.style.top = this.$refs.musiclrc.offsetHeight / 2  - 20 + 'px';
 					}else {
 						for(var k in this.lrcObj) {
 							let lrcli = document.createElement('li');
@@ -248,6 +250,16 @@
 					this.$refs.lrcul.appendChild(lrcli);
 					this.$refs.lrcul.style.top = this.$refs.musiclrc.offsetHeight / 2 -10 + 'px';
 				}
+			},
+			//显示歌词div
+			showLrcDiv() {
+				this.$refs.musiclrc.style.opacity = 1;
+				this.$refs.musicwave.style.opacity = 0;
+			},
+			//显示波形div
+			showWaveDiv() {
+				this.$refs.musiclrc.style.opacity = 0;
+				this.$refs.musicwave.style.opacity = 1;
 			},
 			// 音乐播放/暂停
 			playMusic() {
@@ -275,7 +287,6 @@
 						that.ifPlay = true;
 					}
 				}
-
 			},
 			//静音
 			closeVol() {
@@ -421,6 +432,7 @@
 					this.$refs.musictop.style.width = window.innerWidth - 232 + 'px';
 					this.$refs.musictop.style.top = 0;
 					this.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
+					this.$refs.musicwave.style.height = window.innerHeight - 85 - 85 + 'px';
 					this.listShow = 1;
 					this.$refs.playlist.setAttribute('ifshow',1);
 				}else {
@@ -428,6 +440,7 @@
 					this.$refs.musictop.style.width = window.innerWidth + 'px';
 					this.$refs.musictop.style.top = -63 + 'px';
 					this.$refs.musiclrc.style.height = this.$refs.musiclrc.offsetHeight + 50 + 'px';
+					this.$refs.musicwave.style.height = this.$refs.musicwave.offsetHeight + 50 + 'px';
 					this.listShow = 0;
 					this.$refs.playlist.setAttribute('ifshow',0);
 				}
@@ -800,7 +813,7 @@
 						//null
 					}else {
 						this.$refs.listul2.children[i].setAttribute('class','');
-					}			
+					}
 				}
 				if(audioUrls == this.audioUrl) {
 					this_.setAttribute('class','playing');
@@ -876,6 +889,13 @@
 				// }
 				// console.log(window.localStorage)
 			},
+			//波形
+			Visualizer() {
+				// let myaudio = document.getElementById('audio');
+				// var AudioContext = AudioContext || webkitAudioContext;
+				// var context = new AudioContext;
+				// var audio = new Audio(myaudio.src);
+			},
 		},
 		mounted() {
 			this.getMusicData();
@@ -883,7 +903,8 @@
 			this.listWell();
 			this.listWell2();
 			this.getMusicTime();
-			this.saveMusic()
+			this.saveMusic();
+			this.Visualizer();
 			let that = this;
 			let audio = document.getElementById('audio');
 			let playlist = document.getElementsByClassName('music-play-list')[0];
@@ -913,7 +934,8 @@
 				that.$refs.musictop.style.width = window.innerWidth + 'px';
 				that.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
 				that.$refs.musiclrc.style.height = that.$refs.musiclrc.offsetHeight + 50 + 'px';
-				that.$refs.musicwave.style.height = window.innerHeight - 85 - 100 + 'px';
+				that.$refs.musicwave.style.height = window.innerHeight - 85 - 85 + 'px';
+				that.$refs.musicwave.style.height = that.$refs.musicwave.offsetHeight + 50 + 'px';
 			}
 			onloadsize();
 			// 浏览器宽高度改变 自适应
@@ -923,13 +945,14 @@
 					// console.log(1);
 					that.$refs.musictop.style.width = window.innerWidth - 232 + 'px';
 					that.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
+					that.$refs.musicwave.style.height = window.innerHeight - 85 - 100 + 'px';
 				}else {
 					that.$refs.musictop.style.width = window.innerWidth + 'px';
 					that.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
 					that.$refs.musiclrc.style.height = that.$refs.musiclrc.offsetHeight + 50 + 'px';
+					that.$refs.musicwave.style.height = window.innerHeight - 85 - 85 + 'px';
+					that.$refs.musicwave.style.height = that.$refs.musicwave.offsetHeight + 50 + 'px';
 				}
-				that.$refs.musicwave.style.height = window.innerHeight - 85 - 100 + 'px';
-				that.resizeHeight = window.innerHeight;
 			})
 
 			//音乐监听

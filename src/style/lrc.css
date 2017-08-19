@@ -5,7 +5,9 @@
 			top: 85px;
 			left:0;
 			bottom: 75px;
+			opacity: 1;
 			overflow: hidden;
+			transition: opacity .3s;
 		}
 
 	.lrc-ul {
