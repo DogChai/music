@@ -1,6 +1,6 @@
 <template>
 	<div class="music">
-		<audio id="audio" ref='audio' dataNum=0></audio>
+		<audio id="audio" ref='audio' crossOrigin="anonymous" dataNum=0 ></audio>
     <input type="file" accept='audio/mp3' id='input-file' class='hidden file'>
 		<div class="music-wrap">
 			<div class="music-btn">
@@ -77,9 +77,7 @@
 			    </ul>
 			  </div>
 				<div class="music-wave" ref='musicwave'>
-					<div class="wave-center">
-						敬请期待
-					</div>
+						<canvas id="canvas" :width='this.waveWidth+120'  :height='this.waveHeight'  ></canvas>
 				</div>
 		</div>
 	</div>
@@ -87,7 +85,6 @@
 
 <script type="text/javascript">
 	import axios from 'axios'
-	import three from '../script/three.min.js'
 	export default {
 		components: {
 		},
@@ -97,6 +94,8 @@
 				dragData:[],  //拖拽数组
 				dragLrc: [],  //拖拽歌词数组
 				dragMusicUrl: [],
+				waveWidth: 0,
+				waveHeight: 0,
 				listShow: 0,  //列表显示判断
 				listScroll: 0,//列表滚动位置
 				listScroll2: 0, //列表2滚动位置
@@ -184,7 +183,7 @@
 			getLrcFile(n) {
 				// music/
 				if(this.$refs.listul2.getAttribute('myplay') == 'false') {
-					axios.get('../../static/lrc/'+ n + '.lrc').then((response) => {
+					axios.get('../../music/static/lrc/'+ n + '.lrc').then((response) => {
 						if(response.data == '纯音乐,请欣赏') {
 							this.lrcData = response.data;
 							this.showLrc();
@@ -432,9 +431,12 @@
 					this.$refs.musictop.style.width = window.innerWidth - 232 + 'px';
 					this.$refs.musictop.style.top = 0;
 					this.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
-					this.$refs.musicwave.style.height = window.innerHeight - 85 - 85 + 'px';
+					this.$refs.musicwave.style.height = window.innerHeight - 85 - 200 + 'px';
 					this.listShow = 1;
 					this.$refs.playlist.setAttribute('ifshow',1);
+					this.waveWidth = this.$refs.musicwave.offsetWidth;
+					this.waveHeight = this.$refs.musicwave.offsetHeight;
+					// this.Visualizer();
 				}else {
 					this.$refs.playlist.style.transform = 'translate(-230px)';
 					this.$refs.musictop.style.width = window.innerWidth + 'px';
@@ -443,6 +445,9 @@
 					this.$refs.musicwave.style.height = this.$refs.musicwave.offsetHeight + 50 + 'px';
 					this.listShow = 0;
 					this.$refs.playlist.setAttribute('ifshow',0);
+					this.waveWidth = this.$refs.musicwave.offsetWidth;
+					this.waveHeight = this.$refs.musicwave.offsetHeight;
+					// this.Visualizer();
 				}
 			},
 			//列表滚动
@@ -891,11 +896,139 @@
 			},
 			//波形
 			Visualizer() {
-				// let myaudio = document.getElementById('audio');
-				// var AudioContext = AudioContext || webkitAudioContext;
-				// var context = new AudioContext;
-				// var audio = new Audio(myaudio.src);
+				//获得音乐链接
+				var audiosrc = document.getElementById('audio');
+
+				// 创建上下文，audio context;
+				var audioCtx = window.AudioContext || window.webkitAudioContext;
+				var ctx = new audioCtx();
+
+				var audioSrc = ctx.createMediaElementSource(audiosrc);
+				var analyser = ctx.createAnalyser();
+
+				audioSrc.connect(analyser);
+				analyser.connect(ctx.destination);
+				// analyser.fftSize = 256;
+
+				var canvas = document.getElementById('canvas');
+        var meterWidth = 18;
+        var gap = 2;
+        var capHeight = 5;
+        var capStyle = '#fff';
+				var b = 'rgb(174,201,240)';
+				var r = 'rgb(228,89,135)';
+				var y = 'rgb(243,233,168)';
+        var capYPositionArray = [];
+		    var ctx = canvas.getContext('2d');
+		    var gradient = ctx.createLinearGradient(0, 0, 0, 300);
+		    gradient.addColorStop(1, '#0f0');
+		    gradient.addColorStop(0.5, '#ff0');
+		    gradient.addColorStop(0, '#f00');
+
+				function renderFrame() {
+					var cwidth = canvas.width;
+	        var cheight = canvas.height - 2;
+					var meterNum = cwidth / (18 + 2);
+					var three = Math.ceil(Math.random() * 2);
+					var array = new Uint8Array(analyser.frequencyBinCount);
+        	analyser.getByteFrequencyData(array);
+					analyser.fftSize = 4096;
+        	var step = Math.round(array.length / meterNum);
+        	ctx.clearRect(0, 0, cwidth, cheight);
+        	for (var i = 0; i < meterNum; i++) {
+            var value = array[i * step];
+            if (capYPositionArray.length < Math.round(meterNum)) {
+                capYPositionArray.push(value);
+            };
+						if(i%5 == 0) {
+							ctx.fillStyle = b;
+						}else if(i%2==0) {
+							ctx.fillStyle = r;
+						}else {
+							ctx.fillStyle = y;
+						}
+
+            if (value < capYPositionArray[i]) {
+                ctx.fillRect(i * 20, cheight - (--capYPositionArray[i]), meterWidth, capHeight + 5);
+
+            } else {
+                ctx.fillRect(i * 20, cheight - value, meterWidth, capHeight + 5);
+                capYPositionArray[i] = value;
+								if(value == 0) {
+									// console.log(capYPositionArray[i]);
+									ctx.fillRect(i * 20,cheight - value + capHeight - 20,meterWidth,capHeight + 9);
+								}
+            };
+						if(i%3 == 0) {
+							ctx.fillStyle = b;
+						}else if(i%2==0) {
+							ctx.fillStyle = r;
+						}else {
+							ctx.fillStyle = y;
+						}
+
+						//波形图主波形
+						ctx.fillRect(i * 20  , cheight - value + capHeight + 15, meterWidth, cheight);
+        	}
+					// console.log(cheight);
+					requestAnimationFrame(renderFrame);
+				}
+				renderFrame();
 			},
+			//波形1
+			Visualizer1() {
+				var a = document.getElementById('audio');
+				var AudioCtx = window.AudioContext || window.webkitAudioContext;
+				var ACtx = new AudioCtx();
+				var source = ACtx.createMediaElementSource(a);
+				var analyser = ACtx.createAnalyser();
+				source.connect(analyser);
+				analyser.connect(ACtx.destionation);
+
+				function drawAudio() {
+					var canvas = document.getElementById('canvas');
+					var ctx = canvas.getContext('2d');
+					var c_width = canvas.width;
+					var c_height = canvas.height;
+
+					//条形参数
+					var bar_width = 20;
+					var bar_gap = 2;
+					var bar_part = bar_width + bar_gap;
+					var bar_num = Math.round(c_width / bar_part);
+
+					//线条高度
+					var cap_height = 2;
+
+					//获取音频数据
+					var bufferLength = analyser.frequencyBinCount;
+					var dataArray = new Uint8Array(bufferLength);
+
+					//每段包含的频谱宽
+					var array_width = Math.round(bufferLength / bar_num);
+
+					// 变量提前,i 表示变量, value表示音频值, isStop表示上方线条的结束
+					var i,value,isStop;
+					var that = this;
+
+					//创建数组，线条数组，判断动画结束
+					var array = [];
+					var animation_id = null;
+
+					function drawVisual() {
+						analyser.getByteFrequencyData(dataArray);
+						if(that.ifPlay) {
+							isStop = true;
+							for(i = dataArray.length - 1; i >= 0; i--) {
+								dataArray[i] = 0;
+							}
+						}
+
+						//使其静止时图为空
+
+					}
+				}
+			}
 		},
 		mounted() {
 			this.getMusicData();
@@ -904,7 +1037,6 @@
 			this.listWell2();
 			this.getMusicTime();
 			this.saveMusic();
-			this.Visualizer();
 			let that = this;
 			let audio = document.getElementById('audio');
 			let playlist = document.getElementsByClassName('music-play-list')[0];
@@ -934,8 +1066,10 @@
 				that.$refs.musictop.style.width = window.innerWidth + 'px';
 				that.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
 				that.$refs.musiclrc.style.height = that.$refs.musiclrc.offsetHeight + 50 + 'px';
-				that.$refs.musicwave.style.height = window.innerHeight - 85 - 85 + 'px';
+				that.$refs.musicwave.style.height = window.innerHeight - 85 - 200 + 'px';
 				that.$refs.musicwave.style.height = that.$refs.musicwave.offsetHeight + 50 + 'px';
+				that.waveWidth = that.$refs.musicwave.offsetWidth;
+				that.waveHeight = that.$refs.musicwave.offsetHeight;
 			}
 			onloadsize();
 			// 浏览器宽高度改变 自适应
@@ -945,18 +1079,25 @@
 					// console.log(1);
 					that.$refs.musictop.style.width = window.innerWidth - 232 + 'px';
 					that.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
-					that.$refs.musicwave.style.height = window.innerHeight - 85 - 100 + 'px';
+					that.$refs.musicwave.style.height = window.innerHeight - 85 - 200 + 'px';
+					that.waveWidth = that.$refs.musicwave.offsetWidth;
+					that.waveHeight = that.$refs.musicwave.offsetHeight;
+					// that.Visualizer();
 				}else {
 					that.$refs.musictop.style.width = window.innerWidth + 'px';
 					that.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
 					that.$refs.musiclrc.style.height = that.$refs.musiclrc.offsetHeight + 50 + 'px';
-					that.$refs.musicwave.style.height = window.innerHeight - 85 - 85 + 'px';
+					that.$refs.musicwave.style.height = window.innerHeight - 85 - 200 + 'px';
 					that.$refs.musicwave.style.height = that.$refs.musicwave.offsetHeight + 50 + 'px';
+					that.waveWidth = that.$refs.musicwave.offsetWidth;
+					that.waveHeight = that.$refs.musicwave.offsetHeight;
+					// that.Visualizer();
 				}
 			})
 
 			//音乐监听
 			audio.addEventListener('timeupdate',function() {
+				// that.Visualizer();
 				if(audio.ended) {
 					if(that.$refs.listul2.getAttribute('myplay') == 'false') {
 						for(var i=0; i<that.musicData.length; i++) {
@@ -1022,10 +1163,11 @@
 			musicData: function(val,oldVal) {
 				let that = this;
 				that.firstGet();
+				that.Visualizer();
 				//鼠标右击事件
 				document.oncontextmenu = function(e) {
 					that.showList();
-					// e.returnValue=false;
+					e.returnValue=false;
 				}
 				that.listNum();
 			}
