@@ -1198,7 +1198,7 @@
 				//鼠标右击事件
 				document.oncontextmenu = function(e) {
 					that.showList();
-					// e.returnValue=false;
+					e.returnValue=false;
 				}
 				that.listNum();
 			}
