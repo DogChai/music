@@ -71,6 +71,17 @@
 				<li class="top-one" v-on:click='showLrcDiv()'><a>歌词显示</a></li>
 				<li class="top-two" v-on:click='showWaveDiv()'><a>歌曲波形</a></li>
 			</ul>
+			<div class="choose-img">
+				<span class="imgurl choose1" imgurl='http://ogm5at7ve.bkt.clouddn.com/5.jpg'></span>
+				<span class="img-line"></span>
+				<span class="imgurl" imgurl='http://ogm5at7ve.bkt.clouddn.com/3.jpg'></span>
+				<span class="img-line"></span>
+				<span class="imgurl" imgurl='http://ogm5at7ve.bkt.clouddn.com/4.jpg'></span>
+				<span class="img-line"></span>
+				<span class="imgurl" imgurl='http://ogm5at7ve.bkt.clouddn.com/6.jpg'></span>
+				<span class="img-line"></span>
+				<span class="imgurl" imgurl='http://ogm5at7ve.bkt.clouddn.com/7.jpg'></span>
+			</div>
 				<div class="music-lrc" ref='musiclrc'>
 			    <ul class='lrc-ul' ref='lrcul'>
 						<li>请选择歌曲</li>
@@ -96,6 +107,9 @@
 				dragMusicUrl: [],
 				waveWidth: 0,
 				waveHeight: 0,
+				r:null,
+				g:null,
+				b:null,
 				listShow: 0,  //列表显示判断
 				listScroll: 0,//列表滚动位置
 				listScroll2: 0, //列表2滚动位置
@@ -959,7 +973,7 @@
 									ctx.fillRect(i * 20,cheight - value + capHeight - 20,meterWidth,capHeight + 9);
 								}
             };
-						if(i%3 == 0) {
+						if(i%5 == 0) {
 							ctx.fillStyle = b;
 						}else if(i%2==0) {
 							ctx.fillStyle = r;
@@ -1040,6 +1054,7 @@
 			let that = this;
 			let audio = document.getElementById('audio');
 			let playlist = document.getElementsByClassName('music-play-list')[0];
+			let imgspan = document.getElementsByClassName('choose-img')[0].getElementsByClassName('imgurl');
 
 			if(window.localStorage.length >= 3) {
 				let ls = window.localStorage;
@@ -1047,6 +1062,22 @@
 					that.dragData.push({name: ls['name'+i], singer: ls['singer'+i],url: ls['url'+i]});
 				}
 			}
+
+			//切换图片函数
+			for(var i=0; i<imgspan.length; i++) {
+				imgspan[i].index = i;
+				imgspan[i].addEventListener('click',function() {
+					for(var j=0; j<imgspan.length; j++) {
+						imgspan[j].className = 'imgurl';
+					}
+					let cName = 'choose' + (this.index-0+1);
+					this.classList.add('imgurl',cName);
+					let thisImgUrl = this.getAttribute('imgurl');
+					document.body.style.background = 'url('+ thisImgUrl +') no-repeat';
+					document.body.style.backgroundSize =  "cover";
+				})
+			}
+
 
 			//空格事件
 			document.onkeydown = function(e) {
@@ -1167,7 +1198,7 @@
 				//鼠标右击事件
 				document.oncontextmenu = function(e) {
 					that.showList();
-					e.returnValue=false;
+					// e.returnValue=false;
 				}
 				that.listNum();
 			}
@@ -1181,6 +1212,7 @@
 	@import '../style/top.css';
 	@import '../style/lrc.css';
 	@import '../style/wave.css';
+	@import '../style/img.css';
 </style>
 <style>
 </style>

@@ -1,0 +1,73 @@
+.choose-img {
+  position: absolute;
+  height: 350px;
+  width: 50px;
+  top: 100px;
+  left: 30px;
+  z-index: 100;
+}
+
+.imgurl {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(0,0,0,0.9);
+  border-radius: 50%;
+  display: block;
+  cursor: pointer;
+  z-index: 100;
+  transition: all .3s;
+  /*background-color: #0a51e2;*/
+}
+
+.choose-img span:nth-of-type(1):hover {
+  background: rgb(45,93,167);
+  /*5.jpg*/
+}
+
+.choose-img span:nth-of-type(3):hover {
+  background: rgb(228,224,222);
+  /*3.jpg*/
+}
+
+.choose-img span:nth-of-type(5):hover {
+  background: rgb(1,6,18);
+  /*4.jpg*/
+}
+
+.choose-img span:nth-of-type(7):hover {
+  background: rgb(84,111,109);
+  /*6.jpg*/
+}
+
+.choose-img span:nth-of-type(9):hover {
+  background: rgb(255,254,180);
+  /*7.jpg*/
+}
+
+.choose1 {
+  background: rgb(45,93,167);
+}
+
+.choose2 {
+  background: rgb(228,224,222);
+}
+
+.choose3 {
+  background: rgb(1,6,18);
+}
+
+.choose4 {
+  background: rgb(84,111,109);
+}
+
+.choose5 {
+  background: rgb(255,254,180);
+}
+
+.img-line {
+  height: 40px;
+  width: 3px;
+  background-color: black;
+  display: block;
+  margin-left: 10px;
+}

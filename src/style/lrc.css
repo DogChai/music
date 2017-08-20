@@ -8,6 +8,7 @@
 			opacity: 1;
 			overflow: hidden;
 			transition: opacity .3s;
+			z-index: 90;
 		}
 
 	.lrc-ul {
