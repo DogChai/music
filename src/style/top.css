@@ -25,29 +25,29 @@
   height: 100%;
   text-align: center;
   box-sizing: border-box;
-  background: rgba(64,64,64,0.5);
+  /*background: rgba(64,64,64,0.5);*/
   transition: all .3s;
   position: relative;
   border-radius: 5px;
 }
 
 .music-top>ul>li:hover {
-  background: rgba(64,64,64,0.7);
+  background: rgba(64,64,64,0.2);
 }
 
 .music-top>ul .top-one {
   padding-left: 10%;
-  border-right: 1px solid rgba(249, 159, 76, 0.9);
+  border-right: 1px solid rgba(107, 105, 104, 0.5);
 }
 
 .music-top>ul .top-two {
   padding-right: 10%;
   padding-left: 0;
-  border-left: 1px solid rgba(249, 159, 76, 0.9);
+  border-left: 1px solid rgba(107, 105, 104, 0.5);
 }
 
 .music-top ul li a {
-  font-family: 'KaiTi';
+  font-family: 'cursive','KaiTi';
   color: white;
   font-size: 18px;
   width: 100%;

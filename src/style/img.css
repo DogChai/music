@@ -1,23 +1,124 @@
 .choose-img {
   position: absolute;
-  height: 350px;
+  height: 300px;
   width: 50px;
   top: 100px;
-  left: 30px;
+  left: 20px;
   z-index: 100;
+  overflow: hidden;
 }
 
 .imgurl {
-  width: 18px;
-  height: 18px;
-  border: 3px solid rgba(0,0,0,0.9);
+  width: 20px;
+  height: 20px;
+  border: 3px double rgb(198, 216, 217);
   border-radius: 50%;
   display: block;
   cursor: pointer;
   z-index: 100;
   transition: all .3s;
+  position: absolute;
+  left: 12px;
+  z-index: 50;
   /*background-color: #0a51e2;*/
 }
+
+.choose-img span:nth-of-type(1) {
+  /*background-color: white;*/
+}
+
+.choose-img span:nth-of-type(2) {
+  top: -40px;
+  opacity: 0;
+  transition: all .5s;
+}
+
+.choose-img span:nth-of-type(3) {
+  top: 0px;
+  opacity: 0;
+  transition: all .5s;
+}
+
+.choose-img span:nth-of-type(4) {
+  top: -40px;
+  opacity: 0;
+  transition: all .5s;
+}
+
+.choose-img span:nth-of-type(5) {
+  top: 0px;
+  opacity: 0;
+  transition: all .5s;
+}
+
+.choose-img span:nth-of-type(6) {
+  top: -40px;
+  opacity: 0;
+  transition: all .5s;
+}
+
+.choose-img span:nth-of-type(7) {
+  top: 0px;
+  opacity: 0;
+  transition: all .5s;
+}
+
+.choose-img span:nth-of-type(8) {
+  top: -40px;
+  opacity: 0;
+  transition: all .5s;
+}
+
+.choose-img span:nth-of-type(9) {
+  top: 0px;
+  opacity: 0;
+  transition: all .5s;
+}
+
+/*.choose-img:hover span:nth-of-type(1){
+  top: 24px;
+}*/
+
+.choose-img:hover span:nth-of-type(2){
+  top: 24px;
+  opacity: 1;
+}
+
+.choose-img:hover span:nth-of-type(3){
+  top: 64px;
+  opacity: 1;
+}
+
+.choose-img:hover span:nth-of-type(4){
+  top: 88px;
+  opacity: 1;
+}
+
+.choose-img:hover span:nth-of-type(5){
+  top: 128px;
+  opacity: 1;
+}
+
+.choose-img:hover span:nth-of-type(6){
+  top: 152px;
+  opacity: 1;
+}
+
+.choose-img:hover span:nth-of-type(7){
+  top: 192px;
+  opacity: 1;
+}
+
+.choose-img:hover span:nth-of-type(8){
+  top: 216px;
+  opacity: 1;
+}
+
+.choose-img:hover span:nth-of-type(9){
+  top: 256px;
+  opacity: 1;
+}
+
 
 .choose-img span:nth-of-type(1):hover {
   background: rgb(45,93,167);
@@ -25,7 +126,7 @@
 }
 
 .choose-img span:nth-of-type(3):hover {
-  background: rgb(228,224,222);
+  background: rgb(236, 208, 193);
   /*3.jpg*/
 }
 
@@ -46,28 +147,40 @@
 
 .choose1 {
   background: rgb(45,93,167);
+  z-index: 99;
+  opacity: 1!important;
 }
 
 .choose2 {
-  background: rgb(228,224,222);
+  background: rgb(236, 208, 193);
+  z-index: 99;
+  opacity: 1!important;
 }
 
 .choose3 {
   background: rgb(1,6,18);
+  z-index: 99;
+  opacity: 1!important;
 }
 
 .choose4 {
   background: rgb(84,111,109);
+  z-index: 99;
+  opacity: 1!important;
 }
 
 .choose5 {
   background: rgb(255,254,180);
+  z-index: 99;
+  opacity: 1!important;
 }
 
 .img-line {
   height: 40px;
   width: 3px;
-  background-color: black;
+  background-color: rgb(198, 216, 217);
   display: block;
-  margin-left: 10px;
+  margin-left: 11px;
+  position: absolute;
+  left: 12px;
 }

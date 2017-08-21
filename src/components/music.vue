@@ -68,8 +68,8 @@
 		</div>
 		<div class="music-top" ref='musictop'>
 			<ul>
-				<li class="top-one" v-on:click='showLrcDiv()'><a>歌词显示</a></li>
-				<li class="top-two" v-on:click='showWaveDiv()'><a>歌曲波形</a></li>
+				<li class="top-one" v-on:click='showLrcDiv()'><a>lyric</a></li>
+				<li class="top-two" v-on:click='showWaveDiv()'><a>waveform</a></li>
 			</ul>
 			<div class="choose-img">
 				<span class="imgurl choose1" imgurl='http://ogm5at7ve.bkt.clouddn.com/5.jpg'></span>
@@ -107,9 +107,9 @@
 				dragMusicUrl: [],
 				waveWidth: 0,
 				waveHeight: 0,
-				r:null,
-				g:null,
-				b:null,
+				c1:'rgb(100,207,253)',
+				c2:'rgb(239,189,134)',
+				c3:'rgb(94,134,190)',
 				listShow: 0,  //列表显示判断
 				listScroll: 0,//列表滚动位置
 				listScroll2: 0, //列表2滚动位置
@@ -174,7 +174,7 @@
 					let dragName = thisFiles[0].name.substring(0,thisFiles[0].name.lastIndexOf('.'));
 					let dragUrl = window.URL.createObjectURL(thisFiles[0]);
 					this.dragData.push({name: dragName.split('-')[1].trim(), singer: dragName.split('-')[0].trim(),url: dragUrl});
-					console.log(this.dragData);
+					// console.log(this.dragData);
 				}
 				this.clearRepeat(this.dragData,'name')
 			},
@@ -197,7 +197,7 @@
 			getLrcFile(n) {
 				// music/
 				if(this.$refs.listul2.getAttribute('myplay') == 'false') {
-					axios.get('../../music/static/lrc/'+ n + '.lrc').then((response) => {
+					axios.get('../../static/lrc/'+ n + '.lrc').then((response) => {
 						if(response.data == '纯音乐,请欣赏') {
 							this.lrcData = response.data;
 							this.showLrc();
@@ -205,6 +205,7 @@
 							this.lrcData = response.data;
 							//得到歌词 开始解析
 							this.parseLyric(this.lrcData);
+							// console.log('yes')
 						}
 					},(response) => {
 						this.lrcData = '未找到歌词'
@@ -256,6 +257,7 @@
 						}
 						this.$refs.lrcul.setAttribute('move',true);
 						this.$refs.lrcul.style.top = this.$refs.musiclrc.offsetHeight / 2 + 10 + 'px';
+						// this.lrcScroll();
 					}
 				}else {
 					let lrcli = document.createElement('li');
@@ -560,7 +562,7 @@
 					musicPlan.style.width = musicBar.offsetWidth * that.planScales + 'px';
 					musicDarg.style.left = musicBar.offsetWidth * that.planScales + 'px';
 					that.timeActive();
-					if(that.lrcData == '纯音乐,请欣赏' || that.dragLrc == '未找到歌词') {
+					if(that.lrcData == '纯音乐,请欣赏' && that.dragLrc == '未找到歌词') {
 
 					}else {
 						that.lrcScroll();
@@ -571,7 +573,7 @@
 			lrcScroll() {
 				if(this.$refs.listul2.getAttribute('myplay') == 'false') {
 					let lrcLine = 0;
-					if(this.$refs.lrcul.getAttribute('move')) {
+					if(this.$refs.lrcul.getAttribute('move') == 'true') {
 						let lrcli = this.$refs.lrcul.children;
 						for(var i=0; i<lrcli.length; i++) {
 							let thisLiHeight = 0;
@@ -631,7 +633,7 @@
 						if(lisnum == 0) {
 							lrcUl.style.top = musicLrc.offsetHeight / 2 + 50 + 'px';
 						}else {
-							console.log(this.ulTop - lisheight);
+							// console.log(this.ulTop - lisheight);
 							lrcUl.style.top = musicLrc.offsetHeight / 2 + 50 - lisheight + 'px';
 							if(lrcLi[lisnum-1].getAttribute('time') == lrcLi[lisnum-2].getAttribute('time')) {
 								lrcLi[lisnum-1].setAttribute('class','playing');
@@ -807,6 +809,7 @@
 				this.$refs.headerul.children[0].setAttribute('class','choose');
 				this.$refs.listul.style.left = '0';
 				this.$refs.listul2.style.left = '-230px';
+				this.$refs.listul2.setAttribute('myplay','false');
 				this.listNum();
 			},
 			//切换我的音乐列表
@@ -816,6 +819,7 @@
 				this.$refs.headerul.children[1].setAttribute('class','choose');
 				this.$refs.listul2.style.left = '0';
 				this.$refs.listul.style.left = '-230px';
+				this.$refs.listul2.setAttribute('myplay','true');
 				this.listNum();
 			},
 			//列表点击
@@ -910,6 +914,7 @@
 			},
 			//波形
 			Visualizer() {
+				let that = this;
 				//获得音乐链接
 				var audiosrc = document.getElementById('audio');
 
@@ -929,9 +934,9 @@
         var gap = 2;
         var capHeight = 5;
         var capStyle = '#fff';
-				var b = 'rgb(174,201,240)';
-				var r = 'rgb(228,89,135)';
-				var y = 'rgb(243,233,168)';
+				// var b = 'rgb(174,201,240)';
+				// var r = 'rgb(228,89,135)';
+				// var y = 'rgb(243,233,168)';
         var capYPositionArray = [];
 		    var ctx = canvas.getContext('2d');
 		    var gradient = ctx.createLinearGradient(0, 0, 0, 300);
@@ -955,11 +960,11 @@
                 capYPositionArray.push(value);
             };
 						if(i%5 == 0) {
-							ctx.fillStyle = b;
+							ctx.fillStyle = that.c1;
 						}else if(i%2==0) {
-							ctx.fillStyle = r;
+							ctx.fillStyle = that.c2;
 						}else {
-							ctx.fillStyle = y;
+							ctx.fillStyle = that.c3;
 						}
 
             if (value < capYPositionArray[i]) {
@@ -974,11 +979,11 @@
 								}
             };
 						if(i%5 == 0) {
-							ctx.fillStyle = b;
+							ctx.fillStyle = that.c1;
 						}else if(i%2==0) {
-							ctx.fillStyle = r;
+							ctx.fillStyle = that.c2;
 						}else {
-							ctx.fillStyle = y;
+							ctx.fillStyle = that.c3;
 						}
 
 						//波形图主波形
@@ -1055,6 +1060,7 @@
 			let audio = document.getElementById('audio');
 			let playlist = document.getElementsByClassName('music-play-list')[0];
 			let imgspan = document.getElementsByClassName('choose-img')[0].getElementsByClassName('imgurl');
+			let lis = document.getElementsByClassName('list-ul')[0].children;
 
 			if(window.localStorage.length >= 3) {
 				let ls = window.localStorage;
@@ -1070,11 +1076,60 @@
 					for(var j=0; j<imgspan.length; j++) {
 						imgspan[j].className = 'imgurl';
 					}
-					let cName = 'choose' + (this.index-0+1);
-					this.classList.add('imgurl',cName);
-					let thisImgUrl = this.getAttribute('imgurl');
-					document.body.style.background = 'url('+ thisImgUrl +') no-repeat';
-					document.body.style.backgroundSize =  "cover";
+					let this_ = this;
+					if(this.index == 0) {
+						changeimg(this_);
+						that.c1 = 'rgb(100,207,253)';
+						that.c2 = 'rgb(239,189,134)';
+						that.c3 = 'rgb(94,134,190)';
+						changeblack();
+					}else if(this.index == 1) {
+						changeimg(this_);
+						that.c1 = 'rgb(225,208,200)';
+						that.c2 = 'rgb(86,82,82)';
+						that.c3 = 'rgb(195,195,195)';
+						changeblack();
+					}else if(this.index == 2) {
+						changeimg(this_);
+						that.c1 = 'rgb(3,4,17)';
+						that.c2 = 'rgb(81,48,54)';
+						that.c3 = 'rgb(68,87,89)';
+						for(var k=0; k<lis.length; k++) {
+							lis[k].style.color = 'white';
+						}
+						let lis2 = document.getElementsByClassName('list-ul2')[0].children;
+						for(var x=0; x<lis2.length; x++) {
+							lis2[x].style.color = 'white';
+						}
+					}else if(this.index == 3){
+						changeimg(this_);
+						that.c1 = 'rgb(207,219,233)';
+						that.c2 = 'rgb(82,92,92)';
+						that.c3 = 'rgb(163,162,170)';
+						changeblack();
+					}else {
+						changeimg(this_);
+						that.c1 = 'rgb(236,231,147)';
+						that.c2 = 'rgb(196, 91, 150)';
+						that.c3 = 'rgb(89,146,166)';
+						changeblack();
+					}
+					function changeimg(a) {
+						let cName = 'choose' + (a.index-0+1);
+						a.classList.add('imgurl',cName);
+						let thisImgUrl = a.getAttribute('imgurl');
+						document.body.style.background = 'url('+ thisImgUrl +') no-repeat';
+						document.body.style.backgroundSize =  "cover";
+					}
+					function changeblack() {
+						for(var k=0; k<lis.length; k++) {
+							lis[k].style.color = '';
+						}
+						let lis2 = document.getElementsByClassName('list-ul2')[0].children;
+						for(var x=0; x<lis2.length; x++) {
+							lis2[x].style.color = '';
+						}
+					}
 				})
 			}
 
@@ -1198,7 +1253,7 @@
 				//鼠标右击事件
 				document.oncontextmenu = function(e) {
 					that.showList();
-					e.returnValue=false;
+					// e.returnValue=false;
 				}
 				that.listNum();
 			}
