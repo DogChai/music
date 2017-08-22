@@ -42,9 +42,11 @@ export default {
   body {
     height: 100%;
     width: 100%;
-    background: url('http://ogm5at7ve.bkt.clouddn.com/5.jpg') no-repeat;
+    background-image: url('http://ogm5at7ve.bkt.clouddn.com/5.jpg');
+    background-repeat: no-repeat;
     background-size: cover;
     overflow-y: hidden;
     overflow-x: hidden;
+    transition: background-image 1s;
   }
 </style>

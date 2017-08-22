@@ -110,6 +110,7 @@
 				c1:'rgb(100,207,253)',
 				c2:'rgb(239,189,134)',
 				c3:'rgb(94,134,190)',
+				cutHeight:0,
 				listShow: 0,  //列表显示判断
 				listScroll: 0,//列表滚动位置
 				listScroll2: 0, //列表2滚动位置
@@ -256,7 +257,7 @@
 							this.$refs.lrcul.appendChild(lrcli);
 						}
 						this.$refs.lrcul.setAttribute('move',true);
-						this.$refs.lrcul.style.top = this.$refs.musiclrc.offsetHeight / 2 + 10 + 'px';
+						this.$refs.lrcul.style.top = this.$refs.musiclrc.offsetHeight / 2 + 50 + 'px';
 						// this.lrcScroll();
 					}
 				}else {
@@ -448,17 +449,18 @@
 					this.$refs.musictop.style.top = 0;
 					this.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
 					this.$refs.musicwave.style.height = window.innerHeight - 85 - 200 + 'px';
+					this.dragScroll();
 					this.listShow = 1;
 					this.$refs.playlist.setAttribute('ifshow',1);
 					this.waveWidth = this.$refs.musicwave.offsetWidth;
 					this.waveHeight = this.$refs.musicwave.offsetHeight;
-					// this.Visualizer();
 				}else {
 					this.$refs.playlist.style.transform = 'translate(-230px)';
 					this.$refs.musictop.style.width = window.innerWidth + 'px';
 					this.$refs.musictop.style.top = -63 + 'px';
 					this.$refs.musiclrc.style.height = this.$refs.musiclrc.offsetHeight + 50 + 'px';
 					this.$refs.musicwave.style.height = this.$refs.musicwave.offsetHeight + 50 + 'px';
+					this.dragScroll();
 					this.listShow = 0;
 					this.$refs.playlist.setAttribute('ifshow',0);
 					this.waveWidth = this.$refs.musicwave.offsetWidth;
@@ -634,7 +636,8 @@
 							lrcUl.style.top = musicLrc.offsetHeight / 2 + 50 + 'px';
 						}else {
 							// console.log(this.ulTop - lisheight);
-							lrcUl.style.top = musicLrc.offsetHeight / 2 + 50 - lisheight + 'px';
+							lrcUl.style.top = musicLrc.offsetHeight / 2 - lisheight + 'px';
+							// console.log(musicLrc.offsetHeight / 2.05);
 							if(lrcLi[lisnum-1].getAttribute('time') == lrcLi[lisnum-2].getAttribute('time')) {
 								lrcLi[lisnum-1].setAttribute('class','playing');
 								lrcLi[lisnum-2].setAttribute('class','playing');
@@ -1118,8 +1121,8 @@
 						let cName = 'choose' + (a.index-0+1);
 						a.classList.add('imgurl',cName);
 						let thisImgUrl = a.getAttribute('imgurl');
-						document.body.style.background = 'url('+ thisImgUrl +') no-repeat';
-						document.body.style.backgroundSize =  "cover";
+						document.body.style.backgroundImage = 'url('+ thisImgUrl +')';
+						// document.body.style.backgroundSize =  "cover";
 					}
 					function changeblack() {
 						for(var k=0; k<lis.length; k++) {
@@ -1168,6 +1171,7 @@
 					that.$refs.musicwave.style.height = window.innerHeight - 85 - 200 + 'px';
 					that.waveWidth = that.$refs.musicwave.offsetWidth;
 					that.waveHeight = that.$refs.musicwave.offsetHeight;
+					that.dragScroll();
 					// that.Visualizer();
 				}else {
 					that.$refs.musictop.style.width = window.innerWidth + 'px';
@@ -1177,7 +1181,7 @@
 					that.$refs.musicwave.style.height = that.$refs.musicwave.offsetHeight + 50 + 'px';
 					that.waveWidth = that.$refs.musicwave.offsetWidth;
 					that.waveHeight = that.$refs.musicwave.offsetHeight;
-					// that.Visualizer();
+					that.dragScroll();
 				}
 			})
 
@@ -1253,7 +1257,7 @@
 				//鼠标右击事件
 				document.oncontextmenu = function(e) {
 					that.showList();
-					// e.returnValue=false;
+					e.returnValue=false;
 				}
 				that.listNum();
 			}

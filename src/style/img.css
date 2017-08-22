@@ -6,12 +6,13 @@
   left: 20px;
   z-index: 100;
   overflow: hidden;
+  /*transition: all .3s;*/
 }
 
 .imgurl {
   width: 20px;
   height: 20px;
-  border: 3px double rgb(198, 216, 217);
+  border: 3px solid rgba(0,0,0,0.3);
   border-radius: 50%;
   display: block;
   cursor: pointer;
@@ -20,6 +21,7 @@
   position: absolute;
   left: 12px;
   z-index: 50;
+  background-clip: border-box;
   /*background-color: #0a51e2;*/
 }
 
@@ -28,7 +30,7 @@
 }
 
 .choose-img span:nth-of-type(2) {
-  top: -40px;
+  top: 24px;
   opacity: 0;
   transition: all .5s;
 }
@@ -40,7 +42,7 @@
 }
 
 .choose-img span:nth-of-type(4) {
-  top: -40px;
+  top: 24px;
   opacity: 0;
   transition: all .5s;
 }
@@ -52,7 +54,7 @@
 }
 
 .choose-img span:nth-of-type(6) {
-  top: -40px;
+  top: 24px;
   opacity: 0;
   transition: all .5s;
 }
@@ -64,7 +66,7 @@
 }
 
 .choose-img span:nth-of-type(8) {
-  top: -40px;
+  top: 24px;
   opacity: 0;
   transition: all .5s;
 }
@@ -75,9 +77,9 @@
   transition: all .5s;
 }
 
-/*.choose-img:hover span:nth-of-type(1){
-  top: 24px;
-}*/
+.choose-img:hover span:nth-of-type(1){
+  opacity: 1;
+}
 
 .choose-img:hover span:nth-of-type(2){
   top: 24px;
@@ -122,55 +124,65 @@
 
 .choose-img span:nth-of-type(1):hover {
   background: rgb(45,93,167);
+  background-clip: padding-box;
   /*5.jpg*/
 }
 
 .choose-img span:nth-of-type(3):hover {
   background: rgb(236, 208, 193);
+  background-clip: padding-box;
   /*3.jpg*/
 }
 
 .choose-img span:nth-of-type(5):hover {
   background: rgb(1,6,18);
+  background-clip: padding-box;
   /*4.jpg*/
 }
 
 .choose-img span:nth-of-type(7):hover {
   background: rgb(84,111,109);
+  background-clip: padding-box;
   /*6.jpg*/
 }
 
 .choose-img span:nth-of-type(9):hover {
   background: rgb(255,254,180);
+  background-clip: padding-box;
   /*7.jpg*/
 }
 
 .choose1 {
   background: rgb(45,93,167);
+  background-clip: padding-box;
   z-index: 99;
   opacity: 1!important;
 }
 
 .choose2 {
   background: rgb(236, 208, 193);
+  background-clip: padding-box;
   z-index: 99;
   opacity: 1!important;
 }
 
 .choose3 {
   background: rgb(1,6,18);
+  background-clip: padding-box;
   z-index: 99;
   opacity: 1!important;
 }
 
 .choose4 {
   background: rgb(84,111,109);
+  background-clip: padding-box;
   z-index: 99;
   opacity: 1!important;
 }
 
 .choose5 {
   background: rgb(255,254,180);
+  background-clip: padding-box;
   z-index: 99;
   opacity: 1!important;
 }
@@ -178,9 +190,10 @@
 .img-line {
   height: 40px;
   width: 3px;
-  background-color: rgb(198, 216, 217);
+  background-color: rgba(0,0,0,0.4);
   display: block;
   margin-left: 11px;
   position: absolute;
   left: 12px;
+  background-clip: padding-box;
 }
