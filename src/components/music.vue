@@ -177,7 +177,8 @@
 					this.dragData.push({name: dragName.split('-')[1].trim(), singer: dragName.split('-')[0].trim(),url: dragUrl});
 					// console.log(this.dragData);
 				}
-				this.clearRepeat(this.dragData,'name')
+				this.clearRepeat(this.dragData,'name');
+				this.showList2();
 			},
 			//数组对象根据键值去重
 			clearRepeat(arr,key) {
