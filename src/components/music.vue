@@ -199,7 +199,7 @@
 				// music/
 				if(this.$refs.listul2.getAttribute('myplay') == 'false') {
 					axios.get('../../static/lrc/'+ n + '.lrc').then((response) => {
-						if(response.data == '纯音乐,请欣赏') {
+						if(response.data == '纯音乐,请欣赏' || response.data == '后摇,请欣赏') {
 							this.lrcData = response.data;
 							this.showLrc();
 						}else {
@@ -239,11 +239,11 @@
 				//清空歌词
 				this.$refs.lrcul.innerHTML = '';
 				if(this.$refs.listul2.getAttribute('myplay') == 'false') {
-					if(this.lrcData == '纯音乐,请欣赏') {
+					if(this.lrcData == '纯音乐,请欣赏' || this.lrcData == '后摇,请欣赏') {
 						let lrcli = document.createElement('li');
 						lrcli.innerHTML = this.lrcData;
 						this.$refs.lrcul.appendChild(lrcli);
-						this.$refs.lrcul.style.top = this.$refs.musiclrc.offsetHeight / 2  - 20 + 'px';
+						this.$refs.lrcul.style.top = this.$refs.musiclrc.offsetHeight / 2 + 'px';
 					}else {
 						for(var k in this.lrcObj) {
 							let lrcli = document.createElement('li');
@@ -264,7 +264,7 @@
 					let lrcli = document.createElement('li');
 					lrcli.innerHTML = this.dragLrc;
 					this.$refs.lrcul.appendChild(lrcli);
-					this.$refs.lrcul.style.top = this.$refs.musiclrc.offsetHeight / 2 -10 + 'px';
+					this.$refs.lrcul.style.top = this.$refs.musiclrc.offsetHeight / 2 + 'px';
 				}
 			},
 			//显示歌词div
@@ -447,7 +447,7 @@
 					this.$refs.playlist.style.transform = 'translate(0)';
 					this.$refs.musictop.style.width = window.innerWidth - 232 + 'px';
 					this.$refs.musictop.style.top = 0;
-					this.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
+					this.$refs.musiclrc.style.height = window.innerHeight - 85 - 95 + 'px';
 					this.$refs.musicwave.style.height = window.innerHeight - 85 - 200 + 'px';
 					this.dragScroll();
 					this.listShow = 1;
@@ -595,13 +595,23 @@
 									lrcli[i-1].setAttribute('ifchoose','true');
 									thisLiHeight = lrcli[i].offsetHeight + lrcli[i-1].offsetHeight;
 								}else if(lrcLine === 3) {
-									lrcLi[i].setAttribute('class','playing');
+									lrcli[i].setAttribute('class','playing');
 									lrcli[i-1].setAttribute('class','playing');
 									lrcli[i-2].setAttribute('class','playing');
 									lrcli[i].setAttribute('ifchoose','true');
 									lrcli[i-1].setAttribute('ifchoose','true');
 									lrcli[i-2].setAttribute('ifchoose','true');
 									thisLiHeight = lrcli[i].offsetHeight + lrcli[i-1].offsetHeight + lrcli[i-2].offsetHeight;
+								}else if(lrcLine === 4) {
+									lrcli[i].setAttribute('class','playing');
+									lrcli[i-1].setAttribute('class','playing');
+									lrcli[i-2].setAttribute('class','playing');
+									lrcli[i-3].setAttribute('class','playing');
+									lrcli[i].setAttribute('ifchoose','true');
+									lrcli[i-1].setAttribute('ifchoose','true');
+									lrcli[i-2].setAttribute('ifchoose','true');
+									lrcli[i-3].setAttribute('ifchoose','true');
+									thisLiHeight = lrcli[i].offsetHeight + lrcli[i-1].offsetHeight + lrcli[i-2].offsetHeight + lrcli[i-3].offsetHeight;
 								}
 								this.$refs.lrcul.style.top = this.$refs.lrcul.offsetTop - thisLiHeight + 'px';
 							}
@@ -1153,7 +1163,7 @@
 				// 加载完成 界面宽度自适应
 				that.$refs.playlist.style.height = window.innerHeight - 75 + 'px';
 				that.$refs.musictop.style.width = window.innerWidth + 'px';
-				that.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
+				that.$refs.musiclrc.style.height = window.innerHeight - 85 - 95 + 'px';
 				that.$refs.musiclrc.style.height = that.$refs.musiclrc.offsetHeight + 50 + 'px';
 				that.$refs.musicwave.style.height = window.innerHeight - 85 - 200 + 'px';
 				that.$refs.musicwave.style.height = that.$refs.musicwave.offsetHeight + 50 + 'px';
@@ -1167,7 +1177,7 @@
 				if(playlist.getAttribute('ifshow') == '1') {
 					// console.log(1);
 					that.$refs.musictop.style.width = window.innerWidth - 232 + 'px';
-					that.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
+					that.$refs.musiclrc.style.height = window.innerHeight - 85 - 95 + 'px';
 					that.$refs.musicwave.style.height = window.innerHeight - 85 - 200 + 'px';
 					that.waveWidth = that.$refs.musicwave.offsetWidth;
 					that.waveHeight = that.$refs.musicwave.offsetHeight;
@@ -1175,7 +1185,7 @@
 					// that.Visualizer();
 				}else {
 					that.$refs.musictop.style.width = window.innerWidth + 'px';
-					that.$refs.musiclrc.style.height = window.innerHeight - 85 - 100 + 'px';
+					that.$refs.musiclrc.style.height = window.innerHeight - 85 - 95 + 'px';
 					that.$refs.musiclrc.style.height = that.$refs.musiclrc.offsetHeight + 50 + 'px';
 					that.$refs.musicwave.style.height = window.innerHeight - 85 - 200 + 'px';
 					that.$refs.musicwave.style.height = that.$refs.musicwave.offsetHeight + 50 + 'px';
