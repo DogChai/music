@@ -1,5 +1,70 @@
 [
     {
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20Too%20Bad.mp3",
+      "name": "Too Bad",
+      "singer": "林俊杰",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84%E6%83%85%E4%BA%BA.mp3",
+      "name": "不存在的情人",
+      "singer": "林俊杰",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E4%B8%8D%E4%B8%BA%E8%B0%81%E8%80%8C%E4%BD%9C%E7%9A%84%E6%AD%8C.mp3",
+      "name": "不为谁而作的歌",
+      "singer": "林俊杰",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E6%95%85%E4%BA%8B%E7%BB%86%E8%85%BB.mp3",
+      "name": "故事细腻",
+      "singer": "林俊杰",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E9%BB%91%E9%8D%B5.mp3",
+      "name": "黑鍵",
+      "singer": "林俊杰",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E5%8F%AF%E6%83%9C%E6%B2%A1%E5%A6%82%E6%9E%9C.mp3",
+      "name": "可惜没如果",
+      "singer": "林俊杰",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E6%B5%AA%E6%BC%AB%E8%A1%80%E6%B6%B2.mp3",
+      "name": "浪漫血液",
+      "singer": "林俊杰",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E8%A3%82%E7%BC%9D%E4%B8%AD%E7%9A%84%E9%98%B3%E5%85%89.mp3",
+      "name": "裂缝中的阳光",
+      "singer": "林俊杰",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E8%8C%89%E8%8E%89%E9%9B%A8.mp3",
+      "name": "茉莉雨",
+      "singer": "林俊杰",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E4%BD%A0%EF%BC%8C%E6%9C%89%E6%B2%A1%E6%9C%89%E8%BF%87%20%28%E3%80%8A%E7%A0%B4%E9%A3%8E%E3%80%8B%E7%94%B5%E5%BD%B1%E4%B8%BB%E9%A2%98%E6%9B%B2%29.mp3",
+      "name": "你，有没有过 (《破风》电影主题曲)",
+      "singer": "林俊杰",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E7%94%9F%E7%94%9F.mp3",
+      "name": "生生",
+      "singer": "林俊杰",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E6%96%B0%E5%9C%B0%E7%90%83.mp3",
+      "name": "新地球",
+      "singer": "林俊杰",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E6%9C%89%E6%A2%A6%E4%B8%8D%E9%9A%BE.mp3",
+      "name": "有梦不难",
+      "singer": "林俊杰",
+      "playBool":false
+    },{
       "url": "http://ohx9cuj3d.bkt.clouddn.com/%E5%91%A6%E7%8C%ABUNEKO%20-%20%E6%A2%A6%E5%9B%9E%E8%BF%98.mp3",
       "name": "梦回还",
       "singer": "呦猫UNEKO",
