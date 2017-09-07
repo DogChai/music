@@ -87,6 +87,8 @@
   transition: all .3s;
   top: 60px;
   z-index: 50;
+  box-sizing: border-box;
+  transform: translateY(0px);
 }
 
 .list-ul li {
@@ -265,4 +267,26 @@
 
 .ul2-close:hover {
   color: rgb(217, 51, 104);
+}
+
+.list-bar {
+  position: absolute;
+  right: 0;
+  width: 10px;
+  height: 66px;
+  background: rgba(110, 167, 244, 0.5);
+  z-index: 99;
+  cursor: pointer;
+  transition: top,opacity .3s;
+  opacity: 0;
+}
+
+.list-bar-wrap {
+  position: absolute;
+  top: 61px;
+  right:0;
+  width: 10px;
+  transform: translateY(0px);
+  z-index: 999;
+  /*background: gray;*/
 }

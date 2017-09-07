@@ -1,16 +1,15 @@
 .music-top {
-  transition: top .3s;
+  transition: all .3s;
   border-radius: 5px;
   position: fixed;
   right: 2px;
   top: -63px;
-  /*left: 2px;*/
-  /*margin-left: 2px;*/
   width: auto;
   height: 61px;
-  margin-top: 3px;
+  /*margin-top: 3px;*/
   min-width: 225px;
   box-shadow: 2px 0 2px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
+  transform: translateY(0px);
 }
 
 .music-top>ul {
@@ -58,4 +57,24 @@
   left: 0;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
   cursor: pointer;
+}
+
+.show-title {
+  font-family: KaiTi,Microsoft YaHei;
+  position: fixed;
+  right: -44px;
+  top: 50%;
+  width: 42px;
+  height: 110px;
+  margin-top: -45px;
+  writing-mode: vertical-lr;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.8);
+  line-height: 40px;
+  font-size: 18px;
+  opacity: 1;
+  transition: transform 0.4s;
+  background: rgba(0,0,0,0.6);
+  color: rgba(255,255,255,0.8);
+  transform: translate(0px);
 }

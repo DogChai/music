@@ -2,6 +2,9 @@
 	<div class="music">
 		<audio id="audio" ref='audio' crossOrigin="anonymous" dataNum=0 ></audio>
     <input type="file" accept='audio/mp3' id='input-file' class='hidden file'>
+		<div class="show-title show-title-hide" id="show-title">
+			顺序播放
+		</div>
 		<div class="music-wrap">
 			<div class="music-btn">
 				<a class="c-btn prev" id="prev" title="上一首" v-on:click='whatKind2()'></a>
@@ -38,6 +41,9 @@
 		<div class="music-play-list" ref='playlist' ifshow=0>
 			<div class="play-list-header" v-on:click.stop='headerClick()'>Play List
 			</div>
+			<div class="list-bar-wrap">
+				<div class="list-bar" id="list-bar" v-on:mousedown='listBar'></div>
+				</div>
 			<ul class='list-header-ul' ref='headerul'>
 				<li class="choose" v-on:click='showList1()'>推荐音乐</li>
 				<li v-on:click='showList2()'>我的音乐</li>
@@ -113,6 +119,7 @@
 				cutHeight:0,
 				listShow: 0,  //列表显示判断
 				listScroll: 0,//列表滚动位置
+				barScroll:0,  //滚动条
 				listScroll2: 0, //列表2滚动位置
 				ifPlay: true, //是否播放
 				ifVol: 0,     //是否静音
@@ -133,6 +140,8 @@
 				lrcSecond: 0, //歌词毫秒数
 				resizeHeight: 0,
 				ifMy: 0,      //判断是在哪个播放列表
+				myScroll:0,
+				scrollProp:0
 			}
 		},
 		methods: {
@@ -199,7 +208,7 @@
 			getLrcFile(n) {
 				// music/
 				if(this.$refs.listul2.getAttribute('myplay') == 'false') {
-					axios.get('../../static/lrc/'+ n + '.lrc').then((response) => {
+					axios.get('../../music/static/lrc/'+ n + '.lrc').then((response) => {
 						if(response.data == '纯音乐,请欣赏' || response.data == '后摇,请欣赏') {
 							this.lrcData = response.data;
 							this.showLrc();
@@ -244,7 +253,8 @@
 						let lrcli = document.createElement('li');
 						lrcli.innerHTML = this.lrcData;
 						this.$refs.lrcul.appendChild(lrcli);
-						this.$refs.lrcul.style.top = this.$refs.musiclrc.offsetHeight / 2 + 'px';
+						let pianoY = this.$refs.musiclrc.offsetHeight / 2;
+						this.$refs.lrcul.style.transform = 'translateY('+ pianoY +'px)';
 					}else {
 						for(var k in this.lrcObj) {
 							let lrcli = document.createElement('li');
@@ -258,14 +268,15 @@
 							this.$refs.lrcul.appendChild(lrcli);
 						}
 						this.$refs.lrcul.setAttribute('move',true);
-						this.$refs.lrcul.style.top = this.$refs.musiclrc.offsetHeight / 2 + 50 + 'px';
+						let LRCY = this.$refs.musiclrc.offsetHeight / 2 + 50;
+						this.$refs.lrcul.style.transform = 'translateY('+ LRCY +'px)';;
 						// this.lrcScroll();
 					}
 				}else {
 					let lrcli = document.createElement('li');
 					lrcli.innerHTML = this.dragLrc;
 					this.$refs.lrcul.appendChild(lrcli);
-					this.$refs.lrcul.style.top = this.$refs.musiclrc.offsetHeight / 2 + 'px';
+					this.$refs.lrcul.style.transform = 'translateY('+ pianoY +'px)';
 				}
 			},
 			//显示歌词div
@@ -277,6 +288,19 @@
 			showWaveDiv() {
 				this.$refs.musiclrc.style.opacity = 0;
 				this.$refs.musicwave.style.opacity = 1;
+			},
+			//提示框显示
+			showTitle(val) {
+				let showTit = document.getElementById('show-title');
+				let timer1 = null;
+				clearTimeout(timer1)
+				showTit.innerHTML = val;
+				// showTit.setAttribute('class','show-title show-title-hide');
+				// showTit.style.opacity = 1;
+				showTit.style.transform = 'translate(-43px)';
+				timer1 = setTimeout(function() {
+				showTit.style.transform = 'translate(0px)';
+				},3000);
 			},
 			// 音乐播放/暂停
 			playMusic() {
@@ -431,15 +455,19 @@
 				if(this.ifCut == 0) {
 					this.orderClass = 'random-play';
 					this.ifCut = 1;
+					this.showTitle("随机播放")
 				}else if (this.ifCut == 1) {
 					this.orderClass = 'one-play';
 					this.ifCut = 2;
+					this.showTitle("单曲循环")
 				}else if (this.ifCut == 2) {
 					this.orderClass = 'list-play';
 					this.ifCut = 3;
+					this.showTitle("列表循环")
 				}else {
 					this.orderClass = 'order-play';
 					this.ifCut = 0;
+					this.showTitle("顺序循环")
 				}
 			},
 			//显示音乐列表
@@ -447,7 +475,7 @@
 				if(this.listShow == 0) {
 					this.$refs.playlist.style.transform = 'translate(0)';
 					this.$refs.musictop.style.width = window.innerWidth - 232 + 'px';
-					this.$refs.musictop.style.top = 0;
+					this.$refs.musictop.style.transform = 'translateY(63px)';
 					this.$refs.musiclrc.style.height = window.innerHeight - 85 - 95 + 'px';
 					this.$refs.musicwave.style.height = window.innerHeight - 85 - 200 + 'px';
 					this.dragScroll();
@@ -458,7 +486,7 @@
 				}else {
 					this.$refs.playlist.style.transform = 'translate(-230px)';
 					this.$refs.musictop.style.width = window.innerWidth + 'px';
-					this.$refs.musictop.style.top = -63 + 'px';
+					this.$refs.musictop.style.transform = 'translateY(0px)';;
 					this.$refs.musiclrc.style.height = this.$refs.musiclrc.offsetHeight + 50 + 'px';
 					this.$refs.musicwave.style.height = this.$refs.musicwave.offsetHeight + 50 + 'px';
 					this.dragScroll();
@@ -469,10 +497,26 @@
 					// this.Visualizer();
 				}
 			},
-			//列表滚动
+			//列表滚动  显示滚动条
 			listWell() {
 				let that = this;
+				let bar = document.getElementById('list-bar');
+				let thisLBW = document.getElementsByClassName('list-bar-wrap')[0];
+				let playList1 = document.getElementsByClassName('play-list-ul')[0];
+				let timer2 = null;
+				that.$refs.playlist.onmouseover = function() {
+					bar.style.opacity = 1;
+				}
+				that.$refs.playlist.onmouseout = function() {
+					clearTimeout(timer2);
+					timer2 = setTimeout(function() {
+						bar.style.opacity = 0;
+					},3000)
+				}
 				that.$refs.listul.onmousewheel = function(e) {
+					let PH = thisLBW.offsetHeight + 7;
+					let PH1 = playList1.offsetHeight - 200;
+					// console.log(that.listScroll * (thisLBW.offsetHeight / PH1))
 					if(e.wheelDelta < 0) {
 						//向上滚动
 						that.listScroll += 60;
@@ -487,7 +531,48 @@
 					if(that.listScroll >= that.$refs.listul.offsetHeight - that.$refs.playlist.offsetHeight + 60) {
 						that.listScroll = that.$refs.listul.offsetHeight - that.$refs.playlist.offsetHeight + 60;
 					}
-					that.$refs.listul.style.top = -that.listScroll + 'px';
+					let B = parseInt(that.listScroll * (PH / PH1));
+					bar.style.transform = 'translateY('+ B +'px)';
+					if(parseInt(bar.style.transform.substring(11)) <=0) {
+						bar.style.transform = 'translateY(0px)';
+					}
+					that.barScroll = parseInt(bar.style.transform.substring(11));
+					that.$refs.listul.style.transform = 'translateY(-'+that.listScroll+'px)';
+				}
+			},
+			//滚动条
+			listBar(e) {
+				let that = this;
+				let bar = document.getElementById('list-bar');
+				let playList1 = document.getElementsByClassName('play-list-ul')[0];
+				let playList2 = document.getElementsByClassName('list-ul2')[0];
+				let thisLBW = document.getElementsByClassName('list-bar-wrap')[0];
+				let top = e.clientY;
+				let barTop = bar.offsetTop;
+				let PH = 0;
+				for(var i=0; i<playList1.children.length-4; i++) {
+					PH += playList1.children[i].offsetHeight;
+				}
+				PH = PH+9;
+				document.onmousemove = function(e) {
+					let _top = e.clientY;
+					 that.barScroll = _top - top + barTop;
+					if(that.barScroll > thisLBW.offsetHeight - 66) {
+						that.barScroll = thisLBW.offsetHeight - 66;
+					}
+					if(that.barScroll <= 0) {
+						that.barScroll = 0;
+					}
+					bar.style.transform = 'translateY('+ that.barScroll +'px)';
+					let Y = -that.barScroll * (PH / thisLBW.offsetHeight);
+					playList1.style.transform = 'translateY('+ Y +'px)';
+					that.listScroll = -parseInt(playList1.style.transform.substring(11));
+					// console.log(parseInt(playList1.style.transform.substring(11)))
+				};
+				document.onmouseup = function() {
+					document.onmousemove = null;
+					document.onmousedown = null;
+					document.onmouseup = null;
 				}
 			},
 			//列表2滚动
@@ -614,7 +699,9 @@
 									lrcli[i-3].setAttribute('ifchoose','true');
 									thisLiHeight = lrcli[i].offsetHeight + lrcli[i-1].offsetHeight + lrcli[i-2].offsetHeight + lrcli[i-3].offsetHeight;
 								}
-								this.$refs.lrcul.style.top = this.$refs.lrcul.offsetTop - thisLiHeight + 'px';
+								let lrcTop = parseInt(this.$refs.lrcul.style.transform.substring(11))
+								let LRCY = lrcTop - thisLiHeight;
+								this.$refs.lrcul.style.transform = 'translateY('+ LRCY +'px)';
 							}
 						}
 					}
@@ -644,11 +731,12 @@
 							}
 						}
 						if(lisnum == 0) {
-							lrcUl.style.top = musicLrc.offsetHeight / 2 + 50 + 'px';
+							let LRCY = this.$refs.musiclrc.offsetHeight / 2 + 50;
+							lrcUl.style.transform = 'translateY('+ LRCY +'px)';
 						}else {
-							// console.log(this.ulTop - lisheight);
-							lrcUl.style.top = musicLrc.offsetHeight / 2 - lisheight + 'px';
-							// console.log(musicLrc.offsetHeight / 2.05);
+							let allY = musicLrc.offsetHeight / 2 - lisheight;
+							lrcUl.style.transform = 'translateY('+ allY +'px)';
+
 							if(lrcLi[lisnum-1].getAttribute('time') == lrcLi[lisnum-2].getAttribute('time')) {
 								lrcLi[lisnum-1].setAttribute('class','playing');
 								lrcLi[lisnum-2].setAttribute('class','playing');
@@ -1008,60 +1096,6 @@
 				}
 				renderFrame();
 			},
-			//波形1
-			Visualizer1() {
-				var a = document.getElementById('audio');
-				var AudioCtx = window.AudioContext || window.webkitAudioContext;
-				var ACtx = new AudioCtx();
-				var source = ACtx.createMediaElementSource(a);
-				var analyser = ACtx.createAnalyser();
-				source.connect(analyser);
-				analyser.connect(ACtx.destionation);
-
-				function drawAudio() {
-					var canvas = document.getElementById('canvas');
-					var ctx = canvas.getContext('2d');
-					var c_width = canvas.width;
-					var c_height = canvas.height;
-
-					//条形参数
-					var bar_width = 20;
-					var bar_gap = 2;
-					var bar_part = bar_width + bar_gap;
-					var bar_num = Math.round(c_width / bar_part);
-
-					//线条高度
-					var cap_height = 2;
-
-					//获取音频数据
-					var bufferLength = analyser.frequencyBinCount;
-					var dataArray = new Uint8Array(bufferLength);
-
-					//每段包含的频谱宽
-					var array_width = Math.round(bufferLength / bar_num);
-
-					// 变量提前,i 表示变量, value表示音频值, isStop表示上方线条的结束
-					var i,value,isStop;
-					var that = this;
-
-					//创建数组，线条数组，判断动画结束
-					var array = [];
-					var animation_id = null;
-
-					function drawVisual() {
-						analyser.getByteFrequencyData(dataArray);
-						if(that.ifPlay) {
-							isStop = true;
-							for(i = dataArray.length - 1; i >= 0; i--) {
-								dataArray[i] = 0;
-							}
-						}
-
-						//使其静止时图为空
-
-					}
-				}
-			}
 		},
 		mounted() {
 			this.getMusicData();
@@ -1076,6 +1110,7 @@
 			let imgspan = document.getElementsByClassName('choose-img')[0].getElementsByClassName('imgurl');
 			let lis = document.getElementsByClassName('list-ul')[0].children;
 
+			let listBarWrap = document.getElementsByClassName('list-bar-wrap')[0];
 			if(window.localStorage.length >= 3) {
 				let ls = window.localStorage;
 				for(var i=0; i<ls.length/3; i++) {
@@ -1163,6 +1198,7 @@
 			function onloadsize() {
 				// 加载完成 界面宽度自适应
 				that.$refs.playlist.style.height = window.innerHeight - 75 + 'px';
+				listBarWrap.style.height = window.innerHeight - 75 - 61 + 'px';
 				that.$refs.musictop.style.width = window.innerWidth + 'px';
 				that.$refs.musiclrc.style.height = window.innerHeight - 85 - 95 + 'px';
 				that.$refs.musiclrc.style.height = that.$refs.musiclrc.offsetHeight + 50 + 'px';

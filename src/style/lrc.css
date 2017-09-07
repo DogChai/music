@@ -10,7 +10,7 @@
 			transition: opacity .3s;
 			z-index: 90;
 			/*background: rgba(0, 0, 0, 0.1);*/
-			box-shadow: 2px 0 2px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
+			/*box-shadow: 2px 0 2px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);*/
 		}
 
 	.lrc-ul {
@@ -19,7 +19,8 @@
 		position: absolute;
 		left: 50%;
 		margin-left: -240px;
-		top: 10%;
+		/*top: 10%;*/
+		transform: translateY(0);
 		transition: all .6s;
 	}
 

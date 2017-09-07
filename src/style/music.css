@@ -10,12 +10,6 @@
 		z-index: 999;
 	}
 
-  /*.file {
-    position: fixed;
-    top: 0;
-    left: 0;
-  }*/
-
   .hidden {
     display: none;
   }
