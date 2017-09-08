@@ -121,6 +121,7 @@
 				listScroll: 0,//列表滚动位置
 				barScroll:0,  //滚动条
 				listScroll2: 0, //列表2滚动位置
+				barTop:0,
 				ifPlay: true, //是否播放
 				ifVol: 0,     //是否静音
 				volScales: 1, //音量大小默认为1
@@ -206,9 +207,9 @@
 			},
 			//获得歌词
 			getLrcFile(n) {
-				// music/
+				// ../../music/static/lrc/ 打包请修改
 				if(this.$refs.listul2.getAttribute('myplay') == 'false') {
-					axios.get('../../music/static/lrc/'+ n + '.lrc').then((response) => {
+					axios.get('../../static/lrc/'+ n + '.lrc').then((response) => {
 						if(response.data == '纯音乐,请欣赏' || response.data == '后摇,请欣赏') {
 							this.lrcData = response.data;
 							this.showLrc();
@@ -257,6 +258,9 @@
 						this.$refs.lrcul.style.transform = 'translateY('+ pianoY +'px)';
 					}else {
 						for(var k in this.lrcObj) {
+							if(this.lrcObj[k] == "\n\n") {
+								console.log(1);
+							}
 							let lrcli = document.createElement('li');
 							lrcli.innerHTML = this.lrcObj[k];
 							this.lrcTime[k] = this.lrcTime[k].toString().replace(/\[|]/g,'');
@@ -266,6 +270,11 @@
 							lrcli.setAttribute('time',this.lrcSecond);
 							lrcli.setAttribute('ifchoose','false');
 							this.$refs.lrcul.appendChild(lrcli);
+						}
+						for(var s=0; s<this.$refs.lrcul.children.length; s++) {
+							if(this.$refs.lrcul.children[s].innerHTML == "\n\n" ) {
+								this.$refs.lrcul.removeChild(this.$refs.lrcul.children[s])
+							}
 						}
 						this.$refs.lrcul.setAttribute('move',true);
 						let LRCY = this.$refs.musiclrc.offsetHeight / 2 + 50;
@@ -308,24 +317,26 @@
 				for(var i=0; i<this.musicData.length; i++) {
 					that.$refs.listul.children[i].setAttribute('class','');
 				}
-				if(that.$refs.listul2.getAttribute('myplay') == 'false') {
-					that.$refs.listul.children[that.playNum].setAttribute('class','playing');
-					if(that.ifPlay) {
-						that.$refs.audio.play();
-						that.ifPlay = false;
-					}
-					else {
-						that.$refs.audio.pause();
-						that.ifPlay = true;
-					}
-				}else {
-					if(that.ifPlay) {
-						that.$refs.audio.play();
-						that.ifPlay = false;
-					}
-					else {
-						that.$refs.audio.pause();
-						that.ifPlay = true;
+				if(that.$refs.audio!==null) {
+					if(that.$refs.listul2.getAttribute('myplay') == 'false') {
+						that.$refs.listul.children[that.playNum].setAttribute('class','playing');
+						if(that.ifPlay) {
+							that.$refs.audio.play();
+							that.ifPlay = false;
+						}
+						else {
+							that.$refs.audio.pause();
+							that.ifPlay = true;
+						}
+					}else {
+						if(that.ifPlay) {
+							that.$refs.audio.play();
+							that.ifPlay = false;
+						}
+						else {
+							that.$refs.audio.pause();
+							that.ifPlay = true;
+						}
 					}
 				}
 			},
@@ -535,8 +546,16 @@
 					bar.style.transform = 'translateY('+ B +'px)';
 					if(parseInt(bar.style.transform.substring(11)) <=0) {
 						bar.style.transform = 'translateY(0px)';
+						that.barScroll = 0;
 					}
-					that.barScroll = parseInt(bar.style.transform.substring(11));
+					if(parseInt(bar.style.transform.substring(11)) >= (PH-7-66)) {
+						let PHB = PH-7-66;
+						bar.style.transform = 'translateY('+ PHB +'px)';
+						that.barScroll = PHB;
+					}else {
+						that.barScroll = parseInt(bar.style.transform.substring(11));
+					}
+
 					that.$refs.listul.style.transform = 'translateY(-'+that.listScroll+'px)';
 				}
 			},
@@ -548,15 +567,15 @@
 				let playList2 = document.getElementsByClassName('list-ul2')[0];
 				let thisLBW = document.getElementsByClassName('list-bar-wrap')[0];
 				let top = e.clientY;
-				let barTop = bar.offsetTop;
+				that.barTop = parseInt(bar.style.transform.substring(11));
 				let PH = 0;
-				for(var i=0; i<playList1.children.length-4; i++) {
+				for(var i=0; i<playList1.children.length-1; i++) {
 					PH += playList1.children[i].offsetHeight;
 				}
-				PH = PH+9;
+				PH = PH-20;
 				document.onmousemove = function(e) {
 					let _top = e.clientY;
-					 that.barScroll = _top - top + barTop;
+					 that.barScroll = _top - top + that.barTop;
 					if(that.barScroll > thisLBW.offsetHeight - 66) {
 						that.barScroll = thisLBW.offsetHeight - 66;
 					}
@@ -567,7 +586,6 @@
 					let Y = -that.barScroll * (PH / thisLBW.offsetHeight);
 					playList1.style.transform = 'translateY('+ Y +'px)';
 					that.listScroll = -parseInt(playList1.style.transform.substring(11));
-					// console.log(parseInt(playList1.style.transform.substring(11)))
 				};
 				document.onmouseup = function() {
 					document.onmousemove = null;
@@ -680,6 +698,7 @@
 									lrcli[i].setAttribute('ifchoose','true');
 									lrcli[i-1].setAttribute('ifchoose','true');
 									thisLiHeight = lrcli[i].offsetHeight + lrcli[i-1].offsetHeight;
+									thisLiHeight = thisLiHeight / 2;
 								}else if(lrcLine === 3) {
 									lrcli[i].setAttribute('class','playing');
 									lrcli[i-1].setAttribute('class','playing');
@@ -688,6 +707,7 @@
 									lrcli[i-1].setAttribute('ifchoose','true');
 									lrcli[i-2].setAttribute('ifchoose','true');
 									thisLiHeight = lrcli[i].offsetHeight + lrcli[i-1].offsetHeight + lrcli[i-2].offsetHeight;
+									thisLiHeight = thisLiHeight / 2;
 								}else if(lrcLine === 4) {
 									lrcli[i].setAttribute('class','playing');
 									lrcli[i-1].setAttribute('class','playing');
@@ -724,7 +744,7 @@
 						lisnum = 0;
 						lisheight = 0;
 						for(var i=0; i<lrcLi.length; i++) {
-							if(lrcLi[i].getAttribute('time') < this.curTime) {
+							if(lrcLi[i].getAttribute('time') <= this.curTime) {
 								lisnum++;
 								lisheight += lrcLi[i].offsetHeight;
 								lrcLi[i].setAttribute('class','');
@@ -733,18 +753,43 @@
 						if(lisnum == 0) {
 							let LRCY = this.$refs.musiclrc.offsetHeight / 2 + 50;
 							lrcUl.style.transform = 'translateY('+ LRCY +'px)';
-						}else {
-							let allY = musicLrc.offsetHeight / 2 - lisheight;
+						}else{
+							let allY = musicLrc.offsetHeight / 2 - lisheight + 40;
 							lrcUl.style.transform = 'translateY('+ allY +'px)';
+							if(lisnum < 3) {
+								if(lisnum == 1) {
+									if(lrcLi[0].getAttribute('time') == lrcLi[1].getAttribute('time')) {
+										allY = musicLrc.offsetHeight / 2 - lisheight + 100;
+										lrcUl.style.transform = 'translateY('+ allY +'px)';
+										lrcLi[0].setAttribute('class','playing');
+										lrcLi[1].setAttribute('class','playing');
+									}else {
+										allY = this.$refs.musiclrc.offsetHeight / 2 + 50;
+										lrcUl.style.transform = 'translateY('+ allY +'px)';
+										lrcLi[0].setAttribute('class','playing');
+									}
+								}
+								else if(lisnum == 2) {
+										allY = musicLrc.offsetHeight / 2 - lisheight + 100;
+										lrcUl.style.transform = 'translateY('+ allY +'px)';
+										lrcLi[0].setAttribute('class','playing');
+										lrcLi[1].setAttribute('class','playing');
+								}
 
-							if(lrcLi[lisnum-1].getAttribute('time') == lrcLi[lisnum-2].getAttribute('time')) {
-								lrcLi[lisnum-1].setAttribute('class','playing');
-								lrcLi[lisnum-2].setAttribute('class','playing');
-							}else if(lrcLi[lisnum-1].getAttribute('time') == lrcLi[lisnum].getAttribute('time')) {
-								lrcLi[lisnum-1].setAttribute('class','playing');
-								lrcLi[lisnum].setAttribute('class','playing');
 							}else {
-								lrcLi[lisnum-1].setAttribute('class','playing');
+								if(lrcLi[lisnum-1].getAttribute('time') == lrcLi[lisnum-2].getAttribute('time')) {
+									lrcLi[lisnum-1].setAttribute('class','playing');
+									lrcLi[lisnum-2].setAttribute('class','playing');
+									allY = musicLrc.offsetHeight / 2 - lisheight + 60;
+									lrcUl.style.transform = 'translateY('+ allY +'px)';
+								}else if(lrcLi[lisnum-1].getAttribute('time') == lrcLi[lisnum].getAttribute('time')) {
+									lrcLi[lisnum-1].setAttribute('class','playing');
+									lrcLi[lisnum].setAttribute('class','playing');
+									allY = musicLrc.offsetHeight / 2 - lisheight + 60;
+									lrcUl.style.transform = 'translateY('+ allY +'px)';
+								}else {
+									lrcLi[lisnum-1].setAttribute('class','playing');
+								}
 							}
 						}
 					}
@@ -1304,7 +1349,7 @@
 				//鼠标右击事件
 				document.oncontextmenu = function(e) {
 					that.showList();
-					e.returnValue=false;
+					// e.returnValue=false;
 				}
 				that.listNum();
 			}

@@ -291,6 +291,7 @@
 		left:0;
 		top:-5px;
 		cursor: pointer;
+    /*transition: left .2s;*/
 	}
 
 	.music-order {

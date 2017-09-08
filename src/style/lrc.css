@@ -14,14 +14,14 @@
 		}
 
 	.lrc-ul {
-		width: 480px;
+		width: 550px;
 		height: auto;
 		position: absolute;
 		left: 50%;
 		margin-left: -240px;
 		/*top: 10%;*/
 		transform: translateY(0);
-		transition: all .6s;
+		transition: all .5s;
 	}
 
 	.lrc-ul li {
@@ -34,6 +34,8 @@
 		font-weight: bold;
 		font-family: cursive,Monaco;
 		text-shadow: 0 0 3px rgba(0,0,0,0.2);
+		height: 40px;
+		line-height: 40px;
 	}
 
 	.lrc-ul .playing {
