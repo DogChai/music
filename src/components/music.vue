@@ -78,13 +78,13 @@
 				<li class="top-two" v-on:click='showWaveDiv()'><a>waveform</a></li>
 			</ul>
 			<div class="choose-img">
-				<span class="imgurl choose1" imgurl='http://ogm5at7ve.bkt.clouddn.com/5.jpg'></span>
+				<span class="imgurl choose1" imgurl='http://oht4at73h.bkt.clouddn.com/new1.png'></span>
 				<span class="img-line"></span>
-				<span class="imgurl" imgurl='http://ogm5at7ve.bkt.clouddn.com/3.jpg'></span>
+				<span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/new7.png'></span>
 				<span class="img-line"></span>
-				<span class="imgurl" imgurl='http://ogm5at7ve.bkt.clouddn.com/4.jpg'></span>
+				<span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/new6.png'></span>
 				<span class="img-line"></span>
-				<span class="imgurl" imgurl='http://ogm5at7ve.bkt.clouddn.com/6.jpg'></span>
+				<span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/new2.png'></span>
 				<span class="img-line"></span>
 				<span class="imgurl" imgurl='http://ogm5at7ve.bkt.clouddn.com/7.jpg'></span>
 			</div>
@@ -113,9 +113,9 @@
 				dragMusicUrl: [],
 				waveWidth: 0,
 				waveHeight: 0,
-				c1:'rgb(100,207,253)',
-				c2:'rgb(239,189,134)',
-				c3:'rgb(94,134,190)',
+				c1: 'rgb(188,140,190)',
+				c2: 'rgb(78,100,164)',
+				c3: 'rgb(35,32,43)',
 				cutHeight:0,
 				listShow: 0,  //列表显示判断
 				listScroll: 0,//列表滚动位置
@@ -209,7 +209,7 @@
 			getLrcFile(n) {
 				// ../../music/static/lrc/ 打包请修改
 				if(this.$refs.listul2.getAttribute('myplay') == 'false') {
-					axios.get('../../static/lrc/'+ n + '.lrc').then((response) => {
+					axios.get('../../music/static/lrc/'+ n + '.lrc').then((response) => {
 						if(response.data == '纯音乐,请欣赏' || response.data == '后摇,请欣赏') {
 							this.lrcData = response.data;
 							this.showLrc();
@@ -558,6 +558,41 @@
 
 					that.$refs.listul.style.transform = 'translateY(-'+that.listScroll+'px)';
 				}
+
+				// that.$refs.playlist.addEventListener('touchmove',function(e) {
+				// 	let PH = thisLBW.offsetHeight + 7;
+				// 	let PH1 = playList1.offsetHeight - 200;
+				// 	// console.log(that.listScroll * (thisLBW.offsetHeight / PH1))
+				// 	if(e.wheelDelta < 0) {
+				// 		//向上滚动
+				// 		that.listScroll += 60;
+				// 	}
+				// 	else if(e.wheelDelta > 0) {
+				// 		//向下滚动
+				// 		that.listScroll -=60;
+				// 	}
+				// 	if(that.listScroll <= -60) {
+				// 		that.listScroll = -60;
+				// 	}
+				// 	if(that.listScroll >= that.$refs.listul.offsetHeight - that.$refs.playlist.offsetHeight + 60) {
+				// 		that.listScroll = that.$refs.listul.offsetHeight - that.$refs.playlist.offsetHeight + 60;
+				// 	}
+				// 	let B = parseInt(that.listScroll * (PH / PH1));
+				// 	bar.style.transform = 'translateY('+ B +'px)';
+				// 	if(parseInt(bar.style.transform.substring(11)) <=0) {
+				// 		bar.style.transform = 'translateY(0px)';
+				// 		that.barScroll = 0;
+				// 	}
+				// 	if(parseInt(bar.style.transform.substring(11)) >= (PH-7-66)) {
+				// 		let PHB = PH-7-66;
+				// 		bar.style.transform = 'translateY('+ PHB +'px)';
+				// 		that.barScroll = PHB;
+				// 	}else {
+				// 		that.barScroll = parseInt(bar.style.transform.substring(11));
+				// 	}
+				//
+				// 	that.$refs.listul.style.transform = 'translateY(-'+that.listScroll+'px)';
+				// })
 			},
 			//滚动条
 			listBar(e) {
@@ -1173,9 +1208,9 @@
 					let this_ = this;
 					if(this.index == 0) {
 						changeimg(this_);
-						that.c1 = 'rgb(100,207,253)';
-						that.c2 = 'rgb(239,189,134)';
-						that.c3 = 'rgb(94,134,190)';
+						that.c1 = 'rgb(188,140,190)';
+						that.c2 = 'rgb(78,100,164)';
+						that.c3 = 'rgb(35,32,43)';
 						changeblack();
 					}else if(this.index == 1) {
 						changeimg(this_);
@@ -1185,9 +1220,9 @@
 						changeblack();
 					}else if(this.index == 2) {
 						changeimg(this_);
-						that.c1 = 'rgb(3,4,17)';
-						that.c2 = 'rgb(81,48,54)';
-						that.c3 = 'rgb(68,87,89)';
+						that.c1 = 'rgb(8,61,151)';
+						that.c2 = 'rgb(124,173,251)';
+						that.c3 = 'rgb(149,197,221)';
 						for(var k=0; k<lis.length; k++) {
 							lis[k].style.color = 'white';
 						}
@@ -1197,9 +1232,9 @@
 						}
 					}else if(this.index == 3){
 						changeimg(this_);
-						that.c1 = 'rgb(207,219,233)';
-						that.c2 = 'rgb(82,92,92)';
-						that.c3 = 'rgb(163,162,170)';
+						that.c1 = 'rgb(247,157,164)';
+						that.c2 = 'rgb(163,62,77)';
+						that.c3 = 'rgb(225,161,151)';
 						changeblack();
 					}else {
 						changeimg(this_);
@@ -1263,6 +1298,7 @@
 					that.$refs.musicwave.style.height = window.innerHeight - 85 - 200 + 'px';
 					that.waveWidth = that.$refs.musicwave.offsetWidth;
 					that.waveHeight = that.$refs.musicwave.offsetHeight;
+					that.showLrc();
 					that.dragScroll();
 					// that.Visualizer();
 				}else {
@@ -1273,6 +1309,7 @@
 					that.$refs.musicwave.style.height = that.$refs.musicwave.offsetHeight + 50 + 'px';
 					that.waveWidth = that.$refs.musicwave.offsetWidth;
 					that.waveHeight = that.$refs.musicwave.offsetHeight;
+					that.showLrc();
 					that.dragScroll();
 				}
 			})

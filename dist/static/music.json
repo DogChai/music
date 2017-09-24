@@ -1,13 +1,23 @@
 [
     {
-      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20Too%20Bad.mp3",
-      "name": "Too Bad",
-      "singer": "林俊杰",
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E5%AE%89%E7%94%B0%E3%83%AC%E3%82%A4%20-%20Brand%20New%20Day.mp3",
+      "name": "Brand New Day",
+      "singer": "安田レイ",
       "playBool":false
     },{
-      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84%E6%83%85%E4%BA%BA.mp3",
-      "name": "不存在的情人",
-      "singer": "林俊杰",
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/AYUMI%20KAWAKITA%20-%20E%E2%98%86Right.mp3",
+      "name": "E☆Right",
+      "singer": "AYUMI KAWAKITA",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/Lene%20Marlin%20-%20Unforgivable%20Sinner.mp3",
+      "name": "Unforgivable Sinner",
+      "singer": "Lene Marlin",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/Lights%20-%20The%20Listening.mp3",
+      "name": "The Listening",
+      "singer": "Lights",
       "playBool":false
     },{
       "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E4%B8%8D%E4%B8%BA%E8%B0%81%E8%80%8C%E4%BD%9C%E7%9A%84%E6%AD%8C.mp3",
@@ -47,11 +57,6 @@
     },{
       "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E4%BD%A0%EF%BC%8C%E6%9C%89%E6%B2%A1%E6%9C%89%E8%BF%87%20%28%E3%80%8A%E7%A0%B4%E9%A3%8E%E3%80%8B%E7%94%B5%E5%BD%B1%E4%B8%BB%E9%A2%98%E6%9B%B2%29.mp3",
       "name": "你，有没有过 (《破风》电影主题曲)",
-      "singer": "林俊杰",
-      "playBool":false
-    },{
-      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E7%94%9F%E7%94%9F.mp3",
-      "name": "生生",
       "singer": "林俊杰",
       "playBool":false
     },{
@@ -253,6 +258,16 @@
       "url": "http://ohx9cuj3d.bkt.clouddn.com/As%20the%20Stars%20Fall%20-%20As%20Far%20As%20the%20Eye%20Can%20See.mp3",
       "name": "As Far As the Eye Can See",
       "singer": "As the Stars Fall",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E9%81%A0%E8%97%A4%E5%B9%B9%E9%9B%84%20-%20Showdown.mp3",
+      "name": "Showdown",
+      "singer": "遠藤幹雄",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E9%81%A0%E8%97%A4%E5%B9%B9%E9%9B%84%20-%20New%20Kings.mp3",
+      "name": "New Kings",
+      "singer": "遠藤幹雄",
       "playBool":false
     },{
       "url": "http://ohx9cuj3d.bkt.clouddn.com/%E6%9E%97%E3%82%86%E3%81%86%E3%81%8D%20-%20%E6%98%9F%E7%A9%BA.mp3",

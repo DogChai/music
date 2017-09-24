@@ -92,6 +92,7 @@
 }
 
 .list-ul li {
+  font-family: KaiTi;
   border-bottom: 1px solid #555;
   padding: 15px;
   color: black;;
@@ -102,8 +103,9 @@
   word-break: break-all;
   transition: background-color 0.3s;
   box-sizing: border-box;
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
   z-index: 50;
+  font-weight: 600;
 }
 
 .list-ul li span {

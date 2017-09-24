@@ -32,7 +32,7 @@
 .choose-img span:nth-of-type(2) {
   top: 24px;
   opacity: 0;
-  transition: all .5s;
+  transition: all .4s;
 }
 
 .choose-img span:nth-of-type(3) {
@@ -44,7 +44,7 @@
 .choose-img span:nth-of-type(4) {
   top: 24px;
   opacity: 0;
-  transition: all .5s;
+  transition: all .4s;
 }
 
 .choose-img span:nth-of-type(5) {
@@ -56,7 +56,7 @@
 .choose-img span:nth-of-type(6) {
   top: 24px;
   opacity: 0;
-  transition: all .5s;
+  transition: all .4s;
 }
 
 .choose-img span:nth-of-type(7) {
@@ -68,7 +68,7 @@
 .choose-img span:nth-of-type(8) {
   top: 24px;
   opacity: 0;
-  transition: all .5s;
+  transition: all .3s;
 }
 
 .choose-img span:nth-of-type(9) {
@@ -123,25 +123,25 @@
 
 
 .choose-img span:nth-of-type(1):hover {
-  background: rgb(45,93,167);
+  background: rgb(175,117,186);
   background-clip: padding-box;
   /*5.jpg*/
 }
 
 .choose-img span:nth-of-type(3):hover {
-  background: rgb(236, 208, 193);
+  background: rgb(212,212,217);
   background-clip: padding-box;
   /*3.jpg*/
 }
 
 .choose-img span:nth-of-type(5):hover {
-  background: rgb(1,6,18);
+  background: rgb(82,161,252);
   background-clip: padding-box;
   /*4.jpg*/
 }
 
 .choose-img span:nth-of-type(7):hover {
-  background: rgb(84,111,109);
+  background: rgb(247,157,164);
   background-clip: padding-box;
   /*6.jpg*/
 }
@@ -153,28 +153,28 @@
 }
 
 .choose1 {
-  background: rgb(45,93,167);
+  background: rgb(175,117,186);
   background-clip: padding-box;
   z-index: 99;
   opacity: 1!important;
 }
 
 .choose2 {
-  background: rgb(236, 208, 193);
+  background: rgb(212,212,217);
   background-clip: padding-box;
   z-index: 99;
   opacity: 1!important;
 }
 
 .choose3 {
-  background: rgb(1,6,18);
+  background: rgb(82,161,252);
   background-clip: padding-box;
   z-index: 99;
   opacity: 1!important;
 }
 
 .choose4 {
-  background: rgb(84,111,109);
+  background: rgb(247,157,164);
   background-clip: padding-box;
   z-index: 99;
   opacity: 1!important;

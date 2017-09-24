@@ -23,7 +23,7 @@
 		margin-left: -350px;
 		background: rgba(110, 168, 245, 0.8);
 		transition: all .6s ease-out;
-		font-family: 'KaiTi';
+		font-family: KaiTi;
 		color:white;
 		overflow: hidden;
 	}
@@ -39,7 +39,7 @@
 		background: rgb(25,60,120);
 		position: relative;
 		z-index: 99;
-		font-family: 'KaiTi';
+		font-family: KaiTi;
 		-webkit-touch-callout: none; /* iOS Safari */
 		-webkit-user-select: none; /* Chrome/Safari/Opera */
 		-khtml-user-select: none; /* Konqueror */
@@ -52,7 +52,7 @@
 		float: left;
 		margin-left: 8%;
 		cursor: pointer;
-		font-family: 'KaiTi';
+		font-family: KaiTi;
 	}
 
 	.music-begin a {
@@ -152,7 +152,7 @@
 		padding-left: 30px;
 		position: relative;
 		box-sizing: border-box;
-		font-family: 'KaiTi';
+		font-family: KaiTi;
 	}
 
 	.music audio {
@@ -233,7 +233,7 @@
 		text-align: left;
 		margin-bottom: 5px;
 		bottom:5px;
-		font-family: 'KaiTi';
+		font-family: KaiTi;
 		position: relative;
 		-webkit-touch-callout: none; /* iOS Safari */
 		-webkit-user-select: none; /* Chrome/Safari/Opera */
@@ -261,7 +261,7 @@
 	}
 
 	.music-time span {
-		font-family: 'KaiTi','-webkit-pictograph';
+		font-family: KaiTi;
 		font-size: 17px;
 	}
 
@@ -404,7 +404,7 @@
 		line-height: 26px;
 		cursor: pointer;
 		transition: color .2s;
-		font-family: 'KaiTi';
+		font-family: KaiTi;
 		-webkit-touch-callout: none; /* iOS Safari */
 		-webkit-user-select: none; /* Chrome/Safari/Opera */
 		-khtml-user-select: none; /* Konqueror */

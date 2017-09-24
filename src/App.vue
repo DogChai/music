@@ -43,11 +43,16 @@ export default {
   body {
     height: 100%;
     width: 100%;
-    background-image: url('http://ogm5at7ve.bkt.clouddn.com/5.jpg');
+    background-image: url('http://oht4at73h.bkt.clouddn.com/new1.png');
     background-repeat: no-repeat;
     background-size: cover;
     overflow-y: hidden;
     overflow-x: hidden;
     transition: background-image 1s;
+  }
+
+  @font-face {
+    font-family: 'lesses';
+    src: url('./assets/font/lesses.ttf');
   }
 </style>

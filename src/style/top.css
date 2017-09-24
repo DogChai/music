@@ -46,7 +46,7 @@
 }
 
 .music-top ul li a {
-  font-family: 'cursive','KaiTi';
+  font-family: KaiTi;
   color: white;
   font-size: 18px;
   width: 100%;
@@ -60,7 +60,7 @@
 }
 
 .show-title {
-  font-family: KaiTi,Microsoft YaHei;
+  font-family: KaiTi;
   position: fixed;
   right: -44px;
   top: 50%;
