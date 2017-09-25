@@ -4,35 +4,52 @@
     <meta charset="utf-8">
     <title>music</title>
     <link rel="shortcut icon" href="http://lesses.me/my/beta1/moon.ico" type="image/x-icon">
+    <style>
+      @keyframes loadDiv {
+        0% 100% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    
+      .loadFade {
+        opacity: 1;
+        transition: all 1.5s linear;
+      }
+    </style>
   </head>
   <body>
+    <script>
+      function CreateLoadDiv(id,loadImgUrl,fatherDom,bgColor) {
+        this.ele = document.createElement('div');
+        this.ele.setAttribute('id',id);
+        this.ele.style.background = 'url('+loadImgUrl+')'+' no-repeat '+' center '+' center '+ bgColor;
+        this.ele.style.position = 'fixed';
+        this.ele.className = 'loadFade';
+        this.ele.style.top = 0;
+        this.ele.style.left = 0;
+        this.ele.style.right = 0;
+        this.ele.style.bottom = 0;
+        this.ele.style.zIndex = 999;
+        fatherDom.appendChild(this.ele);
+      }
+      var myLoadDiv = new CreateLoadDiv('myload','http://oht4at73h.bkt.clouddn.com/load.gif',document.body,'rgba(236, 232, 222, 1)');
+      document.onreadystatechange = function () {
+        var loadTimer = null;
+        if(document.readyState=="complete") {
+          document.getElementById('myload').style.opacity = 0;
+          loadTimer = setTimeout(function() {
+            document.getElementById('myload').style.display = 'none';
+          },1500);
+        }
+      }
+    </script>
     <div id="app"></div>
   </body>
-  <script>
-    function CreateLoadDiv(id,loadImgUrl,fatherDom,bgColor) {
-      this.ele = document.createElement('div');
-      this.ele.setAttribute('id',id);
-      this.ele.style.background = 'url('+loadImgUrl+')'+' no-repeat '+' center '+' center '+ bgColor;
-      this.ele.style.position = 'fixed';
-      this.ele.className = 'loadFade';
-      this.ele.style.top = 0;
-      this.ele.style.left = 0;
-      this.ele.style.right = 0;
-      this.ele.style.bottom = 0;
-      this.ele.style.zIndex = 999;
-      fatherDom.appendChild(this.ele);
-    }
-    var myLoadDiv = new CreateLoadDiv('myload','http://oht4at73h.bkt.clouddn.com/load.gif',document.body,'rgba(236, 232, 222, 1)');
-    document.onreadystatechange = function () {
-      var loadTimer = null;
-      if(document.readyState=="complete") {
-        document.getElementById('myload').style.opacity = 0;
-        loadTimer = setTimeout(function() {
-          document.getElementById('myload').style.display = 'none';
-        },1500);
-      }
-    }
-  </script>
   <script>
     document.oncontextmenu = function(e) {
       e.returnValue=false;
@@ -59,20 +76,3 @@
     }
   </script>
 </html>
-<style>
-  @keyframes loadDiv {
-    0% 100% {
-      opacity: 0;
-      transform: scale(0);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  .loadFade {
-    opacity: 1;
-    transition: all 1.5s linear;
-  }
-</style>
