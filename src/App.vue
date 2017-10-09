@@ -48,7 +48,7 @@ export default {
     background-size: cover;
     overflow-y: hidden;
     overflow-x: hidden;
-    transition: background-image 1s;
+    transition: background-image 1.1s;
   }
 
   @font-face {
