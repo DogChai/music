@@ -78,7 +78,7 @@
 				<li class="top-two" v-on:click='showWaveDiv()'><a>waveform</a></li>
 			</ul>
 			<div class="choose-img">
-				<span class="imgurl choose1" imgurl='http://oht4at73h.bkt.clouddn.com/new1.png'></span>
+				<span class="imgurl choose1" imgurl='http://oht4at73h.bkt.clouddn.com/new8.png'></span>
 				<span class="img-line"></span>
 				<span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/new7.png'></span>
 				<span class="img-line"></span>
@@ -86,7 +86,7 @@
 				<span class="img-line"></span>
 				<span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/new2.png'></span>
 				<span class="img-line"></span>
-				<span class="imgurl" imgurl='http://ogm5at7ve.bkt.clouddn.com/7.jpg'></span>
+				<span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/new1.png'></span>
 			</div>
 				<div class="music-lrc" ref='musiclrc'>
 			    <ul class='lrc-ul' ref='lrcul'>
@@ -113,9 +113,9 @@
 				dragMusicUrl: [],
 				waveWidth: 0,
 				waveHeight: 0,
-				c1: 'rgb(188,140,190)',
-				c2: 'rgb(78,100,164)',
-				c3: 'rgb(35,32,43)',
+				c1: 'rgb(45,181,253)',
+				c2: 'rgb(2,28,72)',
+				c3: 'rgb(185,231,247)',
 				cutHeight:0,
 				listShow: 0,  //列表显示判断
 				listScroll: 0,//列表滚动位置
@@ -1208,10 +1208,17 @@
 					let this_ = this;
 					if(this.index == 0) {
 						changeimg(this_);
-						that.c1 = 'rgb(188,140,190)';
-						that.c2 = 'rgb(78,100,164)';
-						that.c3 = 'rgb(35,32,43)';
-						changeblack();
+						that.c1 = 'rgb(45,181,253)';
+						that.c2 = 'rgb(2,28,72)';
+						that.c3 = 'rgb(185,231,247)';
+						for(var k=0; k<lis.length; k++) {
+							lis[k].style.color = 'white';
+						}
+						let lis2 = document.getElementsByClassName('list-ul2')[0].children;
+						for(var x=0; x<lis2.length; x++) {
+							lis2[x].style.color = 'white';
+						}
+						// changeblack();
 					}else if(this.index == 1) {
 						changeimg(this_);
 						that.c1 = 'rgb(225,208,200)';
@@ -1235,12 +1242,12 @@
 						that.c1 = 'rgb(247,157,164)';
 						that.c2 = 'rgb(163,62,77)';
 						that.c3 = 'rgb(225,161,151)';
-						changeblack();
+						// changeblack();
 					}else {
 						changeimg(this_);
-						that.c1 = 'rgb(236,231,147)';
-						that.c2 = 'rgb(196, 91, 150)';
-						that.c3 = 'rgb(89,146,166)';
+						that.c1 = 'rgb(188,140,190)';
+						that.c2 = 'rgb(78,100,164)';
+						that.c3 = 'rgb(35,32,43)';
 						changeblack();
 					}
 					function changeimg(a) {
@@ -1252,11 +1259,11 @@
 					}
 					function changeblack() {
 						for(var k=0; k<lis.length; k++) {
-							lis[k].style.color = '';
+							lis[k].style.color = 'black';
 						}
 						let lis2 = document.getElementsByClassName('list-ul2')[0].children;
 						for(var x=0; x<lis2.length; x++) {
-							lis2[x].style.color = '';
+							lis2[x].style.color = 'black';
 						}
 					}
 				})

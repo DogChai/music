@@ -1,5 +1,31 @@
 [
+
     {
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/LiSA%20-%20Catch%20the%20Moment.mp3",
+      "name": "Catch the Moment",
+      "singer": "LiSA",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E7%A5%9E%E7%94%B0%E6%B2%99%E4%B9%9F%E5%8A%A0%20-%20delete.mp3",
+      "name": "delete",
+      "singer": "神田沙也加",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E7%A5%9E%E7%94%B0%E6%B2%99%E4%B9%9F%E5%8A%A0%20-%20longing.mp3",
+      "name": "longing",
+      "singer": "神田沙也加",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E7%A5%9E%E7%94%B0%E6%B2%99%E4%B9%9F%E5%8A%A0%20-%20Break%20Beat%20Bark%21.mp3",
+      "name": "Break Beat Bark!",
+      "singer": "神田沙也加",
+      "playBool":false
+    },{
+      "url": "http://ohx9cuj3d.bkt.clouddn.com/%E7%A5%9E%E7%94%B0%E6%B2%99%E4%B9%9F%E5%8A%A0%20-%20Ubiquitous%20dB.mp3",
+      "name": "Ubiquitous dB",
+      "singer": "神田沙也加",
+      "playBool":false
+    },{
       "url": "http://ohx9cuj3d.bkt.clouddn.com/%E5%AE%89%E7%94%B0%E3%83%AC%E3%82%A4%20-%20Brand%20New%20Day.mp3",
       "name": "Brand New Day",
       "singer": "安田レイ",
