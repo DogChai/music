@@ -27,10 +27,12 @@
 
 	#canvas1 {
 		width: 100%!important;
-		height: 700px!important;
+		height: 620px!important;
 		position: absolute;
-		top: -220px;
+		top: -160px;
 		left: 0;
+		z-index: 999;
+		/*background: rgba(0, 0, 0, 0.5);*/
 	}
 
 	.lrc-ul li {

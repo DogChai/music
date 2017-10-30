@@ -73,11 +73,12 @@
 			</ul>
 		</div>
 		<div class="music-top" ref='musictop'>
+			<canvas id="canvas1" width="100%" height="100px"></canvas>
 			<ul>
 				<li class="top-one" v-on:click='showLrcDiv()'><a>lyric</a></li>
 				<li class="top-two" v-on:click='showWaveDiv()'><a>waveform</a></li>
 			</ul>
-			<canvas id="canvas1" width="100%" height="100px"></canvas>
+
 			<div class="choose-img">
 				<span class="imgurl choose1" imgurl='http://oht4at73h.bkt.clouddn.com/new8.png'></span>
 				<span class="img-line"></span>
