@@ -12,7 +12,7 @@
       .loadFade {
         opacity: 1;
         transition: all 1.5s linear;
-      }</style><link href=./static/css/app.2a3ca98a1ef49cec1399a42258cab1b4.css rel=stylesheet></head><body><script>function CreateLoadDiv(id,loadImgUrl,fatherDom,bgColor) {
+      }</style><link href=./static/css/app.098dea2c8d35458fc90e70a4cf631324.css rel=stylesheet></head><body><script>function CreateLoadDiv(id,loadImgUrl,fatherDom,bgColor) {
         this.ele = document.createElement('div');
         this.ele.setAttribute('id',id);
         this.ele.style.background = 'url('+loadImgUrl+')'+' no-repeat '+' center '+' center '+ bgColor;
@@ -34,7 +34,7 @@
             document.getElementById('myload').style.display = 'none';
           },1500);
         }
-      }</script><div id=app></div><script type=text/javascript src=./static/js/manifest.5b9fea7ec968891de822.js></script><script type=text/javascript src=./static/js/vendor.b567735d7c2becb0afb9.js></script><script type=text/javascript src=./static/js/app.6a063d64f8d918595464.js></script></body><script>document.oncontextmenu = function(e) {
+      }</script><div id=control style="display: none"><div><h1>文字粒子</h1><p style="margin: 0 0 20px 10px"><span id=ball>圆形</span> <span id=rect>方块</span></p><p>文字</p><input type=text id=message value="" onchange=change()><p>重力</p><input type=range id=gra value=0 min=-1 max=1 step=0.1 onchange=changeV()><p>周期</p><input type=range id=dur value=0.22 min=0.1 max=0.99 step=0.01 onchange=changeV()><p>速度</p><input type=range id=speed value=0.02 min=0 max=5 ste=0.01 onchange=changeV()><p>半径</p><input type=range id=rad value=1.8 min=1.8 max=20 step=0.1 onchange=changeV()><p>分辨率</p><input type=range id=res value=1 min=3 max=20 step=1 onchange=change()></div><div id=btn><span></span> <span></span> <span></span></div></div><div id=app></div><script type=text/javascript src=./static/js/manifest.7e0685ca389d5023df47.js></script><script type=text/javascript src=./static/js/vendor.b567735d7c2becb0afb9.js></script><script type=text/javascript src=./static/js/app.57bfd977ea5aab997f30.js></script></body><script>document.oncontextmenu = function(e) {
       e.returnValue=false;
     }
     document.onselectstart=new Function("event.returnValue=false;");
