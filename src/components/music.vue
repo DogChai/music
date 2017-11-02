@@ -73,7 +73,7 @@
 			</ul>
 		</div>
 		<div class="music-top" ref='musictop'>
-			<canvas id="canvas1" width="100%" height="100px"></canvas>
+			<!-- <canvas id="canvas1" width="100%" height="100px"></canvas> -->
 			<ul>
 				<li class="top-one" v-on:click='showLrcDiv()'><a>lyric</a></li>
 				<li class="top-two" v-on:click='showWaveDiv()'><a>waveform</a></li>
