@@ -760,7 +760,7 @@
 									thisLiHeight = lrcli[i].offsetHeight + lrcli[i-1].offsetHeight + lrcli[i-2].offsetHeight + lrcli[i-3].offsetHeight;
 									document.getElementById('message').value = lrcli[i].innerHTML;
 								}
-								this.mainCanvas();
+								// this.mainCanvas();
 								let lrcTop = parseInt(this.$refs.lrcul.style.transform.substring(11))
 								let LRCY = lrcTop - thisLiHeight;
 								this.$refs.lrcul.style.transform = 'translateY('+ LRCY +'px)';
