@@ -1526,7 +1526,7 @@
 			this.listWell2();
 			this.getMusicTime();
 			this.saveMusic();
-			this.mainCanvas();
+			// this.mainCanvas();
 			let that = this;
 			let audio = document.getElementById('audio');
 			let playlist = document.getElementsByClassName('music-play-list')[0];
