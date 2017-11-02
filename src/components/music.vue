@@ -150,7 +150,7 @@
 		methods: {
 			//获得音乐json文件
 			getMusicData() {
-				axios.get('http://lesses.me/music/static/music.json').then((response) => {
+				axios.get('http://softeyes.cc/music/static/music.json').then((response) => {
 					this.musicData = response.data;
 				},(response) => {
 					console.log('失败');
