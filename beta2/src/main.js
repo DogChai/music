@@ -3,9 +3,9 @@
 import Vue from 'vue'
 import router from './router'
 
-
-/*使用路由*/
 Vue.use(router);
+
+require('!style-loader!css-loader!./assets/style/reset.css')
 
 
 new Vue({
