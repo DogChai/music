@@ -1,12 +1,14 @@
 <template>
 	<div id="sm1">
 		sm1
+		{{vuexcount}}
 	</div>
 </template>
 
 <script>
 	export default {
-		name: 'sm1'
+		name: 'sm1',
+		props: ["vuexcount"]
 	}
 </script>
 

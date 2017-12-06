@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-
 /*页面加载*/
 import index from '../pages/index.vue'
 import bottomBar from '../pages/bottombar.vue'

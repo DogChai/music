@@ -1,5 +1,8 @@
 <template>
 	<div id="index">
+		{{$store.state.count}} - {{count}}
+		<button @click='$store.commit("jia")'>加</button>
+		<button @click='$store.commit("jian")'>减</button>
 		<div class="sm-wrap">
 			<div class="music-tab">
 				<ul>
@@ -27,12 +30,18 @@
 	import bottombar from './bottombar.vue'
 	import leftbar from './leftbar.vue'
 	import rightbar from './rightbar.vue'
+	import {mapState} from 'vuex'
 	export default {
 		name: 'index',
 		components: {
 			bottombar,
 			leftbar,
 			rightbar
+		},
+		data() {
+			return {
+				// count: 0
+			}
 		},
 		methods: {
 			tosm1: function() {
@@ -56,7 +65,19 @@
 			tosm7: function() {
 				this.$router.push('/index/sm7')
 			}
-		}
+		},
+		mouthed() {
+			
+		},
+		// computed: mapState({
+			// counts: state=>state.count
+			// counts: function(state) {
+			// 	return count = state.count
+			// }
+		// }),
+		computed: mapState([
+			"count"
+		])
 	}
 </script>
 
