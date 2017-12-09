@@ -1,8 +1,10 @@
 <template>
 	<div id="index">
 		{{$store.state.count}} - {{count}}
-		<button @click='$store.commit("jia")'>加</button>
-		<button @click='$store.commit("jian")'>减</button>
+		<button @click='$store.commit("jia",{a:6})'>加</button>
+		<button @click='$store.commit("jian",{b:3})'>减</button>
+		<button @click="jiaplus">加plus</button>
+		<button @click="jianplus">减plus</button>
 		<div class="sm-wrap">
 			<div class="music-tab">
 				<ul>
@@ -30,7 +32,7 @@
 	import bottombar from './bottombar.vue'
 	import leftbar from './leftbar.vue'
 	import rightbar from './rightbar.vue'
-	import {mapState} from 'vuex'
+	import {mapState,mapMutations,mapGetters,mapActions} from 'vuex'
 	export default {
 		name: 'index',
 		components: {
@@ -64,20 +66,28 @@
 			},
 			tosm7: function() {
 				this.$router.push('/index/sm7')
-			}
+			},
+			...mapMutations([
+				'jia',
+				'jian'
+			]),
+			...mapActions({
+				jiaplus:'jiaplus',
+				jianplus:'jianplus'
+			})
 		},
 		mouthed() {
 			
 		},
-		// computed: mapState({
-			// counts: state=>state.count
-			// counts: function(state) {
-			// 	return count = state.count
-			// }
-		// }),
-		computed: mapState([
-			"count"
-		])
+		computed: {
+			...mapState([
+				'count'
+			]),
+			// 每次都会运行
+			...mapGetters([
+				'count'
+			])
+		}
 	}
 </script>
 
