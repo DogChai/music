@@ -8,6 +8,11 @@
 
 
 ### 版本
++ 2017.12.11
+  - music页面的展示逻辑
+
+***
+
 + 2017.12.9
   - 学习 mutation,getters,actions
 
