@@ -5,21 +5,21 @@
 			<button class="showBtn" @click="showMusic" v-show='!ifShow'></button>
 		</div>
 		<div class="sm-wrap">
-			<div class="music-tab">
-				<ul>
-					<li @click='tosm1' style="margin-left: 1px">1</li>
-					<li @click='tosm2' >2</li>
-					<li @click='tosm3' >3</li>
-					<li @click='tosm4' >4</li>
-					<li @click='tosm5' >5</li>
-					<li @click='tosm6' >6</li>
-					<li @click='tosm7' >7</li>
-					<li>敬请期待</li>
-				</ul>
-			</div>
-			<transition>
-				<router-view></router-view>
-			</transition>
+        <div class="music-tab">
+          <ul ref='uls' class="uls">
+            <li @click='tosm1' style="margin-left: 1px">1</li>
+            <li @click='tosm2' >2</li>
+            <li @click='tosm3' >3</li>
+            <li @click='tosm4' >4</li>
+            <li @click='tosm5' >5</li>
+            <li @click='tosm6' >6</li>
+            <li @click='tosm7' >7</li>
+            <li>敬请期待</li>
+          </ul>
+			  </div>
+        <transition mode='out-in'>
+          <router-view class="center-main"></router-view>
+        </transition>
 			<leftbar></leftbar>
 			<rightbar></rightbar>
 		</div>
@@ -47,49 +47,70 @@ export default {
     };
   },
   methods: {
+    changeBtnColor: function(index) {
+      var uls = document.getElementsByClassName("uls")[0];
+      for (var i = 0; i < uls.children.length; i++) {
+        uls.children[i].style.backgroundColor = "skyblue";
+      }
+      uls.children[index].style.backgroundColor = "orange";
+    },
     tosm1: function() {
+      this.changeBtnColor(0);
       this.$router.push("/index/sm1");
     },
     tosm2: function() {
+      this.changeBtnColor(1);
       this.$router.push("/index/sm2");
     },
     tosm3: function() {
+      this.changeBtnColor(2);
       this.$router.push("/index/sm3");
     },
     tosm4: function() {
+      this.changeBtnColor(3);
       this.$router.push("/index/sm4");
     },
     tosm5: function() {
+      this.changeBtnColor(4);
       this.$router.push("/index/sm5");
     },
     tosm6: function() {
+      this.changeBtnColor(5);
       this.$router.push("/index/sm6");
     },
     tosm7: function() {
+      this.changeBtnColor(6);
       this.$router.push("/index/sm7");
     },
     showMusic: function(e) {
-	  e.stopPropagation();
+      e.stopPropagation();
       if (this.ifShow) {
         this.$refs.showmusic.style.top = "-680px";
         this.ifShow = false;
       } else {
-        this.$refs.showmusic.style.top = "35px";
+        this.$refs.showmusic.style.top = "50px";
         this.ifShow = true;
       }
     },
     hideMusic: function(e) {
-	  e.stopPropagation();
+      e.stopPropagation();
       if (this.ifShow) {
         this.$refs.showmusic.style.top = "-680px";
         this.ifShow = false;
       }
     }
   },
-  mouthed() {
-
-  },
-  computed: {}
+  mouthed() {},
+  computed: {},
+  watch: {
+    $route(to, from) {
+      if (to.path == "") {
+        this.tabAnimation = "slide-right";
+      } else {
+        this.tabAnimation = "slide-left";
+      }
+    }
+  }
 };
 </script>
 
@@ -108,8 +129,13 @@ export default {
 .music-tab {
   width: 850px;
   height: 40px;
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
   margin: 60px auto 0 auto;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 2px;
+  overflow: hidden;
 }
 
 .music-tab ul {
@@ -118,11 +144,22 @@ export default {
 }
 
 .music-tab ul li {
-  width: 104px;
-  background-color: lightblue;
+  width: 103px;
+  background-color: skyblue;
   float: left;
   height: 100%;
   border: 1px solid gray;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-sizing: border-box;
+  margin-left: 3px;
+}
+
+.music-tab ul li:hover {
+  background-color: lightblue;
 }
 
 .sm-wrap {
@@ -131,6 +168,7 @@ export default {
   margin: 50px auto 0 auto;
   border: 1px solid gray;
   position: relative;
+  border-radius: 5px;
 }
 
 .showMusic {
@@ -141,7 +179,7 @@ export default {
   top: -680px;
   left: 50%;
   margin-left: -500px;
-  border-radius: 10px;
+  border-radius: 1px;
   text-align: center;
   transition: all 0.5s;
   z-index: 999;
@@ -159,6 +197,16 @@ export default {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   outline: none;
-  transition: all .3s;
+  transition: all 0.3s;
 }
+
+.active {
+  background: orange;
+}
+
+.center-main {
+  overflow: hidden;
+  transition: all 0.5s;
+}
+
 </style>
