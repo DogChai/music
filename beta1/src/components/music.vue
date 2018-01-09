@@ -80,9 +80,9 @@
 			</ul>
 
 			<div class="choose-img">
-				<span class="imgurl choose1" imgurl='http://oht4at73h.bkt.clouddn.com/new8.png'></span>
+				<span class="imgurl choose1" imgurl='http://oht4at73h.bkt.clouddn.com/4k3.jpg'></span>
 				<span class="img-line"></span>
-				<span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/new7.png'></span>
+				<span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></span>
 				<span class="img-line"></span>
 				<span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/new6.png'></span>
 				<span class="img-line"></span>

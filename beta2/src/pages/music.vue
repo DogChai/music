@@ -12,8 +12,8 @@ export default {
 
 <style scoped>
     #music {
-        width: 1000px;
-		height: 700px;
+        width: 1100px;
+		height: 750px;
     }
 </style>
 

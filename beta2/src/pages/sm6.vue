@@ -12,7 +12,7 @@
 
 <style scoped>
 	#sm6 {
-		width: 850px;
+		width: 950px;
 		height: 620px;
 		border: 1px solid gray;
 		margin: 0px auto 0 auto;

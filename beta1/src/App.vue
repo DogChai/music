@@ -42,7 +42,7 @@ export default {
   body {
     height: 100%;
     width: 100%;
-    background-image: url('http://oht4at73h.bkt.clouddn.com/new8.png');
+    background-image: url('http://oht4at73h.bkt.clouddn.com/4k3.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     overflow-y: hidden;

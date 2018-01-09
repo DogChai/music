@@ -1,6 +1,7 @@
 <template>
-	<div id="index" ref="index" @click		='hideMusic'>
-		<div class="showMusic" ref="showmusic">
+	<div id="index" ref="index" @click='hideMusic'>
+    <img id="index-img" src="http://p06lhz3o9.bkt.clouddn.com/201801.jpg" alt="">
+		<div class="showMusic" ref="showmusic" @click='noup'>
 			<music></music>
 			<button class="showBtn" @click="showMusic" v-show='!ifShow'></button>
 		</div>
@@ -14,16 +15,16 @@
             <li @click='tosm5' >5</li>
             <li @click='tosm6' >6</li>
             <li @click='tosm7' >7</li>
-            <li>敬请期待</li>
+            <!-- <li>敬请期待</li> -->
           </ul>
 			  </div>
         <transition mode='out-in'>
           <router-view class="center-main"></router-view>
         </transition>
-			<leftbar></leftbar>
-			<rightbar></rightbar>
+			<!-- <leftbar></leftbar> -->
+			<!-- <rightbar></rightbar> -->
 		</div>
-		<bottombar></bottombar>	
+		<!-- <bottombar></bottombar>	 -->
 	</div>
 </template>
 
@@ -85,7 +86,7 @@ export default {
     showMusic: function(e) {
       e.stopPropagation();
       if (this.ifShow) {
-        this.$refs.showmusic.style.top = "-680px";
+        this.$refs.showmusic.style.top = "-750px";
         this.ifShow = false;
       } else {
         this.$refs.showmusic.style.top = "50px";
@@ -95,9 +96,13 @@ export default {
     hideMusic: function(e) {
       e.stopPropagation();
       if (this.ifShow) {
-        this.$refs.showmusic.style.top = "-680px";
+        this.$refs.showmusic.style.top = "-750px";
         this.ifShow = false;
       }
+    },
+    noup: function(e) {
+      e.stopPropagation();
+      console.log(1);
     }
   },
   mouthed() {},
@@ -123,11 +128,11 @@ export default {
   right: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.3);
+  /* background-color: rgba(255, 255, 255, 0.3); */
 }
 
 .music-tab {
-  width: 850px;
+  width: 950px;
   height: 40px;
   /* border: 1px solid gray; */
   margin: 60px auto 0 auto;
@@ -144,7 +149,7 @@ export default {
 }
 
 .music-tab ul li {
-  width: 103px;
+  width: 130.5px;
   background-color: skyblue;
   float: left;
   height: 100%;
@@ -163,22 +168,22 @@ export default {
 }
 
 .sm-wrap {
-  width: 1460px;
+  width: 1600px;
   height: 800px;
-  margin: 50px auto 0 auto;
-  border: 1px solid gray;
+  margin: 80px auto 0 auto;
+  /* border: 1px solid gray; */
   position: relative;
   border-radius: 5px;
 }
 
 .showMusic {
   position: fixed;
-  width: 1000px;
-  height: 680px;
+  width: 1100px;
+  height: 750px;
   background-color: rgba(0, 0, 0, 0.3);
-  top: -680px;
+  top: -750px;
   left: 50%;
-  margin-left: -500px;
+  margin-left: -550px;
   border-radius: 1px;
   text-align: center;
   transition: all 0.5s;
