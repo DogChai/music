@@ -115,9 +115,9 @@
 				dragMusicUrl: [],
 				waveWidth: 0,
 				waveHeight: 0,
-				c1: 'rgb(45,181,253)',
-				c2: 'rgb(2,28,72)',
-				c3: 'rgb(185,231,247)',
+				c1:'rgb(255,191,104)',
+				c2:'rgb(9,145,164)',
+				c3:'rgb(229,196,189)',
 				cutHeight:0,
 				listShow: 0,  //列表显示判断
 				listScroll: 0,//列表滚动位置
@@ -1551,9 +1551,9 @@
 					let this_ = this;
 					if(this.index == 0) {
 						changeimg(this_);
-						that.c1 = 'rgb(45,181,253)';
-						that.c2 = 'rgb(2,28,72)';
-						that.c3 = 'rgb(185,231,247)';
+						that.c1 = 'rgb(255,191,104)';
+						that.c2 = 'rgb(9,145,164)';
+						that.c3 = 'rgb(229,196,189)';
 						for(var k=0; k<lis.length; k++) {
 							lis[k].style.color = 'white';
 						}
@@ -1564,9 +1564,9 @@
 						// changeblack();
 					}else if(this.index == 1) {
 						changeimg(this_);
-						that.c1 = 'rgb(225,208,200)';
-						that.c2 = 'rgb(86,82,82)';
-						that.c3 = 'rgb(195,195,195)';
+						that.c1 = 'rgb(253,273,204)';
+						that.c2 = 'rgb(94,60,47)';
+						that.c3 = 'rgb(175,205,215)';
 						changeblack();
 					}else if(this.index == 2) {
 						changeimg(this_);
