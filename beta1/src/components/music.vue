@@ -150,7 +150,7 @@
 		methods: {
 			//获得音乐json文件
 			getMusicData() {
-				axios.get('http://softeyes.cc/music/beta1/static/music.json').then((response) => {
+				axios.get('http://softeyes-xl.github.io/music/beta1/static/music.json').then((response) => {
 					this.musicData = response.data;
 				},(response) => {
 					console.log('失败');
@@ -211,7 +211,7 @@
 			getLrcFile(n) {
 				// ../../music/static/lrc/  打包请修改
 				if(this.$refs.listul2.getAttribute('myplay') == 'false') {
-					axios.get('http://softeyes.cc/music/beta1/static/lrc/'+ n + '.lrc').then((response) => {
+					axios.get('http://softeyes-xl.github.io/music/beta1/static/lrc/'+ n + '.lrc').then((response) => {
 						if(response.data == '纯音乐,请欣赏' || response.data == '后摇,请欣赏') {
 							this.lrcData = response.data;
 							this.showLrc();
