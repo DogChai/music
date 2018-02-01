@@ -1,10 +1,10 @@
-<template id='music-list'>
-    <div class="music-list"></div>
+<template id='music-control'>
+    <div class="music-control"></div>
 </template>
 
 <script>
 export default {
-    name: 'music-list',
+    name: 'music-control',
     data () {
         return {
             
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style>
-    @import '../styles/list.css'
+    @import '../styles/control.css'
 </style>
 
 
