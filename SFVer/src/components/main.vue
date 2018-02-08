@@ -1,5 +1,7 @@
 <template id='music-lrc'>
-    <div class="music-main"></div>
+    <div class="music-main">
+        
+    </div>
 </template>
 
 <script>

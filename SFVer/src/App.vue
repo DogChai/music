@@ -23,6 +23,7 @@ export default {
 
 <style>
   @import './styles/reset.css';
+  @import './styles/ionicons.css';
 </style>
 <style>
   #app {
