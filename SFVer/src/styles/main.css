@@ -1,8 +1,8 @@
 .music-main {
     position: absolute;
-    bottom: 100px;
-    left: 110px;
-    right: 50px;
+    bottom: 105px;
+    left: 120px;
+    right: 20px;
     top: 20px;
-    background-color: rgba(119, 209, 245, 0.603);
+    background-color: rgba(0,0,0,0.3);
 }

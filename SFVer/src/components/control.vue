@@ -1,5 +1,9 @@
 <template id='music-control'>
-    <div class="music-control"></div>
+    <div class="music-control">
+        <div class="music-control-wrap">
+            
+        </div>
+    </div>
 </template>
 
 <script>
