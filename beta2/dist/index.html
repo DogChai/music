@@ -1,1 +1,59 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>softmusic</title><link href=/static/css/app.bf9a994c72151daa5e919b0f3ccdc900.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.4afa041cb2562b738948.js></script><script type=text/javascript src=/static/js/vendor.aa3f9e7a701f142ad1c1.js></script><script type=text/javascript src=/static/js/app.3dccb120e3238d1db227.js></script></body></html>
+<!DOCTYPE html><html><head><meta charset=utf-8><title>music</title><link rel="shortcut icon" href=http://softeyes.cc/my/beta1/moon.ico type=image/x-icon><style>@keyframes loadDiv {
+        0% 100% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .loadFade {
+        opacity: 1;
+        transition: all 1.5s linear;
+      }</style><link href=./static/css/app.6657847989c2547f37d1b283d2687578.css rel=stylesheet></head><body><script>function CreateLoadDiv(id,loadImgUrl,fatherDom,bgColor) {
+        this.ele = document.createElement('div');
+        this.ele.setAttribute('id',id);
+        this.ele.style.background = 'url('+loadImgUrl+')'+' no-repeat '+' center '+' center '+ bgColor;
+        this.ele.style.position = 'fixed';
+        this.ele.className = 'loadFade';
+        this.ele.style.top = 0;
+        this.ele.style.left = 0;
+        this.ele.style.right = 0;
+        this.ele.style.bottom = 0;
+        this.ele.style.zIndex = 9999;
+        fatherDom.appendChild(this.ele);
+      }
+      var myLoadDiv = new CreateLoadDiv('myload','http://oht4at73h.bkt.clouddn.com/load.gif',document.body,'rgba(236, 232, 222, 1)');
+      document.onreadystatechange = function () {
+        var loadTimer = null;
+        if(document.readyState=="complete") {
+          document.getElementById('myload').style.opacity = 0;
+          loadTimer = setTimeout(function() {
+            document.getElementById('myload').style.display = 'none';
+          },1500);
+        }
+      }</script><div id=app></div><script type=text/javascript src=./static/js/manifest.12e74c4b017991759a36.js></script><script type=text/javascript src=./static/js/vendor.b567735d7c2becb0afb9.js></script><script type=text/javascript src=./static/js/app.90a8047a44f4e6a6a746.js></script></body><script>document.oncontextmenu = function(e) {
+      e.returnValue=false;
+    }
+    document.onselectstart=new Function("event.returnValue=false;");
+    function sizeChange() {
+      document.getElementsByTagName('body')[0].style.height = window.innerHeight + 'px';
+      document.getElementsByTagName('body')[0].style.width = window.innerWidth + 'px';
+      document.getElementsByClassName('music')[0].style.width = window.innerWidth + 'px';
+      document.getElementsByClassName('music-play-list')[0].style.height = window.innerHeight - 75 + 'px';
+      document.getElementsByClassName('list-bar-wrap')[0].style.height = window.innerHeight - 75 - 61 + 'px';
+    }
+    window.onload = function() {
+      sizeChange();
+      localStorage.clear();
+      window.addEventListener('resize',function() {
+        sizeChange();
+      })
+      console.log(`
+          音乐是我生命的光
+          照亮着我前进的方向
+          歌曲列表更新于:2018.1.9
+        `)
+    }</script></html>

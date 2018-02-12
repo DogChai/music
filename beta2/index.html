@@ -2,38 +2,89 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-		<title>softmusic</title>
-		<link rel="icon" href="./src/assets/images/moon.ico">
+    <title>music</title>
+    <link rel="shortcut icon" href="http://www.wuyayu.cn/music/beta1/dist/moon.ico" type="image/x-icon">
     <style>
-    	body {
-	    	position: fixed;
-				top: 0;
-				left: 0;
-				bottom: 0;
-				right: 0;
-				width: 100%;
-				height: 100%;
-    	}
+      @keyframes loadDiv {
+        0% 100% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
 
-			#index-img {
-				position: absolute;
-				top: 0;
-				left: 0;
-				bottom: 0;
-				right: 0;
-				width: 100%;
-				height: 100%;
-			}
+      .loadFade {
+        opacity: 1;
+        transition: all 1.5s linear;
+      }
 
-    	#app {
-    		width: 100%;
-    		height: 100%;
-    	}
+      #app {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+      }
     </style>
   </head>
   <body>
-    <div id="app">
-		</div>
+    <script>
+      function CreateLoadDiv(id,loadImgUrl,fatherDom,bgColor) {
+        this.ele = document.createElement('div');
+        this.ele.setAttribute('id',id);
+        this.ele.style.background = 'url('+loadImgUrl+')'+' no-repeat '+' center '+' center '+ bgColor;
+        this.ele.style.position = 'fixed';
+        this.ele.className = 'loadFade';
+        this.ele.style.top = 0;
+        this.ele.style.left = 0;
+        this.ele.style.right = 0;
+        this.ele.style.bottom = 0;
+        this.ele.style.zIndex = 9999;
+        fatherDom.appendChild(this.ele);
+      }
+      var myLoadDiv = new CreateLoadDiv('myload','http://oht4at73h.bkt.clouddn.com/load.gif',document.body,'rgba(236, 232, 222, 1)');
+      document.onreadystatechange = function () {
+        var loadTimer = null;
+        if(document.readyState=="complete") {
+          document.getElementById('myload').style.opacity = 0;
+          loadTimer = setTimeout(function() {
+            document.getElementById('myload').style.display = 'none';
+          },1500);
+        }
+      }
+    </script>
+
+    <div id="app"></div>
   </body>
+
+  <script>
+    document.oncontextmenu = function(e) {
+      // e.returnValue=false;
+    }
+    document.onselectstart=new Function("event.returnValue=false;");
+    function sizeChange() {
+      document.getElementsByTagName('body')[0].style.height = window.innerHeight + 'px';
+      document.getElementsByTagName('body')[0].style.width = window.innerWidth + 'px';
+      document.getElementsByClassName('music')[0].style.width = window.innerWidth + 'px';
+      document.getElementsByClassName('music-play-list')[0].style.height = window.innerHeight - 75 + 'px';
+      document.getElementsByClassName('list-bar-wrap')[0].style.height = window.innerHeight - 75 - 61 + 'px';
+    }
+    window.onload = function() {
+      // sizeChange();
+      // localStorage.clear();
+      // window.addEventListener('resize',function() {
+      //   sizeChange();
+      // })
+      console.log(`
+          音乐是我生命的光
+          照亮着我前进的方向
+          歌曲列表更新于:2018.2.12
+        `)
+    }
+  </script>
 </html>
