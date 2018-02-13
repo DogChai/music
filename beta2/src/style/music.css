@@ -271,7 +271,7 @@
 		bottom:-5px;
 		background: rgba(135, 129, 130,0.8);
 		position: absolute;
-		bottom: 5px;
+		bottom: 8px;
 		cursor: pointer;
 	}
 
@@ -288,10 +288,9 @@
 		height:12px;
 		border-radius: 50%;
 		background: white;
-		left:0;
+		left:-5px;
 		top:-5px;
 		cursor: pointer;
-    /*transition: left .2s;*/
 	}
 
 	.music-order {
@@ -335,6 +334,7 @@
 		float: left;
 		margin-left: 10px;
 		margin-top: -1px;
+		position: relative;
 	}
 
 	.music-vol .vol-btn {
@@ -354,13 +354,12 @@
 	}
 
 	.music-vol .vol-bar {
-		position: relative;
+		position: absolute;
 		width:90px;
 		height:2px;
 		background: rgba(135, 129, 130,0.8);
-		float: left;
-		margin-top: 20px;
-		margin-left: 5px;
+		top: 22px;
+		left: 42px;
 		cursor: pointer;
 	}
 
@@ -386,7 +385,8 @@
 		width:59px;
 		height:36px;
 		float: left;
-		margin-left: 20px;
+		margin-left: 25px;
+		margin-top: 3px;
 	}
 
 	.music-list-img {

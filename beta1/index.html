@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>music</title>
-    <link rel="shortcut icon" href="http://softeyes.cc/my/beta1/moon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="http://www.wuyayu.cn/my/beta1/moon.ico" type="image/x-icon">
     <style>
       @keyframes loadDiv {
         0% 100% {
@@ -19,6 +19,14 @@
       .loadFade {
         opacity: 1;
         transition: all 1.5s linear;
+      }
+
+      #app {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
       }
     </style>
   </head>
@@ -48,38 +56,12 @@
         }
       }
     </script>
-    <!-- <div id="control" style="display: none">
-        <div>
-          <h1>文字粒子</h1>
-          <p style="margin: 0 0 20px 10px;">
-            <span id="ball">圆形</span>
-            <span id="rect">方块</span>
-          </p>
-          <p>文字</p>
-          <input type="text" id="message" value="" onchange="change()">
-          <p>重力</p>
-          <input type="range" id="gra" value="0" min="-1" max="1" step="0.1" onchange="changeV()">
-          <p>周期</p>
-          <input type="range" id="dur" value="0.22" min="0.1" max="0.99" step="0.01" onchange="changeV()">
-          <p>速度</p>
-          <input type="range" id="speed" value="0.02" min="0" max="5" ste="0.01" onchange="changeV()">
-          <p>半径</p>
-          <input type="range" id="rad" value="1.8" min="1.8" max="20" step="0.1" onchange="changeV()">
-          <p>分辨率</p>
-          <input type="range" id="res" value="1" min="3" max="20" step="1" onchange="change()">
-       </div>
-       <div id="btn">
-         <span></span>
-         <span></span>
-         <span></span>
-       </div>
-      </div> -->
     <div id="app"></div>
   </body>
 
   <script>
     document.oncontextmenu = function(e) {
-      e.returnValue=false;
+      // e.returnValue=false;
     }
     document.onselectstart=new Function("event.returnValue=false;");
     function sizeChange() {

@@ -2,19 +2,16 @@
   border-radius: 5px;
   position: absolute;
   bottom: 75px;
-  width: 230px;
+  width: 232px;
   height: auto;
-  /*top:1px;*/
   /* transform: translate(-230px); */
   z-index: 100;
   overflow: hidden;
-  /*overflow-x: visible;
-  overflow-y: visible;*/
-  border: 1px solid rgba(180, 180, 179,0.3);
+  /* border: 1px solid rgba(180, 180, 179,0.3); */
   box-sizing: border-box;
-  background: rgba(0,0,0,0.1);
+  /* background: rgba(0,0,0,0.1); */
   transition: transform .3s;
-  box-shadow: 2px 0 2px rgba(45, 45, 45, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
+  /* box-shadow: 2px 0 2px rgba(45, 45, 45, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2); */
 }
 
 .play-list-header {
@@ -24,7 +21,7 @@
   font-size: 20px;
   color: #f1f1f1;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
-  border-bottom: 1px solid #202020;
+  /* border-bottom: 1px solid #202020; */
   /*box-shadow: 0 0 5px #000, inset 0 0 5px rgba(255, 255, 255, 0.2);*/
   text-align: center;
   background-color: rgba(236, 236, 236, 0.2);
@@ -76,15 +73,14 @@
 
 
 .list-ul {
-  width: 100%;
-  overflow: hidden;
-  /*overflow-x: visible;
-  overflow-y: visible;*/
+  width: 99%;
+  /* overflow: hidden; */
   opacity: 0.8;
   height: auto;
   position: absolute;
   transition: all .3s;
   top: 60px;
+  /* left: 0; */
   z-index: 50;
   box-sizing: border-box;
   transform: translateY(0px);
@@ -92,36 +88,42 @@
 
 .list-ul li {
   font-family: KaiTi;
-  border-bottom: 1px solid #555;
+  /* border-bottom: 1px solid #555; */
+  border: 2px solid lightblue;
+  margin: 5px 0;
+  margin-left: 1px;
   padding: 15px;
   color: white;
-  font-size: 15px;
+  font-size: 14px;
   width: 100%;
   /*height: 100%;*/
   cursor: pointer;
   word-break: break-all;
   transition: background-color 0.3s;
   box-sizing: border-box;
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  /* text-shadow: 0 0 2px rgba(0, 0, 0, 0.1); */
   z-index: 50;
   font-weight: 600;
+  border-bottom-right-radius: 30px;
+  border-top-left-radius: 30px;
 }
 
 .list-ul li span {
   float: left;
-  font-size: 16px;
+  font-size: 18px;
+  margin-top: -2px;
 }
 
 .list-ul li:hover {
-  background-color: rgba(129, 191, 236, 0.5);
-  color: rgb(219, 72, 115);
+  background-color: rgba(85, 82, 245, 0.904);
+  color: rgb(117, 204, 95);
   box-shadow: inset -1px 0 2px rgba(255, 255, 255, 0.6);
 }
 
 .list-ul .playing {
-  color: rgb(219, 72, 115);
-  background-color: rgba(129, 191, 236, 0.8) !important;
-  box-shadow: inset 0 0 3px rgba(0, 0, 0, 1) !important;
+  color: rgb(117, 204, 95);
+  background-color: rgba(85, 82, 245, 0.904)!important;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 1)!important;
 }
 
 .list-ul2 li {

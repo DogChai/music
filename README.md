@@ -1,4 +1,4 @@
-#### 基于vue2.0的个人音乐页面
+#### softmusic on vue
 
 * 开始日期: 2017.7.30
 * 使用语言: JavaScript
@@ -8,6 +8,13 @@
 
 
 ### 版本
++ 2018.2.13
+  - 代码优化
+  - UI微调
+  - 
+
+***
+
 + 2018.1.31
   - 已知bug:
     -  拖动bug
@@ -152,7 +159,7 @@
 
 + 2017.9.4
   - 正在进行基于此播放器某些代码进行音乐插件的制作
-  - 具体更新见:<a href="http://lesses-xl.github.com/m-player">m-player</a>
+  - 具体更新见:<a href="http://www.wuyayu.cn/m-player">m-player</a>
 
 ***
 

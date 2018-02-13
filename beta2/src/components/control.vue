@@ -16,14 +16,15 @@
           <div class="music-show-name" ref='showname'>
           </div>
           <div class="music-time">
-            <span class="time-second" ref='curtime'>00:00</span>/
+            <span class="time-second" ref='curtime'>00:00</span>
+            <span> / </span>
             <span class="time-all" ref='alltime'>00:00</span>
           </div>
         </div>
         <div class="music-bar" v-on:click='planClick'>
           <div class="music-plan">
           </div>
-          <div class="music-drag" v-on:mousedown.stop='planDrag'></div>
+          <div class="music-drag" title="进度控制" v-on:mousedown.stop='planDrag'></div>
         </div>
       </div>
       <div class="music-order">
