@@ -275,7 +275,7 @@
 
   .music-show-name {
       z-index: 60;
-      max-width: 350px;
+      max-width: 345px;
       height: 30px;
       word-break: keep-all;
       /* 不换行 */
@@ -307,6 +307,7 @@
       width: 0;
       height: 2px;
       background: white;
+      transition: all 0.05s;
   }
 
   .music-drag {
@@ -318,7 +319,7 @@
       left: 0;
       top: -5px;
       cursor: pointer;
-      /*transition: left .2s;*/
+      transition: all 0.05s;
   }
 
   .music-order {

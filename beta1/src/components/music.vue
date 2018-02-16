@@ -17,7 +17,7 @@
             <div class="music-show-name" ref='showname'>
             </div>
             <div class="music-time">
-			  <span class="time-second" ref='curtime'>00:00</span><span class="time-gang"> / </span><span class="time-all" ref='alltime'>00:00</span>
+              <span class="time-second" ref='curtime'>00:00</span><span class="time-gang"> / </span><span class="time-all" ref='alltime'>00:00</span>
             </div>
           </div>
           <div class="music-bar" v-on:click='planClick'>
@@ -80,14 +80,14 @@
       <!-- <canvas id="canvas1" width="100%" height="100px"></canvas> -->
       <ul>
         <li class="top-one" v-on:click='showLrcDiv()'>
-          <a>lyric</a>
+          <a>是歌词哟</a>
         </li>
         <li class="top-two" v-on:click='showWaveDiv()'>
-          <a>waveform</a>
+          <a>是波形啦</a>
         </li>
       </ul>
 
-      <div class="choose-img">
+<!--       <div class="choose-img">
         <span class="imgurl choose1" imgurl='http://oht4at73h.bkt.clouddn.com/4k3.jpg'></span>
         <span class="img-line"></span>
         <span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></span>
@@ -97,6 +97,16 @@
         <span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/new2.png'></span>
         <span class="img-line"></span>
         <span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/new1.png'></span>
+      </div> -->
+      <div class="choose-img2 choose-img">
+        <ul>
+          <li class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></li>
+          <li class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></li>
+          <li class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></li>
+          <li class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></li>
+          <li class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></li>
+          <li class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></li>
+        </ul>
       </div>
       <div class="music-lrc" ref='musiclrc'>
         <ul class='lrc-ul' ref='lrcul'>
@@ -317,16 +327,14 @@
       },
       //提示框显示
       showTitle(val) {
-        let showTit = document.getElementById('show-title');
-        let timer1 = null;
-        clearTimeout(timer1)
-        showTit.innerHTML = val;
-        // showTit.setAttribute('class','show-title show-title-hide');
-        // showTit.style.opacity = 1;
-        showTit.style.transform = 'translate(-43px)';
-        timer1 = setTimeout(function () {
-          showTit.style.transform = 'translate(0px)';
-        }, 3000);
+          let showTit = document.getElementById('show-title');
+          let timer1 = null;
+          clearTimeout(timer1)
+          showTit.innerHTML = val;
+          showTit.style.transform = 'translate(-43px)';
+          timer1 = setTimeout(function () {
+            showTit.style.transform = 'translate(0px)';
+          }, 3000);
       },
       // 音乐播放/暂停
       playMusic() {
@@ -367,17 +375,16 @@
       },
       //音量点击
       volClick(e) {
-		// console.log(e.offsetX)
         let volBarBtn = document.getElementsByClassName('vol-bar-btn')[0];
         let volPlan = document.getElementsByClassName('vol-plan')[0];
         let musicVol = document.getElementsByClassName('music-vol')[0];
         let musicWrap = document.getElementsByClassName('music-wrap')[0];
         let volBar = document.getElementsByClassName('vol-bar')[0];
         this.volLeft = e.clientX - volBar.offsetLeft - musicWrap.offsetLeft - 3;
-		// this.volLeft = e.offsetX;
-        volBarBtn.style.left = this.volLeft - (volBarBtn.offsetWidth / 2)  + 'px';
+        // this.volLeft = e.offsetX;
+        volBarBtn.style.left = this.volLeft - (volBarBtn.offsetWidth / 2) + 'px';
         this.volScales = volBarBtn.offsetLeft / volBar.offsetWidth;
-		// console.log(this.volScales + '111aa')
+        // console.log(this.volScales + '111aa')
         if (this.volScales > 0) {
           document.getElementById('audio').volume = this.volScales;
           volPlan.style.width = volBar.offsetWidth * this.volScales + 'px';
@@ -385,7 +392,7 @@
           this.closeVol();
         } else if (this.volScales == 0) {
           document.getElementById('audio').volume = this.volScales;
-		  volBarBtn.style.left = '-6px';
+          volBarBtn.style.left = '-6px';
           volPlan.style.width = '6' + 'px';
           this.ifVol = 0;
           this.closeVol();
@@ -400,12 +407,12 @@
         let musicWrap = document.getElementsByClassName('music-wrap')[0];
         let that = this;
         document.onmousemove = function (e) {
-			// console.log(e)
+          // console.log(e)
           that.volLeft = e.clientX - volBar.offsetLeft - musicWrap.offsetLeft - volBarBtn.offsetWidth / 2;
-		// that.volLeft = e.clientX - musicVol.offsetLeft - musicVol.offsetWidth - 40 - volBarBtn.offsetLeft
-		//   console.log(e.clientX,musicVol.offsetLeft,musicVol.offsetWidth,40,volBarBtn.offsetLeft)
-		that.volLeft = that.volLeft + 3;
-		console.log(that.volLeft)
+          // that.volLeft = e.clientX - musicVol.offsetLeft - musicVol.offsetWidth - 40 - volBarBtn.offsetLeft
+          //   console.log(e.clientX,musicVol.offsetLeft,musicVol.offsetWidth,40,volBarBtn.offsetLeft)
+          that.volLeft = that.volLeft + 3;
+          console.log(that.volLeft)
           if (that.volLeft <= 0) {
             that.volLeft = 0;
           }
@@ -428,7 +435,7 @@
         };
         document.onmouseup = function () {
           that.volScales = volBarBtn.offsetLeft / volBar.offsetWidth;
-		//   volBarBtn.style.left = that.volLeft - 6 + 'px';
+          //   volBarBtn.style.left = that.volLeft - 6 + 'px';
           document.onmousemove = null;
           document.onmousedown = null;
         }
@@ -441,7 +448,7 @@
         let musicPlan = document.getElementsByClassName('music-plan')[0];
         let musicShow = document.getElementsByClassName('music-show')[0];
         let musicWrap = document.getElementsByClassName('music-wrap')[0];
-        this.musicLeft = e.clientX - musicWrap.offsetLeft - musicBar.offsetLeft;
+        this.musicLeft = e.clientX - musicWrap.offsetLeft - musicBar.offsetLeft - 6;
         this.planScales = this.musicLeft / musicBar.offsetWidth;
         musicDarg.style.left = this.musicLeft + 'px';
         musicPlan.style.width = musicBar.offsetWidth * this.planScales + 'px';
@@ -488,6 +495,10 @@
       },
       //顺序切换
       cutOrder() {
+        this.curOrderFn();
+      },
+      //切换方法封装
+      curOrderFn() {
         if (this.ifCut == 0) {
           this.orderClass = 'random-play';
           this.ifCut = 1;
@@ -504,6 +515,25 @@
           this.orderClass = 'order-play';
           this.ifCut = 0;
           this.showTitle("顺序循环")
+        }
+      },
+      //函数节流
+      throttle(methods,delay,duration) {
+        var timer = null;
+        var begin = new Date().getTime();
+        return function() {
+          var context = this;
+          var args = arguments;
+          var current =  new Date().getTime();
+          clearTimeout(timer);
+          console.log(current - begin)
+          if(current - begin >= duration) {
+            methods.apply(context,args);
+          }else {
+            timer = setTimeout(function() {
+              methods.apply(context,args);
+            },delay);
+          }
         }
       },
       //显示音乐列表
@@ -540,6 +570,7 @@
         let thisLBW = document.getElementsByClassName('list-bar-wrap')[0];
         let playList1 = document.getElementsByClassName('play-list-ul')[0];
         let timer2 = null;
+        console.log(11)
         that.$refs.playlist.onmouseover = function () {
           bar.style.opacity = 1;
         }
@@ -701,40 +732,43 @@
       // 歌词滚动
       lrcScroll() {
         if (this.$refs.listul2.getAttribute('myplay') == 'false') {
-          let lrcLine = 0;
+          var lrcLine = 0;
           if (this.$refs.lrcul.getAttribute('move') == 'true') {
-            let lrcli = this.$refs.lrcul.children;
+            var lrcli = this.$refs.lrcul.children;
             for (var i = 0; i < lrcli.length; i++) {
-              let thisLiHeight = 0;
+              var thisLiHeight = 0;
               if (lrcli[i].getAttribute('time') == this.curTime && lrcli[i].getAttribute('ifchoose') == 'false') {
                 for (var j = 0; j < lrcli.length; j++) {
                   lrcli[j].setAttribute('class', '');
-                }
+                };
                 lrcLine++;
-                if (lrcLine == 1) {
+                // console.log(lrcLine)
+                if (lrcLine === 1) {
                   lrcli[i].setAttribute('class', 'playing');
                   lrcli[i].setAttribute('ifchoose', 'true');
-                  thisLiHeight = lrcli[i].offsetHeight;
-                  document.getElementById('message').value = lrcli[i].innerHTML;
-                } else if (lrcLine == 2) {
+                  thisLiHeight = lrcli[i-1].offsetHeight;
+                };
+                if (lrcLine === 2) {
                   lrcli[i].setAttribute('class', 'playing');
                   lrcli[i - 1].setAttribute('class', 'playing');
                   lrcli[i].setAttribute('ifchoose', 'true');
                   lrcli[i - 1].setAttribute('ifchoose', 'true');
-                  thisLiHeight = lrcli[i].offsetHeight + lrcli[i - 1].offsetHeight;
+                  thisLiHeight = lrcli[i - 1].offsetHeight + lrcli[i - 2].offsetHeight;
                   thisLiHeight = thisLiHeight / 2;
-                  document.getElementById('message').value = lrcli[i].innerHTML;
-                } else if (lrcLine === 3) {
+                  
+                };
+                if (lrcLine === 3) {
                   lrcli[i].setAttribute('class', 'playing');
                   lrcli[i - 1].setAttribute('class', 'playing');
                   lrcli[i - 2].setAttribute('class', 'playing');
                   lrcli[i].setAttribute('ifchoose', 'true');
                   lrcli[i - 1].setAttribute('ifchoose', 'true');
                   lrcli[i - 2].setAttribute('ifchoose', 'true');
-                  thisLiHeight = lrcli[i].offsetHeight + lrcli[i - 1].offsetHeight + lrcli[i - 2].offsetHeight;
+                  thisLiHeight = lrcli[i - 1].offsetHeight + lrcli[i - 2].offsetHeight + lrcli[i - 3].offsetHeight;
                   thisLiHeight = thisLiHeight / 2;
-                  document.getElementById('message').value = lrcli[i].innerHTML;
-                } else if (lrcLine === 4) {
+                  
+                }; 
+                if (lrcLine === 4) {
                   lrcli[i].setAttribute('class', 'playing');
                   lrcli[i - 1].setAttribute('class', 'playing');
                   lrcli[i - 2].setAttribute('class', 'playing');
@@ -743,11 +777,10 @@
                   lrcli[i - 1].setAttribute('ifchoose', 'true');
                   lrcli[i - 2].setAttribute('ifchoose', 'true');
                   lrcli[i - 3].setAttribute('ifchoose', 'true');
-                  thisLiHeight = lrcli[i].offsetHeight + lrcli[i - 1].offsetHeight + lrcli[i - 2].offsetHeight + lrcli[
-                    i - 3].offsetHeight;
-                  document.getElementById('message').value = lrcli[i].innerHTML;
-                }
-                // this.mainCanvas();
+                  thisLiHeight = lrcli[i - 1].offsetHeight + lrcli[i - 2].offsetHeight + lrcli[i - 3].offsetHeight + lrcli[
+                    i - 4].offsetHeight;
+                  
+                };
                 let lrcTop = parseInt(this.$refs.lrcul.style.transform.substring(11))
                 let LRCY = lrcTop - thisLiHeight;
                 this.$refs.lrcul.style.transform = 'translateY(' + LRCY + 'px)';
@@ -1179,7 +1212,7 @@
       let that = this;
       let audio = document.getElementById('audio');
       let playlist = document.getElementsByClassName('music-play-list')[0];
-      let imgspan = document.getElementsByClassName('choose-img')[0].getElementsByClassName('imgurl');
+      let imgspan = document.getElementsByClassName('imgurl');
       let lis = document.getElementsByClassName('list-ul')[0].children;
 
       let listBarWrap = document.getElementsByClassName('list-bar-wrap')[0];
@@ -1195,78 +1228,87 @@
       }
 
       //切换图片函数
-      for (var i = 0; i < imgspan.length; i++) {
+      // for (var i = 0; i < imgspan.length; i++) {
+      //   imgspan[i].index = i;
+      //   imgspan[i].addEventListener('click', function () {
+      //     for (var j = 0; j < imgspan.length; j++) {
+      //       imgspan[j].className = 'imgurl';
+      //     }
+      //     let this_ = this;
+      //     if (this.index == 0) {
+      //       changeimg(this_);
+      //       that.c1 = 'rgb(255,191,104)';
+      //       that.c2 = 'rgb(9,145,164)';
+      //       that.c3 = 'rgb(229,196,189)';
+      //       for (var k = 0; k < lis.length; k++) {
+      //         lis[k].style.color = 'white';
+      //       }
+      //       let lis2 = document.getElementsByClassName('list-ul2')[0].children;
+      //       for (var x = 0; x < lis2.length; x++) {
+      //         lis2[x].style.color = 'white';
+      //       }
+      //       // changeblack();
+      //     } else if (this.index == 1) {
+      //       changeimg(this_);
+      //       that.c1 = 'rgb(253,273,204)';
+      //       that.c2 = 'rgb(94,60,47)';
+      //       that.c3 = 'rgb(175,205,215)';
+      //       // changeblack();
+      //     } else if (this.index == 2) {
+      //       changeimg(this_);
+      //       that.c1 = 'rgb(8,61,151)';
+      //       that.c2 = 'rgb(124,173,251)';
+      //       that.c3 = 'rgb(149,197,221)';
+      //       for (var k = 0; k < lis.length; k++) {
+      //         lis[k].style.color = 'white';
+      //       }
+      //       let lis2 = document.getElementsByClassName('list-ul2')[0].children;
+      //       for (var x = 0; x < lis2.length; x++) {
+      //         lis2[x].style.color = 'white';
+      //       }
+      //     } else if (this.index == 3) {
+      //       changeimg(this_);
+      //       that.c1 = 'rgb(247,157,164)';
+      //       that.c2 = 'rgb(163,62,77)';
+      //       that.c3 = 'rgb(225,161,151)';
+      //       // changeblack();
+      //     } else {
+      //       changeimg(this_);
+      //       that.c1 = 'rgb(188,140,190)';
+      //       that.c2 = 'rgb(78,100,164)';
+      //       that.c3 = 'rgb(35,32,43)';
+      //       // changeblack();
+      //     }
+
+      //     function changeimg(a) {
+      //       let cName = 'choose' + (a.index - 0 + 1);
+      //       a.classList.add('imgurl', cName);
+      //       let thisImgUrl = a.getAttribute('imgurl');
+      //       document.body.style.backgroundImage = 'url(' + thisImgUrl + ')';
+      //     }
+
+      //     function changeblack() {
+      //       for (var k = 0; k < lis.length; k++) {
+      //         lis[k].style.color = 'black';
+      //       }
+      //       let lis2 = document.getElementsByClassName('list-ul2')[0].children;
+      //       for (var x = 0; x < lis2.length; x++) {
+      //         lis2[x].style.color = 'black';
+      //       }
+      //     }
+      //   })
+      // }
+      for(var i=0; i<imgspan.length; i++) {
         imgspan[i].index = i;
-        imgspan[i].addEventListener('click', function () {
-          for (var j = 0; j < imgspan.length; j++) {
-            imgspan[j].className = 'imgurl';
+        imgspan[i].addEventListener('click',function() {
+          for(var j=0; j<imgspan.length; j++) {
+            imgspan[j].classList.remove('current');
           }
-          let this_ = this;
-          if (this.index == 0) {
-            changeimg(this_);
-            that.c1 = 'rgb(255,191,104)';
-            that.c2 = 'rgb(9,145,164)';
-            that.c3 = 'rgb(229,196,189)';
-            for (var k = 0; k < lis.length; k++) {
-              lis[k].style.color = 'white';
-            }
-            let lis2 = document.getElementsByClassName('list-ul2')[0].children;
-            for (var x = 0; x < lis2.length; x++) {
-              lis2[x].style.color = 'white';
-            }
-            // changeblack();
-          } else if (this.index == 1) {
-            changeimg(this_);
-            that.c1 = 'rgb(253,273,204)';
-            that.c2 = 'rgb(94,60,47)';
-            that.c3 = 'rgb(175,205,215)';
-            changeblack();
-          } else if (this.index == 2) {
-            changeimg(this_);
-            that.c1 = 'rgb(8,61,151)';
-            that.c2 = 'rgb(124,173,251)';
-            that.c3 = 'rgb(149,197,221)';
-            for (var k = 0; k < lis.length; k++) {
-              lis[k].style.color = 'white';
-            }
-            let lis2 = document.getElementsByClassName('list-ul2')[0].children;
-            for (var x = 0; x < lis2.length; x++) {
-              lis2[x].style.color = 'white';
-            }
-          } else if (this.index == 3) {
-            changeimg(this_);
-            that.c1 = 'rgb(247,157,164)';
-            that.c2 = 'rgb(163,62,77)';
-            that.c3 = 'rgb(225,161,151)';
-            // changeblack();
-          } else {
-            changeimg(this_);
-            that.c1 = 'rgb(188,140,190)';
-            that.c2 = 'rgb(78,100,164)';
-            that.c3 = 'rgb(35,32,43)';
-            changeblack();
-          }
-
-          function changeimg(a) {
-            let cName = 'choose' + (a.index - 0 + 1);
-            a.classList.add('imgurl', cName);
-            let thisImgUrl = a.getAttribute('imgurl');
-            document.body.style.backgroundImage = 'url(' + thisImgUrl + ')';
-            // document.body.style.backgroundSize =  "cover";
-          }
-
-          function changeblack() {
-            for (var k = 0; k < lis.length; k++) {
-              lis[k].style.color = 'black';
-            }
-            let lis2 = document.getElementsByClassName('list-ul2')[0].children;
-            for (var x = 0; x < lis2.length; x++) {
-              lis2[x].style.color = 'black';
-            }
-          }
+          this.classList.add('current');
+          let thisImgUrl = this.getAttribute('imgurl');
+          document.body.style.backgroundImage = 'url(' + thisImgUrl + ')';
         })
       }
-
 
       //空格事件
       document.onkeydown = function (e) {
@@ -1391,7 +1433,7 @@
         //鼠标右击事件
         document.oncontextmenu = function (e) {
           that.showList();
-        //   e.returnValue = false;
+          //   e.returnValue = false;
         }
         that.listNum();
       }
