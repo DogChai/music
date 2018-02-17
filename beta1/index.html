@@ -2,6 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>music</title>
     <link rel="shortcut icon" href="http://www.wuyayu.cn/my/beta1/moon.ico" type="image/x-icon">
     <style>
@@ -61,7 +63,7 @@
 
   <script>
     document.oncontextmenu = function(e) {
-      // e.returnValue=false;
+      e.returnValue=false;
     }
     document.onselectstart=new Function("event.returnValue=false;");
     function sizeChange() {
