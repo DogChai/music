@@ -42,7 +42,7 @@ export default {
   body {
     height: 100%;
     width: 100%;
-    background-image: url('http://oht4at73h.bkt.clouddn.com/4k3.jpg');
+    background-image: url('http://p46wrelzu.bkt.clouddn.com/2018m1.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     overflow-y: hidden;
@@ -50,8 +50,8 @@ export default {
     transition: background-image 1.1s;
   }
 
-  @font-face {
+/*  @font-face {
     font-family: 'lesses';
     src: url('./assets/font/lesses.ttf');
-  }
+  }*/
 </style>

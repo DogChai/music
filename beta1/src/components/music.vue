@@ -100,12 +100,12 @@
       </div> -->
       <div class="choose-img2 choose-img">
         <ul>
-          <li class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></li>
-          <li class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></li>
-          <li class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></li>
-          <li class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></li>
-          <li class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></li>
-          <li class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></li>
+          <li class="imgurl current" imgurl='http://p46wrelzu.bkt.clouddn.com/2018m1.jpg'></li>
+          <li class="imgurl" imgurl='http://p46wrelzu.bkt.clouddn.com/2018m9.jpg'></li>
+          <li class="imgurl" imgurl='http://p46wrelzu.bkt.clouddn.com/2018m3.jpg'></li>
+          <li class="imgurl" imgurl='http://p46wrelzu.bkt.clouddn.com/2018m4.jpg'></li>
+          <li class="imgurl" imgurl='http://p46wrelzu.bkt.clouddn.com/2018m7.jpg'></li>
+          <li class="imgurl" imgurl='http://p46wrelzu.bkt.clouddn.com/2018m6.jpg'></li>
         </ul>
       </div>
       <div class="music-lrc" ref='musiclrc'>
@@ -132,9 +132,9 @@
         dragMusicUrl: [],
         waveWidth: 0,
         waveHeight: 0,
-        c1: 'rgb(255,191,104)',
-        c2: 'rgb(9,145,164)',
-        c3: 'rgb(229,196,189)',
+        c1: 'rgb(203,203,221)',
+        c2: 'rgb(51,47,70)',
+        c3: 'rgb(64,60,68)',
         cutHeight: 0,
         listShow: 0, //列表显示判断
         listScroll: 0, //列表滚动位置
@@ -237,7 +237,7 @@
         // ../../music/static/lrc/  打包请修改
         if (this.$refs.listul2.getAttribute('myplay') == 'false') {
           axios.get('http://www.wuyayu.cn/music/beta1/static/lrc/' + n + '.lrc').then((response) => {
-            if (response.data == '纯音乐,请欣赏' || response.data == '后摇,请欣赏') {
+            if (response.data == '纯音乐,请欣赏' || response.data == '后摇,请欣赏' || response.data == '暂无歌词') {
               this.lrcData = response.data;
               this.showLrc();
             } else {
@@ -277,7 +277,7 @@
         //清空歌词
         this.$refs.lrcul.innerHTML = '';
         if (this.$refs.listul2.getAttribute('myplay') == 'false') {
-          if (this.lrcData == '纯音乐,请欣赏' || this.lrcData == '后摇,请欣赏') {
+          if (this.lrcData == '纯音乐,请欣赏' || this.lrcData == '后摇,请欣赏' || this.lrcData == '暂无歌词') {
             let lrcli = document.createElement('li');
             lrcli.innerHTML = this.lrcData;
             this.$refs.lrcul.appendChild(lrcli);
@@ -412,7 +412,7 @@
           // that.volLeft = e.clientX - musicVol.offsetLeft - musicVol.offsetWidth - 40 - volBarBtn.offsetLeft
           //   console.log(e.clientX,musicVol.offsetLeft,musicVol.offsetWidth,40,volBarBtn.offsetLeft)
           that.volLeft = that.volLeft + 3;
-          console.log(that.volLeft)
+          // console.log(that.volLeft)
           if (that.volLeft <= 0) {
             that.volLeft = 0;
           }
@@ -1307,7 +1307,26 @@
           this.classList.add('current');
           let thisImgUrl = this.getAttribute('imgurl');
           document.body.style.backgroundImage = 'url(' + thisImgUrl + ')';
+          if(this.index === 0) {
+            changeColor('rgb(203,203,221)','rgb(51,47,70)','rgb(64,60,68)');
+          }else if(this.index === 1) {
+            changeColor('rgb(105,214,215)','rgb(93,162,255)','rgb(160,185,254)');
+          }else if(this.index === 2) {
+            changeColor('rgb(237,199,188)','rgb(207,197,209)','rgb(98,67,49)');
+          }else if(this.index === 3) {
+            changeColor('rgb(78,55,47)','rgb(31,48,56)','rgb(252,147,90)');
+          }else if(this.index === 4) {
+            changeColor('rgb(94,192,162)','rgb(125,92,57)','rgb(106,217,222)');
+          }else if (this.index === 5) {
+            changeColor('rgb(235,170,216)','rgb(202,249,254)','rgb(188,120,211)');
+          }
         })
+      }
+
+      function changeColor(a,b,c) {
+        that.c1 = a;
+        that.c2 = b;
+        that.c3 = c;
       }
 
       //空格事件
