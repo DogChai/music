@@ -22,12 +22,12 @@
   box-sizing: border-box;
   padding: 15px;
   font-size: 20px;
-  color: #f1f1f1;
+  color: #723273;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
   /*border-bottom: 1px solid #202020;*/
   box-shadow: 0 0 5px #ef96cf, inset 0 0 5px rgba(255, 255, 255, 0.2);
   text-align: center;
-  background-color: rgba(236, 236, 236, 0);
+  background-color: rgb(228, 133, 159);
   cursor: pointer;
   position: absolute;
   z-index: 99;
@@ -36,7 +36,7 @@
 }
 
 .play-list-header:hover {
-  background-color: rgba(236, 236, 236, 0.4);
+  background-color: rgb(228, 133, 159);
 }
 
 .list-header-ul {

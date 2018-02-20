@@ -77,7 +77,6 @@
       </ul>
     </div>
     <div class="music-top" ref='musictop'>
-      <!-- <canvas id="canvas1" width="100%" height="100px"></canvas> -->
       <ul>
         <li class="top-one" v-on:click='showLrcDiv()'>
           <a>是歌词哟</a>
@@ -86,18 +85,6 @@
           <a>是波形啦</a>
         </li>
       </ul>
-
-<!--       <div class="choose-img">
-        <span class="imgurl choose1" imgurl='http://oht4at73h.bkt.clouddn.com/4k3.jpg'></span>
-        <span class="img-line"></span>
-        <span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/4k2.jpg'></span>
-        <span class="img-line"></span>
-        <span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/new6.png'></span>
-        <span class="img-line"></span>
-        <span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/new2.png'></span>
-        <span class="img-line"></span>
-        <span class="imgurl" imgurl='http://oht4at73h.bkt.clouddn.com/new1.png'></span>
-      </div> -->
       <div class="choose-img2 choose-img">
         <ul>
           <li class="imgurl current" imgurl='http://p46wrelzu.bkt.clouddn.com/2018m1.jpg'></li>
@@ -235,6 +222,8 @@
       //获得歌词
       getLrcFile(n) {
         // ../../music/static/lrc/  打包请修改
+        // http://music.163.com/api/song/lyric?os=pc&id=93920&lv=-1&kv=-1&tv=-1
+        // 'http://www.wuyayu.cn/music/beta1/static/lrc/' + n + '.lrc'
         if (this.$refs.listul2.getAttribute('myplay') == 'false') {
           axios.get('http://www.wuyayu.cn/music/beta1/static/lrc/' + n + '.lrc').then((response) => {
             if (response.data == '纯音乐,请欣赏' || response.data == '后摇,请欣赏' || response.data == '暂无歌词') {
@@ -560,7 +549,6 @@
           this.$refs.playlist.setAttribute('ifshow', 0);
           this.waveWidth = this.$refs.musicwave.offsetWidth;
           this.waveHeight = this.$refs.musicwave.offsetHeight;
-          // this.Visualizer();
         }
       },
       //列表滚动  显示滚动条
@@ -570,7 +558,6 @@
         let thisLBW = document.getElementsByClassName('list-bar-wrap')[0];
         let playList1 = document.getElementsByClassName('play-list-ul')[0];
         let timer2 = null;
-        console.log(11)
         that.$refs.playlist.onmouseover = function () {
           bar.style.opacity = 1;
         }
@@ -742,18 +729,27 @@
                   lrcli[j].setAttribute('class', '');
                 };
                 lrcLine++;
-                // console.log(lrcLine)
                 if (lrcLine === 1) {
                   lrcli[i].setAttribute('class', 'playing');
                   lrcli[i].setAttribute('ifchoose', 'true');
-                  thisLiHeight = lrcli[i-1].offsetHeight;
+                  if(i - 1 < 0) {
+                    //如果是第一行，滚动固定高度
+                    thisLiHeight = 40;
+                  }else {
+                    thisLiHeight = lrcli[i-1].offsetHeight;
+                  }
+                  
                 };
                 if (lrcLine === 2) {
                   lrcli[i].setAttribute('class', 'playing');
                   lrcli[i - 1].setAttribute('class', 'playing');
                   lrcli[i].setAttribute('ifchoose', 'true');
                   lrcli[i - 1].setAttribute('ifchoose', 'true');
-                  thisLiHeight = lrcli[i - 1].offsetHeight + lrcli[i - 2].offsetHeight;
+                  if(i -2 < 0 || i - 1 < 0) {
+                    thisLiHeight = 80;
+                  }else {
+                    thisLiHeight = lrcli[i - 1].offsetHeight + lrcli[i - 2].offsetHeight;
+                  }
                   thisLiHeight = thisLiHeight / 2;
                   
                 };
@@ -1226,78 +1222,6 @@
           });
         }
       }
-
-      //切换图片函数
-      // for (var i = 0; i < imgspan.length; i++) {
-      //   imgspan[i].index = i;
-      //   imgspan[i].addEventListener('click', function () {
-      //     for (var j = 0; j < imgspan.length; j++) {
-      //       imgspan[j].className = 'imgurl';
-      //     }
-      //     let this_ = this;
-      //     if (this.index == 0) {
-      //       changeimg(this_);
-      //       that.c1 = 'rgb(255,191,104)';
-      //       that.c2 = 'rgb(9,145,164)';
-      //       that.c3 = 'rgb(229,196,189)';
-      //       for (var k = 0; k < lis.length; k++) {
-      //         lis[k].style.color = 'white';
-      //       }
-      //       let lis2 = document.getElementsByClassName('list-ul2')[0].children;
-      //       for (var x = 0; x < lis2.length; x++) {
-      //         lis2[x].style.color = 'white';
-      //       }
-      //       // changeblack();
-      //     } else if (this.index == 1) {
-      //       changeimg(this_);
-      //       that.c1 = 'rgb(253,273,204)';
-      //       that.c2 = 'rgb(94,60,47)';
-      //       that.c3 = 'rgb(175,205,215)';
-      //       // changeblack();
-      //     } else if (this.index == 2) {
-      //       changeimg(this_);
-      //       that.c1 = 'rgb(8,61,151)';
-      //       that.c2 = 'rgb(124,173,251)';
-      //       that.c3 = 'rgb(149,197,221)';
-      //       for (var k = 0; k < lis.length; k++) {
-      //         lis[k].style.color = 'white';
-      //       }
-      //       let lis2 = document.getElementsByClassName('list-ul2')[0].children;
-      //       for (var x = 0; x < lis2.length; x++) {
-      //         lis2[x].style.color = 'white';
-      //       }
-      //     } else if (this.index == 3) {
-      //       changeimg(this_);
-      //       that.c1 = 'rgb(247,157,164)';
-      //       that.c2 = 'rgb(163,62,77)';
-      //       that.c3 = 'rgb(225,161,151)';
-      //       // changeblack();
-      //     } else {
-      //       changeimg(this_);
-      //       that.c1 = 'rgb(188,140,190)';
-      //       that.c2 = 'rgb(78,100,164)';
-      //       that.c3 = 'rgb(35,32,43)';
-      //       // changeblack();
-      //     }
-
-      //     function changeimg(a) {
-      //       let cName = 'choose' + (a.index - 0 + 1);
-      //       a.classList.add('imgurl', cName);
-      //       let thisImgUrl = a.getAttribute('imgurl');
-      //       document.body.style.backgroundImage = 'url(' + thisImgUrl + ')';
-      //     }
-
-      //     function changeblack() {
-      //       for (var k = 0; k < lis.length; k++) {
-      //         lis[k].style.color = 'black';
-      //       }
-      //       let lis2 = document.getElementsByClassName('list-ul2')[0].children;
-      //       for (var x = 0; x < lis2.length; x++) {
-      //         lis2[x].style.color = 'black';
-      //       }
-      //     }
-      //   })
-      // }
       for(var i=0; i<imgspan.length; i++) {
         imgspan[i].index = i;
         imgspan[i].addEventListener('click',function() {
@@ -1356,9 +1280,7 @@
       onloadsize();
       // 浏览器宽高度改变 自适应
       window.addEventListener('resize', function () {
-
         if (playlist.getAttribute('ifshow') == '1') {
-          // console.log(1);
           that.$refs.musictop.style.width = window.innerWidth - 232 + 'px';
           that.$refs.musiclrc.style.height = window.innerHeight - 85 - 95 + 'px';
           that.$refs.musicwave.style.height = window.innerHeight - 85 - 200 + 'px';
@@ -1366,7 +1288,6 @@
           that.waveHeight = that.$refs.musicwave.offsetHeight;
           that.showLrc();
           that.dragScroll();
-          // that.Visualizer();
         } else {
           that.$refs.musictop.style.width = window.innerWidth + 'px';
           that.$refs.musiclrc.style.height = window.innerHeight - 85 - 95 + 'px';
@@ -1382,7 +1303,6 @@
 
       //音乐监听
       audio.addEventListener('timeupdate', function () {
-        // that.Visualizer();
         if (audio.ended) {
           if (that.$refs.listul2.getAttribute('myplay') == 'false') {
             for (var i = 0; i < that.musicData.length; i++) {
