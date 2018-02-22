@@ -21,7 +21,8 @@
 
       .loadFade {
         opacity: 1;
-        transition: all 1.2s linear;
+        transition: all .5s linear;
+        transition-delay: 1s;
       }
 
       #app {
@@ -48,7 +49,7 @@
         this.ele.style.zIndex = 9999;
         fatherDom.appendChild(this.ele);
       }
-      var myLoadDiv = new CreateLoadDiv('myload','http://p46wrelzu.bkt.clouddn.com/load2.gif',document.body,'rgb(247,157,164)');
+      var myLoadDiv = new CreateLoadDiv('myload','http://p46wrelzu.bkt.clouddn.com/load2.gif',document.body,'rgb(239, 182, 186)');
       document.onreadystatechange = function () {
         var loadTimer = null;
         if(document.readyState=="complete") {
