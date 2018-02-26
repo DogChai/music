@@ -172,7 +172,7 @@
           for (var i = 0; i < thisFiles.length; i++) {
             let thisIndex = thisFiles[i].name.lastIndexOf('.');
             let ext = thisFiles[i].name.substr(thisIndex + 1);
-            if (ext == 'mp3') {
+            if (ext == 'mp3' || ext == 'flac') {
               let dragName = thisFiles[i].name.substring(0, thisFiles[i].name.lastIndexOf('.'));
               let dragUrl = window.URL.createObjectURL(thisFiles[i]);
               that.dragData.push({
@@ -191,7 +191,7 @@
         let thisFiles = event.currentTarget.files;
         let thisIndex = thisFiles[0].name.lastIndexOf('.');
         let ext = thisFiles[0].name.substr(thisIndex + 1);
-        if (ext == 'mp3') {
+        if (ext == 'mp3' || ext == 'flac') {
           let dragName = thisFiles[0].name.substring(0, thisFiles[0].name.lastIndexOf('.'));
           let dragUrl = window.URL.createObjectURL(thisFiles[0]);
           this.dragData.push({
@@ -199,7 +199,6 @@
             singer: dragName.split('-')[0].trim(),
             url: dragUrl
           });
-          // console.log(this.dragData);
         }
         this.clearRepeat(this.dragData, 'name');
         this.showList2();
