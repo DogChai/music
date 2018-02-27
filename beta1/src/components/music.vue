@@ -773,7 +773,7 @@
                   lrcli[i - 2].setAttribute('ifchoose', 'true');
                   lrcli[i - 3].setAttribute('ifchoose', 'true');
                   thisLiHeight = lrcli[i - 1].offsetHeight + lrcli[i - 2].offsetHeight + lrcli[i - 3].offsetHeight + lrcli[
-                    i - 4].offsetHeight;
+                    i - 4].offsetHeight / 2;
                   
                 };
                 let lrcTop = parseInt(this.$refs.lrcul.style.transform.substring(11))
