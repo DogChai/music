@@ -154,7 +154,7 @@
     methods: {
       //获得音乐json文件
       getMusicData() {
-        axios.get('http://www.wuyayu.com/music/static/music.json').then((response) => {
+        axios.get('http://music.wuyayu.com/static/music.json').then((response) => {
           this.musicData = response.data;
         }, (response) => {
           console.log('music.json获取失败');
@@ -222,9 +222,9 @@
       getLrcFile(n) {
         // ../../music/static/lrc/  打包请修改
         // http://music.163.com/api/song/lyric?os=pc&id=93920&lv=-1&kv=-1&tv=-1
-        // 'http://www.wuyayu.com/music/beta1/static/lrc/' + n + '.lrc'
+        // 'http://music.wuyayu.com/beta1/static/lrc/' + n + '.lrc'
         if (this.$refs.listul2.getAttribute('myplay') == 'false') {
-          axios.get('http://www.wuyayu.com/music/static/lrc/' + n + '.lrc').then((response) => {
+          axios.get('http://music.wuyayu.com/static/lrc/' + n + '.lrc').then((response) => {
             if (response.data == '纯音乐,请欣赏' || response.data == '后摇,请欣赏' || response.data == '暂无歌词') {
               this.lrcData = response.data;
               this.showLrc();
