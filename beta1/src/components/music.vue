@@ -749,7 +749,12 @@
                   if(i -2 < 0 || i - 1 < 0) {
                     thisLiHeight = 80;
                   }else {
-                    thisLiHeight = lrcli[i - 1].offsetHeight + lrcli[i - 2].offsetHeight;
+                    // let i1 = i-1;
+                    // let i2 = i-2;
+
+                    // i1 <= 0 ? 1 : i1;
+                    // i2 <= 0 ? 1 : i2;
+                    thisLiHeight = lrcli[i].offsetHeight + lrcli[i - 1].offsetHeight;
                   }
                   thisLiHeight = thisLiHeight / 2;
                   
@@ -761,7 +766,15 @@
                   lrcli[i].setAttribute('ifchoose', 'true');
                   lrcli[i - 1].setAttribute('ifchoose', 'true');
                   lrcli[i - 2].setAttribute('ifchoose', 'true');
-                  thisLiHeight = lrcli[i - 1].offsetHeight + lrcli[i - 2].offsetHeight + lrcli[i - 3].offsetHeight;
+                  // let i1 = i-1;
+                  // let i2 = i-2;
+                  // let i3 = i-3;
+
+                  // i1 <= 0 ? 1 : i1;
+                  // i2 <= 0 ? 1 : i2;
+                  // i3 <= 0 ? 1 : i3;
+                  // console.log(lrcli[i1],lrcli[i2],lrcli[i3],i1,i2,i3)
+                  thisLiHeight = lrcli[i].offsetHeight + lrcli[i - 1].offsetHeight + lrcli[i - 2].offsetHeight;
                   thisLiHeight = thisLiHeight / 2;
                   
                 }; 
@@ -774,8 +787,19 @@
                   lrcli[i - 1].setAttribute('ifchoose', 'true');
                   lrcli[i - 2].setAttribute('ifchoose', 'true');
                   lrcli[i - 3].setAttribute('ifchoose', 'true');
-                  thisLiHeight = lrcli[i - 1].offsetHeight + lrcli[i - 2].offsetHeight + lrcli[i - 3].offsetHeight + lrcli[
-                    i - 4].offsetHeight / 2;
+                  
+                  // let i1 = i-1;
+                  // let i2 = i-2;
+                  // let i3 = i-3;
+                  // let i4 = i-4;
+
+                  // i1 <= 0 ? 1 : i1;
+                  // i2 <= 0 ? 1 : i2;
+                  // i3 <= 0 ? 1 : i3;
+                  // i4 <= 0 ? 1 : i4;  
+
+                  thisLiHeight = lrcli[i].offsetHeight + lrcli[i - 1].offsetHeight + lrcli[i - 2].offsetHeight + lrcli[
+                    i - 3].offsetHeight / 2;
                   
                 };
                 let lrcTop = parseInt(this.$refs.lrcul.style.transform.substring(11))
