@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="http://chai.wuyayu.com/images/moon.ico" type="image/x-icon">
     <style>
       @keyframes loadDiv {
-        0% 100% {
+        0%,100% {
           opacity: 0;
           transform: scale(0);
         }
@@ -49,7 +49,7 @@
         this.ele.style.zIndex = 9999;
         fatherDom.appendChild(this.ele);
       }
-      var myLoadDiv = new CreateLoadDiv('myload','http://p46wrelzu.bkt.clouddn.com/load2.gif',document.body,'rgb(239, 182, 186)');
+      var myLoadDiv = new CreateLoadDiv('myload','http://data.wuyayu.com/load1.gif',document.body,'rgb(239, 182, 186)');
       document.onreadystatechange = function () {
         var loadTimer = null;
         if(document.readyState=="complete") {

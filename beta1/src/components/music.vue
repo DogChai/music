@@ -87,12 +87,12 @@
       </ul>
       <div class="choose-img2 choose-img">
         <ul>
-          <li class="imgurl current" imgurl='http://p46wrelzu.bkt.clouddn.com/2018m1.jpg'></li>
-          <li class="imgurl" imgurl='http://p46wrelzu.bkt.clouddn.com/2018m9.jpg'></li>
-          <li class="imgurl" imgurl='http://p46wrelzu.bkt.clouddn.com/2018m3.jpg'></li>
-          <li class="imgurl" imgurl='http://p46wrelzu.bkt.clouddn.com/2018m4.jpg'></li>
-          <li class="imgurl" imgurl='http://p46wrelzu.bkt.clouddn.com/2018m7.jpg'></li>
-          <li class="imgurl" imgurl='http://p46wrelzu.bkt.clouddn.com/2018m6.jpg'></li>
+          <li class="imgurl current" imgurl='http://data.wuyayu.com/new1.png'></li>
+          <li class="imgurl" imgurl='http://data.wuyayu.com/new2.png'></li>
+          <li class="imgurl" imgurl='http://data.wuyayu.com/new3.png'></li>
+          <li class="imgurl" imgurl='http://data.wuyayu.com/new4.png'></li>
+          <li class="imgurl" imgurl='http://data.wuyayu.com/new5.png'></li>
+          <li class="imgurl" imgurl='http://data.wuyayu.com/new6.png'></li>
         </ul>
       </div>
       <div class="music-lrc" ref='musiclrc'>
@@ -154,7 +154,8 @@
     methods: {
       //获得音乐json文件
       getMusicData() {
-        axios.get('http://music.wuyayu.com/static/music.json').then((response) => {
+        // http://music.wuyayu.com/static/music.json
+        axios.get('../../static/music.json').then((response) => {
           this.musicData = response.data;
         }, (response) => {
           console.log('music.json获取失败');
@@ -223,8 +224,9 @@
         // ../../music/static/lrc/  打包请修改
         // http://music.163.com/api/song/lyric?os=pc&id=93920&lv=-1&kv=-1&tv=-1
         // 'http://music.wuyayu.com/beta1/static/lrc/' + n + '.lrc'
+        // http://music.wuyayu.com/static/lrc/
         if (this.$refs.listul2.getAttribute('myplay') == 'false') {
-          axios.get('http://music.wuyayu.com/static/lrc/' + n + '.lrc').then((response) => {
+          axios.get('../../static/lrc/' + n + '.lrc').then((response) => {
             if (response.data == '纯音乐,请欣赏' || response.data == '后摇,请欣赏' || response.data == '暂无歌词') {
               this.lrcData = response.data;
               this.showLrc();

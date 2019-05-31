@@ -42,7 +42,7 @@ export default {
   body {
     height: 100%;
     width: 100%;
-    background-image: url('http://p46wrelzu.bkt.clouddn.com/2018m1.jpg');
+    background-image: url('http://data.wuyayu.com/new1.png');
     background-repeat: no-repeat;
     background-size: cover;
     overflow-y: hidden;
