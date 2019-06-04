@@ -198,12 +198,13 @@
 
 
 .choose-img2 {
-  width: 80px;
-  height: 40px;
-  background-color: rgba(0,0,0,0.2);
+  /* width: 80px; */
+  width: 110px;
+  height: 68px;
+  /* background-color: rgba(0,0,0,0.2); */
   position: absolute;
-  top: 80px;
-  left: 20px;
+  top: 70px;
+  left: 8px;
   z-index: 100;
   overflow: hidden;
 }
@@ -214,38 +215,43 @@
 }
 
 .choose-img2 ul li {
-  width: 33.333333%;
-  height: 50%;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
   float: left;
-  opacity: 0.2;
+  opacity: 0.3;
   cursor: pointer;
-  transition: all .3s;
+  transition: all .3s ;
+  margin: 0 8px 6px 0;
+  border: 2px solid transparent;
+  box-sizing: border-box;
 }
 
 .choose-img2 .current {
   opacity: 1;
+  border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
 .choose-img2 ul li:nth-of-type(1) {
-  background-color: rgb(87,107,156);
+  background-color: rgb(203,68,65);
 }
 
 .choose-img2 ul li:nth-of-type(2) {
-  background-color: rgb(22,70,200);
+  background-color: rgb(175,183,196);
 }
 
 .choose-img2 ul li:nth-of-type(3) {
-  background-color: rgb(245,214,195);
+  background-color: rgb(165,101,57);
 }
 
 .choose-img2 ul li:nth-of-type(4) {
-  background-color: rgb(54,53,59);
+  background-color: rgb(31,18,9);
 }
 
 .choose-img2 ul li:nth-of-type(5) {
-  background-color: rgb(96,182,152);
+  background-color: rgb(209,129,119);
 }
 
 .choose-img2 ul li:nth-of-type(6) {
-  background-color: rgb(218,175,229);
+  background-color: rgb(32,57,92);
 }

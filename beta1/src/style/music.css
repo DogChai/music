@@ -421,6 +421,7 @@
       margin-left: 20px;
   }
 
+
   .music-list-img {
       background: url('http://data.wuyayu.com/playbar.png');
       background-position: -42px -68px;
@@ -454,4 +455,13 @@
   .music-list-img:hover {
       background-position: -42px -98px;
       color: white;
+  }
+
+  .play-list-cut {
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
   }

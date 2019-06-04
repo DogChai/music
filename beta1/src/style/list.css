@@ -1,5 +1,5 @@
 .music-play-list {
-  border-radius: 5px;
+  /* border-radius: 5px; */
   position: absolute;
   bottom: 75px;
   width: 230px;
@@ -12,7 +12,8 @@
   overflow-y: visible;*/
   border: 1px solid rgba(180, 180, 179,0.3);
   box-sizing: border-box;
-  background: rgba(0,0,0,0.1);
+  /* background: rgba(0,0,0,0.1); */
+  background: rgba(91, 91, 91, 0.4);
   transition: transform .3s;
   box-shadow: 2px 0 2px rgba(45, 45, 45, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.2);
 }
@@ -22,47 +23,75 @@
   box-sizing: border-box;
   padding: 15px;
   font-size: 20px;
-  color: #723273;
+  /* color: #723273; */
+  /* color: black; */
+  color: white;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
   /*border-bottom: 1px solid #202020;*/
-  box-shadow: 0 0 5px #ef96cf, inset 0 0 5px rgba(255, 255, 255, 0.2);
+  /* box-shadow: 0 0 5px #ef96cf, inset 0 0 5px rgba(255, 255, 255, 0.2); */
   text-align: center;
-  background-color: rgb(228, 133, 159);
+  /* background-color: rgb(228, 133, 159); */
+  /* background-color: rgba(255, 255, 255, 0.3); */
+  background-color: rgba(111, 173, 236, 0.8);
   cursor: pointer;
   position: absolute;
   z-index: 99;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   transition: all .3s;
+  /* filter: blur(2px);  */
+}
+
+.play-list-cut::after {
+  /* background-image: url(xxx.jpg); */
+  background-position: center top;
+  background-size: cover;
+  background-attachment: fixed;
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -ms-filter: blur(20px);
+  -o-filter: blur(20px);
+  filter: blur(20px);
 }
 
 .play-list-header:hover {
-  background-color: rgb(228, 133, 159);
+  /* background-color: rgb(228, 133, 159); */
+  /* background-color: rgba(255, 255, 255, 0.4); */
+  background-color: rgba(111, 173, 236, 1);
 }
 
 .list-header-ul {
   position: absolute;
-  top: 61px;
-  font-size: 16px;
-  left: 0;
-  width: 100%;
+  /* top: 61px; */
+  /* top: 4px; */
+  top: -120px;
+  font-size: 14px;
+  font-weight: bold;
+  left: 234px;
+  width: 100px;
   z-index: 100;
-  display: none;
+  /* display: none; */
+  z-index: 1000;
+  transition: all .4s ease-in-out;
 }
 
 .list-header-ul li {
   text-align: center;
-  background: rgba(0,0,0,0.5);
+  background: rgba(91,91,91,0.4);
   border-radius: 5px;
   transition: all .1s;
   cursor: pointer;
+  height: 24px;
+  line-height: 24px;
+  color: white;
+  margin-bottom: 5px;
 }
 
 .list-header-ul li:hover {
-  background: rgba(84, 185, 242, 0.5);
+  background: rgba(111, 173, 236, 0.8);
 }
 
 .list-header-ul .choose {
-  background: rgba(84, 185, 242, 0.5);
+  background: rgba(111, 173, 236, 0.8);
 }
 
 .list-header-ul li:first-child {
@@ -77,14 +106,15 @@
 
 .list-ul {
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   /*overflow-x: visible;
   overflow-y: visible;*/
   opacity: 0.8;
   height: auto;
-  position: absolute;
+  /* position: absolute; */
   transition: all .3s;
-  top: 60px;
+  /* top: 60px; */
+  top: 0;
   z-index: 50;
   box-sizing: border-box;
   transform: translateY(0px);
@@ -93,7 +123,7 @@
 .list-ul li {
   font-family: KaiTi;
   /*border-bottom: 1px solid #555;*/
-  padding: 15px;
+  padding: 18px;
   color: white;
   font-size: 15px;
   width: 100%;
@@ -105,7 +135,7 @@
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
   z-index: 50;
   font-weight: 600;
-  box-shadow: 0 0 2px rgba(84, 64, 76, 0.6);
+  box-shadow: 0 0 1px rgba(199, 199, 199, 0.6);
 }
 
 .list-ul li span {
@@ -114,9 +144,9 @@
 }
 
 .list-ul li:hover {
-  background-color: rgba(129, 191, 236, 0.5);
+  background-color: rgba(148, 211, 255, 0.5);
   color: rgb(219, 72, 115);
-  box-shadow: inset -1px 0 2px rgba(255, 255, 255, 0.6);
+  /* box-shadow: inset 0 0 2px rgba(199, 199, 199, 0.6); */
 }
 
 .list-ul .playing {

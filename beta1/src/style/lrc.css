@@ -47,11 +47,11 @@
 		text-shadow: 1px -1px 2px rgba(0,0,0,0.6);
 		height: 40px;
 		line-height: 40px;
-		color: rgba(255,255,255,0.8);
+		color: rgba(255,255,255,1);
 	}
 
 	.lrc-ul .playing {
-		color: rgb(255, 135, 156);
+		color: rgb(255, 133, 178);
 		font-size: 19px;
 		text-shadow: 1px -1px 2px rgba(0,0,0,0.6);
 		transition: all .8s linear;
