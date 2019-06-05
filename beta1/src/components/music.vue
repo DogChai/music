@@ -181,7 +181,7 @@ export default {
     getMusicData() {
       // http://music.wuyayu.com/static/music.json
       // ../../static/music.json
-      axios.get("http://music.wuyayu.com/static/music.json").then(
+      axios.get("../../static/music.json").then(
         response => {
           this.musicData = response.data;
         },
@@ -261,7 +261,7 @@ export default {
       // 'http://music.wuyayu.com/beta1/static/lrc/' + n + '.lrc'
       // http://music.wuyayu.com/static/lrc/
       if (this.$refs.listul2.getAttribute("myplay") == "false") {
-        axios.get("http://music.wuyayu.com/static/lrc/" + n + ".lrc").then(
+        axios.get("../../static/lrc/" + n + ".lrc").then(
           response => {
             if (
               response.data == "纯音乐,请欣赏" ||
@@ -847,7 +847,7 @@ export default {
       if (this.$refs.listul2.getAttribute("myplay") == "false") {
         let audio = document.getElementById("audio");
         audio.src = this.musicData[this.playNum].url;
-        this.$refs.listul.children[this.playNum].setAttribute(
+        this.$refs.listChild1.children[this.playNum].setAttribute(
           "class",
           "playing"
         );
@@ -862,7 +862,7 @@ export default {
       } else {
         let audio = document.getElementById("audio");
         audio.src = this.dragData[this.dragNum].url;
-        this.$refs.listul2.children[this.dragNum].setAttribute(
+        this.$refs.listChild2.children[this.dragNum].setAttribute(
           "class",
           "playing"
         );
@@ -880,7 +880,7 @@ export default {
       let that = this;
       if (that.$refs.listul2.getAttribute("myplay") == "false") {
         for (var i = 0; i < this.musicData.length; i++) {
-          that.$refs.listul.children[i].setAttribute("class", "");
+          that.$refs.listChild1.children[i].setAttribute("class", "");
         }
         if (that.ifCut == 0) {
           //顺序播放
@@ -905,10 +905,10 @@ export default {
           that.musicEndsPlay();
         }
       } else {
-        for (var i = 0; i < that.$refs.listul2.children.length; i++) {
-          if (that.$refs.listul2.children[i].getAttribute("class") == "addmy") {
+        for (var i = 0; i < that.$refs.listChild2.children.length; i++) {
+          if (that.$refs.listChild2.children[i].getAttribute("class") == "addmy") {
           } else {
-            that.$refs.listul2.children[i].setAttribute("class", "");
+            that.$refs.listChild2.children[i].setAttribute("class", "");
           }
         }
         if (that.ifCut == 0) {
@@ -940,7 +940,7 @@ export default {
       let that = this;
       if (that.$refs.listul2.getAttribute("myplay") == "false") {
         for (var i = 0; i < this.musicData.length; i++) {
-          that.$refs.listul.children[i].setAttribute("class", "");
+          that.$refs.listChild1.children[i].setAttribute("class", "");
         }
         if (that.ifCut == 0) {
           //顺序播放
@@ -965,10 +965,10 @@ export default {
           that.musicEndsPlay();
         }
       } else {
-        for (var i = 0; i < that.$refs.listul2.children.length; i++) {
-          if (that.$refs.listul2.children[i].getAttribute("class") == "addmy") {
+        for (var i = 0; i < that.$refs.listChild2.children.length; i++) {
+          if (that.$refs.listChild2.children[i].getAttribute("class") == "addmy") {
           } else {
-            that.$refs.listul2.children[i].setAttribute("class", "");
+            that.$refs.listChild2.children[i].setAttribute("class", "");
           }
         }
         if (that.ifCut == 0) {
@@ -1323,8 +1323,8 @@ export default {
       let that = this;
       that.$refs.listul2.onmousewheel = function(e) {
         let lisHeight = 0;
-        for (var i = 0; i < that.$refs.listul2.children.length; i++) {
-          lisHeight += that.$refs.listul2.children[i].offsetHeight;
+        for (var i = 0; i < that.$refs.listChild2.children.length; i++) {
+          lisHeight += that.$refs.listChild2.children[i].offsetHeight;
         }
         if (lisHeight < that.$refs.playlist.offsetHeight - 61) {
           // console.log('111');
