@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div class='blur' data-attr='http://data.wuyayu.com/201908.png'></div>
     <vuemusic></vuemusic>
   </div>
 </template>
@@ -48,6 +49,42 @@ export default {
     overflow-y: hidden;
     overflow-x: hidden;
     transition: background-image 1.1s;
+    /* -webkit-filter: blur(10px); 
+    -moz-filter: blur(10px);
+    -ms-filter: blur(10px);    
+    filter: blur(10px); */
+  }
+
+  .blur {
+    /* position: absolute; */
+    background-position: center top;
+    background-size: cover;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .blur {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255,255,255,0.8);
+      z-index: -1;
+  }
+
+  .blur {
+    background-image: url('http://data.wuyayu.com/201908.png');
+    background-position: center center;
+    background-size: cover;
+    /* background-attachment: fixed; */
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -ms-filter: blur(10px);
+    -o-filter: blur(10px);
+    filter: blur(10px);
+    margin: -30px;
   }
 
 /*  @font-face {

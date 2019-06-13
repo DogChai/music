@@ -133,6 +133,7 @@
 
 <script type="text/javascript">
 import axios from "axios";
+import jq from 'jquery';
 export default {
   components: {},
   data() {
@@ -329,7 +330,7 @@ export default {
             this.lrcTime[k] = this.lrcTime[k].toString().replace(/\[|]/g, "");
             let temp = this.lrcTime[k].split(":");
             this.lrcSecond = 60 * Number(temp[0]) + 1 * Number(temp[1]);
-            this.lrcSecond = Math.round(this.lrcSecond);
+            this.lrcSecond = Math.floor(this.lrcSecond);
             lrcli.setAttribute("time", this.lrcSecond);
             lrcli.setAttribute("ifchoose", "false");
             this.$refs.lrcul.appendChild(lrcli);
@@ -657,7 +658,8 @@ export default {
       let musicPlan = document.getElementsByClassName("music-plan")[0];
       let that = this;
       audio.addEventListener("timeupdate", function() {
-        that.curTime = Math.round(audio.currentTime);
+        // that.curTime = Math.round(audio.currentTime);
+        that.curTime = Math.floor(audio.currentTime);
         that.planScales = audio.currentTime / audio.duration;
         musicPlan.style.width = musicBar.offsetWidth * that.planScales + "px";
         musicDarg.style.left = musicBar.offsetWidth * that.planScales + "px";
@@ -1154,7 +1156,7 @@ export default {
       // var y = 'rgb(243,233,168)';
       var capYPositionArray = [];
       var ctx = canvas.getContext("2d");
-      var gradient = ctx.createLinearGradient(0, 0, 0, 300);
+      var gradient = ctx.createLinearGradient(0, 0, 0, 500);
       gradient.addColorStop(1, "#0f0");
       gradient.addColorStop(0.5, "#ff0");
       gradient.addColorStop(0, "#f00");
@@ -1169,7 +1171,7 @@ export default {
         analyser.fftSize = 4096;
         var step = Math.round(array.length / meterNum);
         ctx.clearRect(0, 0, cwidth, cheight);
-        for (var i = 0; i < meterNum; i++) {
+        for (var i = 0; i < meterNum - 8; i++) {
           var value = array[i * step];
           if (capYPositionArray.length < Math.round(meterNum)) {
             capYPositionArray.push(value);
@@ -1363,6 +1365,10 @@ export default {
     // this.listWell2();
     this.getMusicTime();
     this.saveMusic();
+
+    // jq('.blur').attr('data-attr','http://data.wuyayu.com/201908.png');
+
+
     let that = this;
     let audio = document.getElementById("audio");
     let playlist = document.getElementsByClassName("music-play-list")[0];
@@ -1389,6 +1395,7 @@ export default {
         this.classList.add("current");
         let thisImgUrl = this.getAttribute("imgurl");
         document.body.style.backgroundImage = "url(" + thisImgUrl + ")";
+        document.getElementsByClassName('blur')[0].style.backgroundImage = "url(" + thisImgUrl + ")";
         if (this.index === 0) {
           changeColor("rgb(255,239,252)", "rgb(217,82,80)", "rgb(150,120,110)");
         } else if (this.index === 1) {
