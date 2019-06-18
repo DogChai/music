@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class='blur' data-attr='http://data.wuyayu.com/201908.png'></div>
+    <div class='blur' data-attr='http://data.wuyayu.com/201901.png'></div>
     <vuemusic></vuemusic>
   </div>
 </template>
@@ -43,7 +43,7 @@ export default {
   body {
     height: 100%;
     width: 100%;
-    background-image: url('http://data.wuyayu.com/201908.png');
+    background-image: url('http://data.wuyayu.com/201901.png');
     background-repeat: no-repeat;
     background-size: cover;
     overflow-y: hidden;
@@ -75,7 +75,7 @@ export default {
   }
 
   .blur {
-    background-image: url('http://data.wuyayu.com/201908.png');
+    background-image: url('http://data.wuyayu.com/201901.png');
     background-position: center center;
     background-size: cover;
     /* background-attachment: fixed; */

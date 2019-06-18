@@ -1,26 +1,744 @@
 [
   {
-    "url": "http://sing.wuyayu.com/%E7%A5%9E%E7%94%B0%E6%B2%99%E4%B9%9F%E5%8A%A0%20-%20delete.mp3",
+    "url": "http://sing.wuyayu.com/Taylor%20Swift%20-%20Today%20Was%20A%20Fairytale.mp3",
+    "name": "Today Was A Fairytale",
+    "singer": "Taylor Swift",
+    "playBool": false,
+    "id": 2001803
+  },
+  {
+    "url": "http://sing.wuyayu.com/Taylor%20Swift%20-%20We%20Are%20Never%20Ever%20Getting%20Back%20Together.mp3",
+    "name": "We Are Never Ever Getting Back Together",
+    "singer": "Taylor Swift",
+    "playBool": false,
+    "id": 25787222
+  },
+  {
+    "url": "http://sing.wuyayu.com/Taylor%20Swift%20-%20Welcome%20To%20New%20York.mp3",
+    "name": "Welcome To New York",
+    "singer": "Taylor Swift",
+    "playBool": false,
+    "id": 33337002
+  },
+  {
+    "url": "http://sing.wuyayu.com/Taylor%20Swift%20-%20Style.mp3",
+    "name": "Style",
+    "singer": "Taylor Swift",
+    "playBool": false,
+    "id": 33916260
+  },
+  {
+    "url": "http://sing.wuyayu.com/Taylor%20Swift%20-%20You%20Are%20In%20Love.mp3",
+    "name": "You Are In Love",
+    "singer": "Taylor Swift",
+    "playBool": false,
+    "id": 29572512
+  },
+  {
+    "url": "http://sing.wuyayu.com/Taylor%20Swift%20-%20Sparks%20Fly.mp3",
+    "name": "Sparks Fly",
+    "singer": "Taylor Swift",
+    "playBool": false,
+    "id": 19292838
+  },
+  {
+    "url": "http://sing.wuyayu.com/Taylor%20Swift%20-%20The%20Story%20of%20Us.mp3",
+    "name": "The Story of Us",
+    "singer": "Taylor Swift",
+    "playBool": false,
+    "id": 19292849
+  },
+  {
+    "url": "http://sing.wuyayu.com/Taylor%20Swift%20-%20Enchanted.mp3",
+    "name": "Enchanted",
+    "singer": "Taylor Swift",
+    "playBool": false,
+    "id": 19292852
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E3%81%AA%E3%82%93%E3%81%A7%E3%82%82%E3%81%AA%E3%81%84%E3%82%84%C2%A0%E6%B2%A1%E4%BB%80%E4%B9%88%E5%A4%A7%E4%B8%8D%E4%BA%86%E7%9A%84%EF%BC%88Cover%EF%BC%9ARadwimps%EF%BC%89.mp3",
+    "name": "なんでもないや 没什么大不了的（Cover：Radwimps）",
+    "singer": "Akie秋绘",
+    "playBool": false,
+    "id": 450795499
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E8%8A%B1%E3%81%9F%E3%82%93.mp3",
+    "name": "心做し",
+    "singer": "花たん",
+    "playBool": false,
+    "id": 29713638
+  },
+  {
+    "url": "http://sing.wuyayu.com/Nigel%20Stanford,Catey%20Shaw%20-%20Talk%20to%20Your%20Lover.mp3",
+    "name": "Talk to Your Lover",
+    "singer": "Nigel Stanford,Catey Shaw",
+    "playBool": false,
+    "id": 506139200
+  },
+  {
+    "url": "http://sing.wuyayu.com/Nigel%20Stanford,Catey%20Shaw%20-%20Stay%20with%20Me%20Tonight.mp3",
+    "name": "Stay with Me Tonight",
+    "singer": "Nigel Stanford,Catey Shaw",
+    "playBool": false,
+    "id": 506139202
+  },
+  {
+    "url": "http://sing.wuyayu.com/Aimer%20-%20%E3%82%BB%E3%83%97%E3%83%86%E3%83%B3%E3%83%90%E3%83%BC%E3%81%95%E3%82%93.mp3",
+    "name": "セプテンバーさん",
+    "singer": "Aimer",
+    "playBool": false,
+    "id": 426027261
+  },
+  {
+    "url": "http://sing.wuyayu.com/Aimer%20-%20Re%EF%BC%9Apray.mp3",
+    "name": "Repray",
+    "singer": "Aimer",
+    "playBool": false,
+    "id": 22643749
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%9E%97%E4%BF%8A%E6%9D%B0,%E6%B6%88%E9%99%A4%E8%81%94%E8%90%8C%20-%20%E4%B8%B9%E5%AE%81%E6%89%A7%E7%9D%80.mp3",
+    "name": "丹宁执着",
+    "singer": "林俊杰,消除联萌",
+    "playBool": false,
+    "id": 501052103
+  },
+  {
+    "url": "http://sing.wuyayu.com/LiSA%20-%20Catch%20the%20Moment.mp3",
+    "name": "Catch the Moment",
+    "singer": "LiSA",
+    "playBool": false,
+    "id": 507924892
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E5%AE%89%E7%94%B0%E3%83%AC%E3%82%A4%20-%20Brand%20New%20Day.mp3",
+    "name": "Brand New Day",
+    "singer": "安田レイ",
+    "playBool": false,
+    "id": 29460678
+  },
+  {
+    "url": "http://sing.wuyayu.com/AYUMI%20KAWAKITA%20-%20E%E2%98%86Right.mp3",
+    "name": "E☆Right",
+    "singer": "AYUMI KAWAKITA",
+    "playBool": false,
+    "id": 29775134
+  },
+  {
+    "url": "http://sing.wuyayu.com/Lene%20Marlin%20-%20Unforgivable%20Sinner.mp3",
+    "name": "Unforgivable Sinner",
+    "singer": "Lene Marlin",
+    "playBool": false,
+    "id": 22566577
+  },
+  {
+    "url": "http://sing.wuyayu.com/Lights%20-%20The%20Listening.mp3",
+    "name": "The Listening",
+    "singer": "Lights",
+    "playBool": false,
+    "id": 2929858
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E4%B8%8D%E4%B8%BA%E8%B0%81%E8%80%8C%E4%BD%9C%E7%9A%84%E6%AD%8C.mp3",
+    "name": "不为谁而作的歌",
+    "singer": "林俊杰",
+    "playBool": false,
+    "id": 37196629
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E6%95%85%E4%BA%8B%E7%BB%86%E8%85%BB.mp3",
+    "name": "故事细腻",
+    "singer": "林俊杰",
+    "playBool": false,
+    "id": 108136
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E9%BB%91%E9%8D%B5.mp3",
+    "name": "黑鍵",
+    "singer": "林俊杰",
+    "playBool": false,
+    "id": 29850682
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E5%8F%AF%E6%83%9C%E6%B2%A1%E5%A6%82%E6%9E%9C.mp3",
+    "name": "可惜没如果",
+    "singer": "林俊杰",
+    "playBool": false,
+    "id": 29814898
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E6%B5%AA%E6%BC%AB%E8%A1%80%E6%B6%B2.mp3",
+    "name": "浪漫血液",
+    "singer": "林俊杰",
+    "playBool": false,
+    "id": 29850683
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E8%A3%82%E7%BC%9D%E4%B8%AD%E7%9A%84%E9%98%B3%E5%85%89.mp3",
+    "name": "裂缝中的阳光",
+    "singer": "林俊杰",
+    "playBool": false,
+    "id": 25794009
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E8%8C%89%E8%8E%89%E9%9B%A8.mp3",
+    "name": "茉莉雨",
+    "singer": "林俊杰",
+    "playBool": false,
+    "id": 29850681
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E4%BD%A0%EF%BC%8C%E6%9C%89%E6%B2%A1%E6%9C%89%E8%BF%87%20%28%E3%80%8A%E7%A0%B4%E9%A3%8E%E3%80%8B%E7%94%B5%E5%BD%B1%E4%B8%BB%E9%A2%98%E6%9B%B2%29.mp3",
+    "name": "你，有没有过 (《破风》电影主题曲)",
+    "singer": "林俊杰",
+    "playBool": false,
+    "id": 33346396
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E6%96%B0%E5%9C%B0%E7%90%83.mp3",
+    "name": "新地球",
+    "singer": "林俊杰",
+    "playBool": false,
+    "id": 29774171
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%9E%97%E4%BF%8A%E6%9D%B0%20-%20%E6%9C%89%E6%A2%A6%E4%B8%8D%E9%9A%BE.mp3",
+    "name": "有梦不难",
+    "singer": "林俊杰",
+    "playBool": false,
+    "id": 40147557
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E5%91%A6%E7%8C%ABUNEKO%20-%20%E6%A2%A6%E5%9B%9E%E8%BF%98.mp3",
+    "name": "梦回还",
+    "singer": "呦猫UNEKO",
+    "playBool": false,
+    "id": 462686464
+  },
+  {
+    "url": "",
     "name": "delete",
     "singer": "神田沙也加",
-    "playBool": false
+    "playBool": false,
+    "id": 460476150
   },
   {
-    "url": "http://sing.wuyayu.com/%E7%A5%9E%E7%94%B0%E6%B2%99%E4%B9%9F%E5%8A%A0%20-%20longing.mp3",
+    "url": "",
     "name": "longing",
     "singer": "神田沙也加",
-    "playBool": false
+    "playBool": false,
+    "id": 460476149
   },
   {
-    "url": "http://sing.wuyayu.com/%E7%A5%9E%E7%94%B0%E6%B2%99%E4%B9%9F%E5%8A%A0%20-%20Break%20Beat%20Bark%21.mp3",
+    "url": "",
     "name": "Break Beat Bark!",
     "singer": "神田沙也加",
-    "playBool": false
+    "playBool": false,
+    "id": 460476151
   },
   {
-    "url": "http://sing.wuyayu.com/%E7%A5%9E%E7%94%B0%E6%B2%99%E4%B9%9F%E5%8A%A0%20-%20Ubiquitous%20dB.mp3",
+    "url": "",
     "name": "Ubiquitous dB",
     "singer": "神田沙也加",
-    "playBool": false
+    "playBool": false,
+    "id": 460476148
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E7%9F%B3%E5%B4%8E%E3%81%B2%E3%82%85%E3%83%BC%E3%81%84%20-%20%E3%83%94%E3%83%8E%E3%81%A8%E3%82%A2%E3%83%A1%E3%83%AA.mp3",
+    "name": "ピノとアメリ",
+    "singer": "石崎ひゅーい",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E5%89%8D%E7%94%B0%E6%84%9B%20-%20%E3%81%84%E3%81%A4%E3%82%82%20%E3%81%84%E3%81%A4%E3%81%A7%E3%82%82.mp3",
+    "name": "いつも いつでも",
+    "singer": "前田愛",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E8%97%8D%E4%BA%95%E3%82%A8%E3%82%A4%E3%83%AB%20-%20IGNITE.mp3",
+    "name": "IGNITE",
+    "singer": "藍井エイル",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%88%B8%E6%9D%BE%E9%81%A5%20-%20courage.mp3",
+    "name": "courage",
+    "singer": "戸松遥",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E9%AB%98%E6%A9%8B%E6%9D%8E%E4%BE%9D%20-%20Stay%20Alive.mp3",
+    "name": "Stay Alive",
+    "singer": "高橋李依",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E3%82%B9%E3%82%AD%E3%83%9E%E3%82%B9%E3%82%A4%E3%83%83%E3%83%81%20-%20LINE.mp3",
+    "name": "LINE",
+    "singer": "スキマスイッチ",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/MYTH%20&%20ROID%20-%20Paradisus-Paradoxum.mp3",
+    "name": "Paradisus-Paradoxum",
+    "singer": "MYTH & ROID",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Moving%20Mountains%20-%20Hands.mp3",
+    "name": "Hands",
+    "singer": "Moving Mountains",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Maisy%20Kay%20-%20Disguises.mp3",
+    "name": "Disguises",
+    "singer": "Maisy Kay",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/MACO%20-%20Love%20Lie.mp3",
+    "name": "Love Lie",
+    "singer": "MACO",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/FLOW%20-%20%E8%99%B9%E3%81%AE%E7%A9%BA.mp3",
+    "name": "虹の空",
+    "singer": "FLOW",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Dana%20Lowrey%20-%20Fearless.mp3",
+    "name": "Fearless",
+    "singer": "Dana Lowrey",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Anly%20-%20%E3%82%AB%E3%83%A9%E3%83%8E%E3%82%B3%E3%82%B3%E3%83%AD.mp3",
+    "name": "カラノココロ",
+    "singer": "Anly",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/angela%20-%20Different%20colors.mp3",
+    "name": "Different colors",
+    "singer": "angela",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E4%B8%8A%E5%8C%97%E5%81%A5%20-%20%E6%9C%88%E3%81%8C%E7%B6%BA%E9%BA%97.mp3",
+    "name": "月が綺麗",
+    "singer": "上北健",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/LU2VYK,Madison%20Gold%20-%20Deep%20End.mp3",
+    "name": "Deep End",
+    "singer": "LU2VYK,Madison Gold",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/MiChi%20-%20YEAH%20YEAH%20YEAH%21%21%21.mp3",
+    "name": "YEAH YEAH YEAH!!!",
+    "singer": "MiChi",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/G.E.M.%E9%82%93%E7%B4%AB%E6%A3%8B%20-%20%E5%85%89%E5%B9%B4%E4%B9%8B%E5%A4%96.mp3",
+    "name": "光年之外",
+    "singer": "G.E.M.邓紫棋",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/keeno%20-%20glow.mp3",
+    "name": "glow",
+    "singer": "keeno",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E3%82%84%E3%81%BE%E3%81%A0%E8%B1%8A%20-%20On%20My%20Own.mp3",
+    "name": "On My Own",
+    "singer": "やまだ豊",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Donna%20Burke%20-%20Glassy%20Sky.mp3",
+    "name": "Glassy Sky",
+    "singer": "Donna Burke",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/G-Eazy,Kehlani%20-%20Good%20Life.mp3",
+    "name": "Good Life",
+    "singer": "G-Eazy,Kehlani",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/The%20Chainsmokers,Coldplay%20-%20Something%20Just%20Like%20This.mp3",
+    "name": "Something Just Like This",
+    "singer": "The Chainsmokers,Coldplay",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/The%20Lumineers%20-%20Nobody%20Knows.mp3",
+    "name": "Nobody Knows",
+    "singer": "The Lumineers",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/livetune,Fukase%20-%20Each%20and%20All.mp3",
+    "name": "Each and All",
+    "singer": "livetune,Fukase",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/The%20Chainsmokers%20-%20Paris.mp3",
+    "name": "Paris",
+    "singer": "The Chainsmokers",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E8%B5%B5%E8%8B%B1%E4%BF%8A,%E5%BD%AD%E9%A3%9E%20-%20%E6%9A%B4%E9%9B%A8%E5%B0%86%E8%87%B3.mp3",
+    "name": "暴雨将至",
+    "singer": "赵英俊,彭飞",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%99%A8%E6%9B%A6%E5%85%89%E5%BB%8A%20-%2060km%EF%BC%8Fh.mp3",
+    "name": "60km／h",
+    "singer": "晨曦光廊",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E9%80%86%E8%80%B3%20-%20%E5%85%89%E6%99%AF.mp3",
+    "name": "光景",
+    "singer": "逆耳",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Yndi%20Halda%20-%20A%20Song%20For%20Starlit%20Beaches.mp3",
+    "name": "A Song For Starlit Beaches",
+    "singer": "Yndi Halda",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Tunturia%20-%20Panic%20Attack.mp3",
+    "name": "Panic Attack",
+    "singer": "Tunturia",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Tony%20Anderson%20-%20The%20Father%27s%20Heart.mp3",
+    "name": "The Father's Heart",
+    "singer": "Tony Anderson",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/The%20Burning%20Paris%20-%20In%20Ruins.mp3",
+    "name": "In Ruins",
+    "singer": "The Burning Paris",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Release%20The%20Long%20Ships%20-%20The%20Heart%20Of%20The%20Mountain.mp3",
+    "name": "The Heart Of The Mountain",
+    "singer": "Release The Long Ships",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Lights%20&%20Motion%20-%20The%20March.mp3",
+    "name": "The March",
+    "singer": "Lights & Motion",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/As%20the%20Stars%20Fall%20-%20The%20Road.mp3",
+    "name": "The Road",
+    "singer": "As the Stars Fall",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/As%20the%20Stars%20Fall%20-%20As%20Far%20As%20the%20Eye%20Can%20See.mp3",
+    "name": "As Far As the Eye Can See",
+    "singer": "As the Stars Fall",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E9%81%A0%E8%97%A4%E5%B9%B9%E9%9B%84%20-%20Showdown.mp3",
+    "name": "Showdown",
+    "singer": "遠藤幹雄",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E9%81%A0%E8%97%A4%E5%B9%B9%E9%9B%84%20-%20New%20Kings.mp3",
+    "name": "New Kings",
+    "singer": "遠藤幹雄",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%9E%97%E3%82%86%E3%81%86%E3%81%8D%20-%20%E6%98%9F%E7%A9%BA.mp3",
+    "name": "星空",
+    "singer": "林ゆうき",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E3%82%B3%E3%83%96%E3%82%AF%E3%83%AD%20-%20A%20Bud.mp3",
+    "name": "A Bud",
+    "singer": "コブクロ",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Rob%20Simonsen%20-%20Red.mp3",
+    "name": "Red",
+    "singer": "Rob Simonsen",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Kenny%20G%20-%20My%20Heart%20Will%20Go%20On.mp3",
+    "name": "My Heart Will Go On",
+    "singer": "Kenny G",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%CE%B1%C2%B7Pav%20-%20%E5%86%AC%E9%9F%B3.mp3",
+    "name": "冬音",
+    "singer": "α·Pav",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E7%A7%A6%E5%9F%BA%E5%8D%9A%20-%20Rain%20%28Long%20Ver.%29%20-Extra%20Track-.mp3",
+    "name": "Rain(Long Ver.)",
+    "singer": "秦基博",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E7%A7%A6%E5%9F%BA%E5%8D%9A%20-%20%E8%A8%80%E3%83%8E%E8%91%89%20%28Backing%20Track%29.mp3",
+    "name": "言ノ葉(Backing Track)",
+    "singer": "秦基博",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%CE%B1%C2%B7Pav%20-%20%CE%B3.mp3",
+    "name": "γ",
+    "singer": "α·Pav",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/little%20moa%20-%20Tightrope.mp3",
+    "name": "Tightrope",
+    "singer": "little moa",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Bernis%20-%20Entorevolution.mp3",
+    "name": "Entorevolution",
+    "singer": "Bernis",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E9%81%A0%E8%97%A4%E5%B9%B9%E9%9B%84%20-%20Past%20and%20future.mp3",
+    "name": "Past and future",
+    "singer": "遠藤幹雄",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/July%20-%20Follow%20The%20Wind.mp3",
+    "name": "Follow The Wind",
+    "singer": "July",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Tony%20Anderson%20-%20Breakthrough.mp3",
+    "name": "Breakthrough",
+    "singer": "Tony Anderson",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/luminouscore%20-%20I%20will%20%28Piano%20Ver.%29.mp3",
+    "name": "I will (Piano Ver.)",
+    "singer": "luminouscore",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Yiruma%20-%20River%20Flows%20in%20You.mp3",
+    "name": "River Flows in You",
+    "singer": "Yiruma",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Really%20Slow%20Motion%20-%20Everdream.mp3",
+    "name": "Everdream",
+    "singer": "Really Slow Motion",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Hallo%20-%20%E5%A4%A2.mp3",
+    "name": "夢",
+    "singer": "Hallo",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Otokaze%20-%20%E5%A4%8F%E6%81%8B.mp3",
+    "name": "夏恋",
+    "singer": "Otokaze",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%CE%B1%C2%B7Pav%20-%20%E9%9B%A8%E7%A9%BA.mp3",
+    "name": "雨空",
+    "singer": "α·Pav",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Re%EF%BC%9Aplus%20-%20Autumn%20Leaf.mp3",
+    "name": "Autumn Leaf",
+    "singer": "Re：plus",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Pax%20Japonica%20Groove%20-%20Million%20Mind.mp3",
+    "name": "Million Mind",
+    "singer": "Pax Japonica Groove",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/July%20-%20Autumn.mp3",
+    "name": "Autumn",
+    "singer": "July",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/July%20-%20Remind.mp3",
+    "name": "Remind",
+    "singer": "July",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/%E6%B2%B3%E9%87%8E%E5%80%AB%E5%BE%B3%20-%202003.mp3",
+    "name": "2003",
+    "singer": "河野倫徳",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Blazo%20-%20Hope.mp3",
+    "name": "Hope",
+    "singer": "Blazo",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Otokaze%20-%20%E9%9B%A8%E9%81%93.mp3",
+    "name": "雨道",
+    "singer": "Otokaze",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Soulostar%20-%20These%20Nights.mp3",
+    "name": "These Nights",
+    "singer": "Soulostar",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Guido%20Negraszus%20-%20Sunset%20Avenue.mp3",
+    "name": "Sunset Avenue",
+    "singer": "Guido Negraszus",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Otokaze%20-%20Sakura%20Memory.mp3",
+    "name": "Sakura Memory",
+    "singer": "Otokaze",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Otokaze%20-%20%E5%BD%A9%E6%9C%88%E2%80%8B-%E2%80%8BSai%E2%80%8B-%E2%80%8Bgetsu-.mp3",
+    "name": "彩月​-​Sai​-​getsu-",
+    "singer": "Otokaze",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/Niha%20-%20Blue%20in%20the%20Photo.mp3",
+    "name": "Blue in the Photo",
+    "singer": "Niha",
+    "playBool": false,
+    "id": 1
+  },
+  {
+    "url": "http://sing.wuyayu.com/July%20-%20Beyond%20The%20Memory.mp3",
+    "name": "Beyond The Memory",
+    "singer": "July",
+    "playBool": false,
+    "id": 1
   }
 ]

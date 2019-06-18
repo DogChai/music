@@ -23,16 +23,20 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8080,
+    port: 8081,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      "/WebService.asmx": {
-        target: "http://localhost:12900/jsnf_service/",
-        logLevel: 'debug',
-        changeOrigin: true
-      }
+      '/api': {
+        target: 'http://node.wuyayu.com:3000/v1',
+        // target: 'http://192.168.1.106:8000',
+        // target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ""
+        }
+      }  
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

@@ -53,9 +53,11 @@
         <v-scroll>
           <ul class="play-list-ul list-ul" ref="listChild1">
             <li
+              :key="index"
               v-for="(item,index) in musicData"
               v-on:click="listClick()"
               :num="index"
+              :data-id='item.id'
               :musicName="item.name"
             >
               <span>{{index + 1}}.</span>
@@ -69,6 +71,7 @@
         <v-scroll>
           <ul class="list-ul list-ul2" ref="listChild2">
             <li
+              :key="index"
               v-for="(item,index) in dragData"
               :num="index"
               :musicName="item.name"
@@ -111,7 +114,7 @@
       </ul>
       <div class="choose-img2 choose-img">
         <ul>
-          <li class="imgurl current" imgurl="http://data.wuyayu.com/201908.png"></li>
+          <li class="imgurl current" imgurl="http://data.wuyayu.com/201901.png"></li>
           <li class="imgurl" imgurl="http://data.wuyayu.com/201902.png"></li>
           <li class="imgurl" imgurl="http://data.wuyayu.com/201903.png"></li>
           <li class="imgurl" imgurl="http://data.wuyayu.com/201905.png"></li>
@@ -138,6 +141,7 @@ export default {
   components: {},
   data() {
     return {
+      gMusicUrl: '',
       musicData: [], //音乐数组
       dragData: [], //拖拽数组
       dragLrc: [], //拖拽歌词数组
@@ -178,6 +182,16 @@ export default {
     };
   },
   methods: {
+    // 请求网易云歌曲
+    getMusicUrl(id) {
+      axios.get('http://node.wuyayu.com:3000/v1/music/url?id='+id+'&br=128000').then(response => {
+        console.log(response.data.data[0].url)
+        return response.data.data[0].url;
+        
+      }).catch(error => {
+        console.log(error);
+      })
+    },
     //获得音乐json文件
     getMusicData() {
       // http://music.wuyayu.com/static/music.json
@@ -258,25 +272,38 @@ export default {
     //获得歌词
     getLrcFile(n) {
       // ../../music/static/lrc/  打包请修改
-      // http://music.163.com/api/song/lyric?os=pc&id=93920&lv=-1&kv=-1&tv=-1
+      // http://music.163.comhttp://node.wuyayu.com:3000/v1/song/lyric?os=pc&id=93920&lv=-1&kv=-1&tv=-1
       // 'http://music.wuyayu.com/beta1/static/lrc/' + n + '.lrc'
       // http://music.wuyayu.com/static/lrc/
       if (this.$refs.listul2.getAttribute("myplay") == "false") {
-        axios.get("../../static/lrc/" + n + ".lrc").then(
+        
+        // lyric?id=1336856864
+        // ../../static/lrc/
+        axios.get("http://node.wuyayu.com:3000/v1/lyric?id=" + n).then(
           response => {
-            if (
-              response.data == "纯音乐,请欣赏" ||
-              response.data == "后摇,请欣赏" ||
-              response.data == "暂无歌词"
-            ) {
-              this.lrcData = response.data;
-              this.showLrc();
-            } else {
-              this.lrcData = response.data;
-              //得到歌词 开始解析
-              this.parseLyric(this.lrcData);
-              // console.log('yes')
+            // if (
+            //   response.data == "纯音乐,请欣赏" ||
+            //   response.data == "后摇,请欣赏" ||
+            //   response.data == "暂无歌词"
+            // ) {
+            //   this.lrcData = response.data;
+            //   this.showLrc();
+            // } else {
+            //   this.lrcData = response.data;
+            //   //得到歌词 开始解析
+            //   this.parseLyric(this.lrcData);
+            //   // console.log('yes')
+            // }
+            console.log(response)
+            if(response.data.lrc) {
+              this.lrcData = response.data.lrc.lyric;
+              this.parseLyric(response.data.lrc.lyric);
             }
+            else {
+              this.lrcData = "暂无歌词";
+              this.showLrc();
+            }
+            
           },
           response => {
             this.lrcData = "未找到歌词";
@@ -308,6 +335,7 @@ export default {
     //歌词显示
     showLrc() {
       //清空歌词
+      console.log(this.lrcData)
       this.$refs.lrcul.innerHTML = "";
       if (this.$refs.listul2.getAttribute("myplay") == "false") {
         if (
@@ -377,31 +405,43 @@ export default {
     playMusic() {
       let that = this;
       for (var i = 0; i < this.musicData.length; i++) {
-        that.$refs.listul.getElementsByClassName('list-ul')[0].children[i].setAttribute("class", "");
+        document.getElementsByClassName('list-ul')[0].children[i].setAttribute("class", "");
       }
-      if (that.$refs.audio !== null) {
-        if (that.$refs.listul2.getElementsByClassName('list-ul2')[0].getAttribute("myplay") == "false") {
-          that.$refs.listul.getElementsByClassName('list-ul')[0].children[that.playNum].setAttribute(
-            "class",
-            "playing"
-          );
-          if (that.ifPlay) {
+
+      if(this.ifMy == 0) {
+        document.getElementsByClassName('list-ul')[0].children[this.playNum].setAttribute("class", "playing");
+        if (that.ifPlay) {
             that.$refs.audio.play();
             that.ifPlay = false;
           } else {
             that.$refs.audio.pause();
             that.ifPlay = true;
           }
-        } else {
-          if (that.ifPlay) {
-            that.$refs.audio.play();
-            that.ifPlay = false;
-          } else {
-            that.$refs.audio.pause();
-            that.ifPlay = true;
-          }
-        }
       }
+
+      // if (that.$refs.audio !== null) {
+      //   if (document.getElementsByClassName('list-ul2')[0].getAttribute("myplay") == "false") {
+      //     document.getElementsByClassName('list-ul')[0].children[that.playNum].setAttribute(
+      //       "class",
+      //       "playing"
+      //     );
+      //     if (that.ifPlay) {
+      //       that.$refs.audio.play();
+      //       that.ifPlay = false;
+      //     } else {
+      //       that.$refs.audio.pause();
+      //       that.ifPlay = true;
+      //     }
+      //   } else {
+      //     if (that.ifPlay) {
+      //       that.$refs.audio.play();
+      //       that.ifPlay = false;
+      //     } else {
+      //       that.$refs.audio.pause();
+      //       that.ifPlay = true;
+      //     }
+      //   }
+      // }
     },
     //静音
     closeVol() {
@@ -618,14 +658,23 @@ export default {
     },
     //加载完成获得第一首音乐的信息
     firstGet() {
-      this.$refs.audio.src = this.musicData[0].url;
-      this.$refs.showname.innerHTML =
-        this.musicData[0].name + " - " + this.musicData[0].singer;
-      let that = this;
-      this.$refs.audio.addEventListener("canplaythrough", function() {
-        that.timeActive();
-      });
-      this.getLrcFile(this.musicData[0].name);
+      let url = ''
+      axios.get('http://node.wuyayu.com:3000/v1/music/url?id='+this.musicData[0].id+'&br=128000').then(response => {
+        url =  response.data.data[0].url;
+
+        this.gMusicUrl = url;
+        this.$refs.audio.src = url;
+        this.$refs.showname.innerHTML =
+          this.musicData[0].name + " - " + this.musicData[0].singer;
+        let that = this;
+        this.$refs.audio.addEventListener("canplaythrough", function() {
+          that.timeActive();
+        });
+        this.getLrcFile(this.musicData[0].id);
+
+        }).catch(error => {
+          console.log(error);
+        })
     },
     //时间进度
     timeActive() {
@@ -848,22 +897,35 @@ export default {
     musicEndsPlay() {
       if (this.$refs.listul2.getAttribute("myplay") == "false") {
         let audio = document.getElementById("audio");
-        audio.src = this.musicData[this.playNum].url;
-        this.$refs.listChild1.children[this.playNum].setAttribute(
-          "class",
-          "playing"
-        );
-        this.$refs.showname.innerHTML =
-          this.musicData[this.playNum].name +
-          " - " +
-          this.musicData[this.playNum].singer;
-        this.getMusicTime();
-        this.ifPlay = true;
-        this.playMusic();
-        this.getLrcFile(this.musicData[this.playNum].name);
+        // audio.src = this.musicData[this.playNum].url;
+
+        axios.get('http://node.wuyayu.com:3000/v1/music/url?id='+this.musicData[this.playNum].id+'&br=128000').then(response => {
+          audio.src = response.data.data[0].url;
+
+          this.$refs.listChild1.children[this.playNum].setAttribute(
+            "class",
+            "playing"
+          );
+          this.$refs.showname.innerHTML =
+            this.musicData[this.playNum].name +
+            " - " +
+            this.musicData[this.playNum].singer;
+          this.getMusicTime();
+          this.ifPlay = true;
+          this.playMusic();
+          this.getLrcFile(this.musicData[this.playNum].id);
+
+        }).catch(error => {
+          console.log(error);
+        })
       } else {
         let audio = document.getElementById("audio");
-        audio.src = this.dragData[this.dragNum].url;
+        if(this.dragData.length <= 0) {
+          audio.src = '';
+        }
+        else {
+          audio.src = this.dragData[this.dragNum].url;
+        }
         this.$refs.listChild2.children[this.dragNum].setAttribute(
           "class",
           "playing"
@@ -1037,13 +1099,15 @@ export default {
     },
     //列表点击
     listClick() {
+      let this_ = event.currentTarget;
+      let id = this_.getAttribute("data-id");
+
       let audioUrls = document.getElementById("audio").src;
       let audio = document.getElementById("audio");
-      let this_ = event.currentTarget;
+      
       // console.log(this_);
       audio.setAttribute("dataNum", this_.getAttribute("num"));
       this.playNum = this_.getAttribute("num") - 0;
-      this.audioUrl = this.musicData[this.playNum].url;
       this.$refs.listChild2.setAttribute("myplay", "false");
       for (var i = 0; i < this.$refs.listChild2.children.length; i++) {
         if (this.$refs.listChild2.children[i].getAttribute("class") == "addmy") {
@@ -1052,23 +1116,35 @@ export default {
           this.$refs.listChild2.children[i].setAttribute("class", "");
         }
       }
-      if (audioUrls == this.audioUrl) {
-        this_.setAttribute("class", "playing");
-        this.playMusic();
-      } else {
-        for (var i = 0; i < this.musicData.length; i++) {
-          this.$refs.listChild1.children[i].setAttribute("class", "");
+
+
+      axios.get('http://node.wuyayu.com:3000/v1/music/url?id='+id+'&br=128000').then(response => {
+        let gMusicUrl = response.data.data[0].url
+        this.gMusicUrl = gMusicUrl;
+        this.audioUrl = gMusicUrl;
+
+        if (audioUrls == this.audioUrl) {
+          this_.setAttribute("class", "playing");
+          this.playMusic();
+        } else {
+          for (var i = 0; i < this.musicData.length; i++) {
+            this.$refs.listChild1.children[i].setAttribute("class", "");
+          }
+          audio.src = this.audioUrl;
+          this.ifPlay = true;
+          this.$refs.showname.innerHTML =
+            this.musicData[this.playNum].name +
+            " - " +
+            this.musicData[this.playNum].singer;
+          this_.setAttribute("class", "playing");
+          this.playMusic();
         }
-        audio.src = this.audioUrl;
-        this.ifPlay = true;
-        this.$refs.showname.innerHTML =
-          this.musicData[this.playNum].name +
-          " - " +
-          this.musicData[this.playNum].singer;
-        this_.setAttribute("class", "playing");
-        this.playMusic();
-      }
-      this.getLrcFile(this.musicData[this.playNum].name);
+        this.getLrcFile(this.musicData[this.playNum].id);
+
+        }).catch(error => {
+          console.log(error);
+        })
+
     },
     //第二列表点击
     listClick2() {
@@ -1099,7 +1175,7 @@ export default {
         this_.setAttribute("class", "playing");
         this.playMusic();
       }
-      this.getLrcFile(this.dragData[this.dragNum].name);
+      this.getLrcFile(this.dragData[this.dragNum].id);
     },
     //切换列表音乐数量
     listNum() {
@@ -1226,137 +1302,6 @@ export default {
       renderFrame();
     }
 
-
-    // 废弃方法
-    /*
-    //列表滚动  显示滚动条
-    listWell() {
-      let that = this;
-      let bar = document.getElementById("list-bar");
-      let thisLBW = document.getElementsByClassName("list-bar-wrap")[0];
-      let playList1 = document.getElementsByClassName("play-list-ul")[0];
-      let timer2 = null;
-      that.$refs.playlist.onmouseover = function() {
-        bar.style.opacity = 1;
-      };
-      that.$refs.playlist.onmouseout = function() {
-        clearTimeout(timer2);
-        timer2 = setTimeout(function() {
-          bar.style.opacity = 0;
-        }, 3000);
-      };
-      that.$refs.listul.onmousewheel = function(e) {
-        let PH = thisLBW.offsetHeight + 7;
-        let PH1 = playList1.offsetHeight - 200;
-        // console.log(that.listScroll * (thisLBW.offsetHeight / PH1))
-        if (e.wheelDelta < 0) {
-          //向上滚动
-          that.listScroll += 60;
-        } else if (e.wheelDelta > 0) {
-          //向下滚动
-          that.listScroll -= 60;
-        }
-        if (that.listScroll <= -60) {
-          that.listScroll = -60;
-        }
-        if (
-          that.listScroll >=
-          that.$refs.listul.offsetHeight - that.$refs.playlist.offsetHeight + 60
-        ) {
-          that.listScroll =
-            that.$refs.listul.offsetHeight -
-            that.$refs.playlist.offsetHeight +
-            60;
-        }
-        let B = parseInt(that.listScroll * (PH / PH1));
-        bar.style.transform = "translateY(" + B + "px)";
-        if (parseInt(bar.style.transform.substring(11)) <= 0) {
-          bar.style.transform = "translateY(0px)";
-          that.barScroll = 0;
-        }
-        if (parseInt(bar.style.transform.substring(11)) >= PH - 7 - 66) {
-          let PHB = PH - 7 - 66;
-          bar.style.transform = "translateY(" + PHB + "px)";
-          that.barScroll = PHB;
-        } else {
-          that.barScroll = parseInt(bar.style.transform.substring(11));
-        }
-
-        that.$refs.listul.style.transform =
-          "translateY(-" + that.listScroll + "px)";
-      };
-    },
-    //滚动条
-    listBar(e) {
-      let that = this;
-      let bar = document.getElementById("list-bar");
-      let playList1 = document.getElementsByClassName("play-list-ul")[0];
-      let playList2 = document.getElementsByClassName("list-ul2")[0];
-      let thisLBW = document.getElementsByClassName("list-bar-wrap")[0];
-      let top = e.clientY;
-      that.barTop = parseInt(bar.style.transform.substring(11));
-      let PH = 0;
-      for (var i = 0; i < playList1.children.length - 1; i++) {
-        PH += playList1.children[i].offsetHeight;
-      }
-      PH = PH - 20;
-      document.onmousemove = function(e) {
-        let _top = e.clientY;
-        that.barScroll = _top - top + that.barTop;
-        if (that.barScroll > thisLBW.offsetHeight - 66) {
-          that.barScroll = thisLBW.offsetHeight - 66;
-        }
-        if (that.barScroll <= 0) {
-          that.barScroll = 0;
-        }
-        bar.style.transform = "translateY(" + that.barScroll + "px)";
-        let Y = -that.barScroll * (PH / thisLBW.offsetHeight);
-        playList1.style.transform = "translateY(" + Y + "px)";
-        that.listScroll = -parseInt(playList1.style.transform.substring(11));
-      };
-      document.onmouseup = function() {
-        document.onmousemove = null;
-        document.onmousedown = null;
-        document.onmouseup = null;
-      };
-    },
-    //列表2滚动
-    listWell2() {
-      let that = this;
-      that.$refs.listul2.onmousewheel = function(e) {
-        let lisHeight = 0;
-        for (var i = 0; i < that.$refs.listChild2.children.length; i++) {
-          lisHeight += that.$refs.listChild2.children[i].offsetHeight;
-        }
-        if (lisHeight < that.$refs.playlist.offsetHeight - 61) {
-          // console.log('111');
-        } else {
-          if (e.wheelDelta < 0) {
-            //向上滚动
-            that.listScroll2 += 60;
-          } else if (e.wheelDelta > 0) {
-            //向下滚动
-            that.listScroll2 -= 60;
-          }
-          if (that.listScroll2 <= -60) {
-            that.listScroll2 = -60;
-          }
-          if (
-            that.listScroll2 >=
-            that.$refs.listul2.offsetHeight -
-              that.$refs.playlist.offsetHeight +
-              60
-          ) {
-            that.listScroll2 =
-              that.$refs.listul2.offsetHeight -
-              that.$refs.playlist.offsetHeight +
-              60;
-          }
-          that.$refs.listul2.style.top = -that.listScroll2 + "px";
-        }
-      };
-    },
-    */
   },
   mounted() {
     this.getMusicData();
@@ -1366,7 +1311,7 @@ export default {
     this.getMusicTime();
     this.saveMusic();
 
-    // jq('.blur').attr('data-attr','http://data.wuyayu.com/201908.png');
+    // jq('.blur').attr('data-attr','http://data.wuyayu.com/201901.png');
 
 
     let that = this;
@@ -1397,7 +1342,7 @@ export default {
         document.body.style.backgroundImage = "url(" + thisImgUrl + ")";
         document.getElementsByClassName('blur')[0].style.backgroundImage = "url(" + thisImgUrl + ")";
         if (this.index === 0) {
-          changeColor("rgb(255,239,252)", "rgb(217,82,80)", "rgb(150,120,110)");
+          changeColor("rgb(24,24,24)", "rgb(255,164,133)", "rgb(109,146,189)");
         } else if (this.index === 1) {
           changeColor(
             "rgb(253,228,209)",
