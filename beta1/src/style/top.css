@@ -8,7 +8,7 @@
   height: 61px;
   /*margin-top: 3px;*/
   min-width: 225px;
-  box-shadow: 2px 0 2px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
+  box-shadow: 2px 0 2px rgba(0, 0, 0, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1);
   transform: translateY(0px);
 }
 
@@ -36,13 +36,13 @@
 
 .music-top>ul .top-one {
   padding-left: 10%;
-  border-right: 1px solid rgba(107, 105, 104, 0.5);
+  border-right: 1px solid rgba(107, 105, 104, 0.2);
 }
 
 .music-top>ul .top-two {
   padding-right: 10%;
   padding-left: 0;
-  border-left: 1px solid rgba(107, 105, 104, 0.5);
+  border-left: 1px solid rgba(107, 105, 104, 0.2);
 }
 
 .music-top ul li a {

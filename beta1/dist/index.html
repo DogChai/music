@@ -1,59 +1,218 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><title>music</title><link rel="shortcut icon" href=http://softeyes.cc/my/beta1/moon.ico type=image/x-icon><style>@keyframes loadDiv {
-        0% 100% {
-          opacity: 0;
-          transform: scale(0);
-        }
-        50% {
-          opacity: 1;
-          transform: scale(1);
-        }
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no"><title>music</title><link rel="shortcut icon" href=http://chai.wuyayu.com/images/moon.ico type=image/x-icon><style>@keyframes loadDiv {
+
+      0%,
+      100% {
+        opacity: 0;
+        transform: scale(0);
       }
 
-      .loadFade {
+      50% {
         opacity: 1;
-        transition: all 1.5s linear;
-      }</style><link href=./static/css/app.a91d8a1e8f185a0042e3939c2ef1d5af.css rel=stylesheet></head><body><script>function CreateLoadDiv(id,loadImgUrl,fatherDom,bgColor) {
-        this.ele = document.createElement('div');
-        this.ele.setAttribute('id',id);
-        this.ele.style.background = 'url('+loadImgUrl+')'+' no-repeat '+' center '+' center '+ bgColor;
-        this.ele.style.position = 'fixed';
-        this.ele.className = 'loadFade';
-        this.ele.style.top = 0;
-        this.ele.style.left = 0;
-        this.ele.style.right = 0;
-        this.ele.style.bottom = 0;
-        this.ele.style.zIndex = 9999;
-        fatherDom.appendChild(this.ele);
+        transform: scale(1);
       }
-      var myLoadDiv = new CreateLoadDiv('myload','http://oht4at73h.bkt.clouddn.com/load.gif',document.body,'rgba(236, 232, 222, 1)');
-      document.onreadystatechange = function () {
-        var loadTimer = null;
-        if(document.readyState=="complete") {
-          document.getElementById('myload').style.opacity = 0;
-          loadTimer = setTimeout(function() {
-            document.getElementById('myload').style.display = 'none';
-          },1500);
-        }
-      }</script><div id=control style="display: none"><div><h1>文字粒子</h1><p style="margin: 0 0 20px 10px"><span id=ball>圆形</span> <span id=rect>方块</span></p><p>文字</p><input type=text id=message value="" onchange=change()><p>重力</p><input type=range id=gra value=0 min=-1 max=1 step=0.1 onchange=changeV()><p>周期</p><input type=range id=dur value=0.22 min=0.1 max=0.99 step=0.01 onchange=changeV()><p>速度</p><input type=range id=speed value=0.02 min=0 max=5 ste=0.01 onchange=changeV()><p>半径</p><input type=range id=rad value=1.8 min=1.8 max=20 step=0.1 onchange=changeV()><p>分辨率</p><input type=range id=res value=1 min=3 max=20 step=1 onchange=change()></div><div id=btn><span></span> <span></span> <span></span></div></div><div id=app></div><script type=text/javascript src=./static/js/manifest.72a93d19db6b04f57618.js></script><script type=text/javascript src=./static/js/vendor.b567735d7c2becb0afb9.js></script><script type=text/javascript src=./static/js/app.1beb10930028afdb0db2.js></script></body><script>document.oncontextmenu = function(e) {
-      e.returnValue=false;
     }
-    document.onselectstart=new Function("event.returnValue=false;");
-    function sizeChange() {
-      document.getElementsByTagName('body')[0].style.height = window.innerHeight + 'px';
-      document.getElementsByTagName('body')[0].style.width = window.innerWidth + 'px';
-      document.getElementsByClassName('music')[0].style.width = window.innerWidth + 'px';
-      document.getElementsByClassName('music-play-list')[0].style.height = window.innerHeight - 75 + 'px';
-      document.getElementsByClassName('list-bar-wrap')[0].style.height = window.innerHeight - 75 - 61 + 'px';
+
+    .loadFade {
+      opacity: 1;
+      transition: all .5s linear;
+      transition-delay: 1s;
     }
-    window.onload = function() {
+
+    #app {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .loader {
+      background: #000;
+      background: radial-gradient(#222, #000);
+      bottom: 0;
+      left: 0;
+      overflow: hidden;
+      position: fixed;
+      right: 0;
+      top: 0;
+      z-index: 99999;
+    }
+
+    .loader-inner {
+      bottom: 0;
+      height: 60px;
+      left: 0;
+      margin: auto;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100px;
+    }
+
+    .loader-line-wrap {
+      -webkit-animation:
+        spin 2000ms cubic-bezier(.175, .885, .32, 1.275) infinite;
+      animation:
+        spin 2000ms cubic-bezier(.175, .885, .32, 1.275) infinite;
+      box-sizing: border-box;
+      height: 50px;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      -webkit-transform-origin: 50% 100%;
+      transform-origin: 50% 100%;
+      width: 100px;
+    }
+
+    .loader-line {
+      border: 4px solid transparent;
+      border-radius: 100%;
+      box-sizing: border-box;
+      height: 100px;
+      left: 0;
+      margin: 0 auto;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100px;
+    }
+
+    .loader-line-wrap:nth-child(1) {
+      -webkit-animation-delay: -50ms;
+      animation-delay: -50ms;
+    }
+
+    .loader-line-wrap:nth-child(2) {
+      -webkit-animation-delay: -100ms;
+      animation-delay: -100ms;
+    }
+
+    .loader-line-wrap:nth-child(3) {
+      -webkit-animation-delay: -150ms;
+      animation-delay: -150ms;
+    }
+
+    .loader-line-wrap:nth-child(4) {
+      -webkit-animation-delay: -200ms;
+      animation-delay: -200ms;
+    }
+
+    .loader-line-wrap:nth-child(5) {
+      -webkit-animation-delay: -250ms;
+      animation-delay: -250ms;
+    }
+
+    .loader-line-wrap:nth-child(1) .loader-line {
+      border-color: hsl(0, 80%, 60%);
+      height: 90px;
+      width: 90px;
+      top: 7px;
+    }
+
+    .loader-line-wrap:nth-child(2) .loader-line {
+      border-color: hsl(60, 80%, 60%);
+      height: 76px;
+      width: 76px;
+      top: 14px;
+    }
+
+    .loader-line-wrap:nth-child(3) .loader-line {
+      border-color: hsl(120, 80%, 60%);
+      height: 62px;
+      width: 62px;
+      top: 21px;
+    }
+
+    .loader-line-wrap:nth-child(4) .loader-line {
+      border-color: hsl(180, 80%, 60%);
+      height: 48px;
+      width: 48px;
+      top: 28px;
+    }
+
+    .loader-line-wrap:nth-child(5) .loader-line {
+      border-color: hsl(240, 80%, 60%);
+      height: 34px;
+      width: 34px;
+      top: 35px;
+    }
+
+    @-webkit-keyframes spin {
+
+      0%,
+      15% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+
+      0%,
+      15% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }</style><link href=./static/css/app.2989cbf83373e29591d5a9cd5fdeb221.css rel=stylesheet></head><body><div class=loader id=loader><div class=loader-inner><div class=loader-line-wrap><div class=loader-line></div></div><div class=loader-line-wrap><div class=loader-line></div></div><div class=loader-line-wrap><div class=loader-line></div></div><div class=loader-line-wrap><div class=loader-line></div></div><div class=loader-line-wrap><div class=loader-line></div></div></div></div><script>function CreateLoadDiv(id, loadImgUrl, fatherDom, bgColor) {
+      this.ele = document.createElement('div');
+      this.ele.setAttribute('id', id);
+      this.ele.style.background = 'url(' + loadImgUrl + ')' + ' no-repeat ' + ' center ' + ' center ' + bgColor;
+      this.ele.style.position = 'fixed';
+      this.ele.className = 'loadFade';
+      this.ele.style.top = 0;
+      this.ele.style.left = 0;
+      this.ele.style.right = 0;
+      this.ele.style.bottom = 0;
+      this.ele.style.zIndex = 9999;
+      fatherDom.appendChild(this.ele);
+    }
+    // var myLoadDiv = new CreateLoadDiv('myload','http://data.wuyayu.com/load1.gif',document.body,'rgb(239, 182, 186)');
+
+
+    document.onreadystatechange = function () {
+      var loadTimer = null;
+      if (document.readyState == "complete") {
+        document.getElementById('loader').style.opacity = 0;
+        loadTimer = setTimeout(function () {
+          document.getElementById('loader').style.display = 'none';
+        }, 1500);
+      }
+    }</script><div id=app></div><script type=text/javascript src=./static/js/manifest.b240d6238a89d6ed0463.js></script><script type=text/javascript src=./static/js/vendor.4ecde5a5a3623411222f.js></script><script type=text/javascript src=./static/js/app.86632c3ab4266d5709cc.js></script></body><script>document.oncontextmenu = function (e) {
+    e.returnValue = false;
+  }
+  // document.onselectstart=new Function("event.returnValue=false;");
+  function sizeChange() {
+    document.getElementsByTagName('body')[0].style.height = window.innerHeight + 'px';
+    document.getElementsByTagName('body')[0].style.width = window.innerWidth + 'px';
+    document.getElementsByClassName('music')[0].style.width = window.innerWidth + 'px';
+    document.getElementsByClassName('music-play-list')[0].style.height = window.innerHeight - 75 + 'px';
+    // document.getElementsByClassName('list-bar-wrap')[0].style.height = window.innerHeight - 75 - 61 + 'px';
+  }
+  window.onload = function () {
+    sizeChange();
+    localStorage.clear();
+    window.addEventListener('resize', function () {
       sizeChange();
-      localStorage.clear();
-      window.addEventListener('resize',function() {
-        sizeChange();
-      })
-      console.log(`
-          音乐是我生命的光
-          照亮着我前进的方向
-          歌曲列表更新于:2017.8.23
-        `)
-    }</script></html>
+    })
+    console.log('更新于: 2019.6.19')
+
+        // 史无前例破天荒大更新!!!
+        //   1.音乐列表滚动效果优化
+        //   2.列表切换位置显示方式优化
+        //   3.整体颜色微调
+        //   4.图片切换样式修改
+        //   5.图片更新
+        //   6.loading样式变更
+        //   7.请求数据地址变更    
+  }</script></html>

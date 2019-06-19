@@ -1,4 +1,4 @@
-.choose-img {
+/*.choose-img {
   position: absolute;
   height: 300px;
   width: 50px;
@@ -6,7 +6,7 @@
   left: 20px;
   z-index: 100;
   overflow: hidden;
-  /*transition: all .3s;*/
+  display: none;
 }
 
 .imgurl {
@@ -25,7 +25,6 @@
 }
 
 .choose-img span:nth-of-type(1) {
-  /*background-color: white;*/
 }
 
 .choose-img span:nth-of-type(2) {
@@ -124,31 +123,31 @@
 .choose-img span:nth-of-type(1):hover {
   background: rgb(35,66,148);
   background-clip: padding-box;
-  /*5.jpg*/
+  
 }
 
 .choose-img span:nth-of-type(3):hover {
   background: rgb(212,212,217);
   background-clip: padding-box;
-  /*3.jpg*/
+  
 }
 
 .choose-img span:nth-of-type(5):hover {
   background: rgb(82,161,252);
   background-clip: padding-box;
-  /*4.jpg*/
+  
 }
 
 .choose-img span:nth-of-type(7):hover {
   background: rgb(247,157,164);
   background-clip: padding-box;
-  /*6.jpg*/
+  
 }
 
 .choose-img span:nth-of-type(9):hover {
   background: rgb(175,117,186);
   background-clip: padding-box;
-  /*7.jpg*/
+  
 }
 
 .choose1 {
@@ -195,4 +194,64 @@
   position: absolute;
   left: 12px;
   background-clip: padding-box;
+}*/
+
+
+.choose-img2 {
+  /* width: 80px; */
+  width: 110px;
+  height: 68px;
+  /* background-color: rgba(0,0,0,0.2); */
+  position: absolute;
+  top: 70px;
+  left: 8px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.choose-img2 ul {
+  width: 100%;
+  height: 100%;
+}
+
+.choose-img2 ul li {
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  float: left;
+  opacity: 0.3;
+  cursor: pointer;
+  transition: all .3s ;
+  margin: 0 8px 6px 0;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+}
+
+.choose-img2 .current {
+  opacity: 1;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.choose-img2 ul li:nth-of-type(1) {
+  background-color: rgb(97,54,67);
+}
+
+.choose-img2 ul li:nth-of-type(2) {
+  background-color: rgb(175,183,196);
+}
+
+.choose-img2 ul li:nth-of-type(3) {
+  background-color: rgb(165,101,57);
+}
+
+.choose-img2 ul li:nth-of-type(4) {
+  background-color: rgb(31,18,9);
+}
+
+.choose-img2 ul li:nth-of-type(5) {
+  background-color: rgb(209,129,119);
+}
+
+.choose-img2 ul li:nth-of-type(6) {
+  background-color: rgb(32,57,92);
 }
