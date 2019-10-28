@@ -29,7 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://node.wuyayu.com:3000/v1',
+        target: 'http://node.littlechai.cn:3000/v1',
         // target: 'http://192.168.1.106:8000',
         // target: 'http://127.0.0.1:8000',
         changeOrigin: true,

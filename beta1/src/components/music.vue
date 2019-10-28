@@ -184,7 +184,7 @@ export default {
   methods: {
     // 请求网易云歌曲
     getMusicUrl(id) {
-      axios.get('http://node.wuyayu.com/v1/music/url?id='+id+'&br=128000').then(response => {
+      axios.get('http://node.littlechai.cn/v1/music/url?id='+id+'&br=128000').then(response => {
         console.log(response.data.data[0].url)
         return response.data.data[0].url;
         
@@ -272,14 +272,14 @@ export default {
     //获得歌词
     getLrcFile(n) {
       // ../../music/static/lrc/  打包请修改
-      // http://music.163.comhttp://node.wuyayu.com/v1/song/lyric?os=pc&id=93920&lv=-1&kv=-1&tv=-1
+      // http://music.163.comhttp://node.littlechai.cn/v1/song/lyric?os=pc&id=93920&lv=-1&kv=-1&tv=-1
       // 'http://music.wuyayu.com/beta1/static/lrc/' + n + '.lrc'
       // http://music.wuyayu.com/static/lrc/
       if (this.$refs.listul2.getAttribute("myplay") == "false") {
         
         // lyric?id=1336856864
         // ../../static/lrc/
-        axios.get("http://node.wuyayu.com/v1/lyric?id=" + n).then(
+        axios.get("http://node.littlechai.cn/v1/lyric?id=" + n).then(
           response => {
             // if (
             //   response.data == "纯音乐,请欣赏" ||
@@ -659,7 +659,7 @@ export default {
     //加载完成获得第一首音乐的信息
     firstGet() {
       let url = ''
-      axios.get('http://node.wuyayu.com/v1/music/url?id='+this.musicData[0].id+'&br=128000').then(response => {
+      axios.get('http://node.littlechai.cn/v1/music/url?id='+this.musicData[0].id+'&br=128000').then(response => {
         url =  response.data.data[0].url;
 
         this.gMusicUrl = url;
@@ -899,7 +899,7 @@ export default {
         let audio = document.getElementById("audio");
         // audio.src = this.musicData[this.playNum].url;
 
-        axios.get('http://node.wuyayu.com/v1/music/url?id='+this.musicData[this.playNum].id+'&br=128000').then(response => {
+        axios.get('http://node.littlechai.cn/v1/music/url?id='+this.musicData[this.playNum].id+'&br=128000').then(response => {
           audio.src = response.data.data[0].url;
 
           this.$refs.listChild1.children[this.playNum].setAttribute(
@@ -1118,7 +1118,7 @@ export default {
       }
 
 
-      axios.get('http://node.wuyayu.com/v1/music/url?id='+id+'&br=128000').then(response => {
+      axios.get('http://node.littlechai.cn/v1/music/url?id='+id+'&br=128000').then(response => {
         let gMusicUrl = response.data.data[0].url
         this.gMusicUrl = gMusicUrl;
         this.audioUrl = gMusicUrl;
